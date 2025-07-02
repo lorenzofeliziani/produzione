@@ -1,0 +1,1555 @@
+2025-06-25 10:51:00,931 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-06-25 10:51:01,904 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-06-25 10:52:56,398 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-06-25 10:52:58,273 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-06-26 12:29:02,449 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-06-26 12:29:16,009 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-06-26 12:29:29,282 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-06-26 12:29:33,257 django.request [ERROR] Internal Server Error: /
+Traceback (most recent call last):
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py", line 21, in dashboard
+    utente = Utenti.objects.get(user_id=id_utente)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\db\models\query.py", line 633, in get
+    raise self.model.DoesNotExist(
+        "%s matching query does not exist." % self.model._meta.object_name
+    )
+produzione.models.Utenti.DoesNotExist: Utenti matching query does not exist.
+2025-06-26 12:29:33,407 django.request [WARNING] Not Found: /favicon.ico
+2025-06-26 12:30:03,961 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py changed, reloading.
+2025-06-26 12:30:05,051 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-06-26 12:30:08,042 django.request [ERROR] Internal Server Error: /
+Traceback (most recent call last):
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py", line 21, in dashboard
+    utente = Utenti.objects.get(user=id_utente)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\db\models\query.py", line 633, in get
+    raise self.model.DoesNotExist(
+        "%s matching query does not exist." % self.model._meta.object_name
+    )
+produzione.models.Utenti.DoesNotExist: Utenti matching query does not exist.
+2025-06-26 12:30:08,879 django.request [ERROR] Internal Server Error: /
+Traceback (most recent call last):
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py", line 21, in dashboard
+    utente = Utenti.objects.get(user=id_utente)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\db\models\query.py", line 633, in get
+    raise self.model.DoesNotExist(
+        "%s matching query does not exist." % self.model._meta.object_name
+    )
+produzione.models.Utenti.DoesNotExist: Utenti matching query does not exist.
+2025-06-26 12:31:06,856 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py changed, reloading.
+2025-06-26 12:31:07,955 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-06-26 12:31:13,073 django.request [ERROR] Internal Server Error: /
+Traceback (most recent call last):
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py", line 21, in dashboard
+    utente = Utenti.objects.get(user=id_utente)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\db\models\query.py", line 633, in get
+    raise self.model.DoesNotExist(
+        "%s matching query does not exist." % self.model._meta.object_name
+    )
+produzione.models.Utenti.DoesNotExist: Utenti matching query does not exist.
+2025-06-26 12:31:47,167 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py changed, reloading.
+2025-06-26 12:31:48,364 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-06-26 14:46:33,972 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py changed, reloading.
+2025-06-26 14:46:36,938 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-06-26 14:57:02,218 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py changed, reloading.
+2025-06-26 14:57:03,210 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-06-26 15:03:42,410 django.request [ERROR] Internal Server Error: /
+Traceback (most recent call last):
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\smartif.py", line 180, in translate_token
+    op = OPERATORS[token]
+         ~~~~~~~~~^^^^^^^
+KeyError: "['Amministratore',"
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py", line 39, in dashboard
+    return render(request, 'produzione/dashboard.html', context)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\backends\django.py", line 79, in get_template
+    return Template(self.engine.get_template(template_name), self)
+                    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\engine.py", line 177, in get_template
+    template, origin = self.find_template(template_name)
+                       ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\engine.py", line 159, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\loaders\cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\loaders\base.py", line 28, in get_template
+    return Template(
+        contents,
+    ...<2 lines>...
+        self.engine,
+    )
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+                    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\base.py", line 196, in compile_nodelist
+    nodelist = parser.parse()
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\defaulttags.py", line 962, in do_if
+    nodelist = parser.parse(("elif", "else", "endif"))
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\defaulttags.py", line 961, in do_if
+    condition = TemplateIfParser(parser, bits).parse()
+                ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\defaulttags.py", line 894, in __init__
+    super().__init__(*args, **kwargs)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\smartif.py", line 171, in __init__
+    mapped_tokens.append(self.translate_token(token))
+                         ~~~~~~~~~~~~~~~~~~~~^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\smartif.py", line 182, in translate_token
+    return self.create_var(token)
+           ~~~~~~~~~~~~~~~^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\defaulttags.py", line 897, in create_var
+    return TemplateLiteral(self.template_parser.compile_filter(value), value)
+                           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\base.py", line 609, in compile_filter
+    return FilterExpression(token, self)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\base.py", line 710, in __init__
+    raise TemplateSyntaxError(
+    ...<2 lines>...
+    )
+django.template.exceptions.TemplateSyntaxError: Could not parse the remainder: '['Amministratore',' from '['Amministratore','
+2025-06-26 15:06:37,760 django.request [ERROR] Internal Server Error: /
+Traceback (most recent call last):
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\smartif.py", line 180, in translate_token
+    op = OPERATORS[token]
+         ~~~~~~~~~^^^^^^^
+KeyError: "'Pianificazione']"
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py", line 39, in dashboard
+    return render(request, 'produzione/dashboard.html', context)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\backends\django.py", line 79, in get_template
+    return Template(self.engine.get_template(template_name), self)
+                    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\engine.py", line 177, in get_template
+    template, origin = self.find_template(template_name)
+                       ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\engine.py", line 159, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\loaders\cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\loaders\base.py", line 28, in get_template
+    return Template(
+        contents,
+    ...<2 lines>...
+        self.engine,
+    )
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+                    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\base.py", line 196, in compile_nodelist
+    nodelist = parser.parse()
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\defaulttags.py", line 962, in do_if
+    nodelist = parser.parse(("elif", "else", "endif"))
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\defaulttags.py", line 961, in do_if
+    condition = TemplateIfParser(parser, bits).parse()
+                ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\defaulttags.py", line 894, in __init__
+    super().__init__(*args, **kwargs)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\smartif.py", line 171, in __init__
+    mapped_tokens.append(self.translate_token(token))
+                         ~~~~~~~~~~~~~~~~~~~~^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\smartif.py", line 182, in translate_token
+    return self.create_var(token)
+           ~~~~~~~~~~~~~~~^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\defaulttags.py", line 897, in create_var
+    return TemplateLiteral(self.template_parser.compile_filter(value), value)
+                           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\base.py", line 609, in compile_filter
+    return FilterExpression(token, self)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\base.py", line 710, in __init__
+    raise TemplateSyntaxError(
+    ...<2 lines>...
+    )
+django.template.exceptions.TemplateSyntaxError: Could not parse the remainder: ']' from ''Pianificazione']'
+2025-06-26 15:07:08,188 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-06-26 15:09:46,528 django.request [ERROR] Internal Server Error: /admin/produzione/utenti/
+Traceback (most recent call last):
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\db\models\options.py", line 683, in get_field
+    return self.fields_map[field_name]
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^
+KeyError: 'action_checkbox'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\contrib\admin\utils.py", line 290, in lookup_field
+    f = _get_non_gfk_field(opts, name)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\contrib\admin\utils.py", line 330, in _get_non_gfk_field
+    field = opts.get_field(name)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\db\models\options.py", line 685, in get_field
+    raise FieldDoesNotExist(
+        "%s has no field named '%s'" % (self.object_name, field_name)
+    )
+django.core.exceptions.FieldDoesNotExist: Utenti has no field named 'action_checkbox'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\core\handlers\base.py", line 220, in _get_response
+    response = response.render()
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\response.py", line 114, in render
+    self.content = self.rendered_content
+                   ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\response.py", line 92, in rendered_content
+    return template.render(context, self._request)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\backends\django.py", line 107, in render
+    return self.template.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\base.py", line 171, in render
+    return self._render(context)
+           ~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\loader_tags.py", line 159, in render
+    return compiled_parent._render(context)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\loader_tags.py", line 159, in render
+    return compiled_parent._render(context)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\loader_tags.py", line 65, in render
+    result = block.nodelist.render(context)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\loader_tags.py", line 65, in render
+    result = block.nodelist.render(context)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\contrib\admin\templatetags\base.py", line 45, in render
+    return super().render(context)
+           ~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\library.py", line 359, in render
+    _dict = self.func(*resolved_args, **resolved_kwargs)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\contrib\admin\templatetags\admin_list.py", line 354, in result_list
+    "results": list(results(cl)),
+               ~~~~^^^^^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\contrib\admin\templatetags\admin_list.py", line 330, in results
+    yield ResultList(None, items_for_result(cl, res, None))
+          ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\contrib\admin\templatetags\admin_list.py", line 321, in __init__
+    super().__init__(*items)
+    ~~~~~~~~~~~~~~~~^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\contrib\admin\templatetags\admin_list.py", line 219, in items_for_result
+    f, attr, value = lookup_field(field_name, result, cl.model_admin)
+                     ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\contrib\admin\utils.py", line 299, in lookup_field
+    value = attr(obj)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\contrib\admin\options.py", line 1031, in action_checkbox
+    _("Select this object for an action - {}"), str(obj)
+                                                ~~~^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\models.py", line 104, in __str__
+    return f"{self.user.username} - {self.get_ruolo_display()}"
+                                     ^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'Utenti' object has no attribute 'get_ruolo_display'. Did you mean: 'get_fl_ope_display'?
+2025-06-26 15:13:53,798 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\models.py changed, reloading.
+2025-06-26 15:13:54,894 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-06-26 15:13:57,708 django.request [ERROR] Internal Server Error: /admin/produzione/utenti/
+Traceback (most recent call last):
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\db\models\options.py", line 683, in get_field
+    return self.fields_map[field_name]
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^
+KeyError: 'action_checkbox'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\contrib\admin\utils.py", line 290, in lookup_field
+    f = _get_non_gfk_field(opts, name)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\contrib\admin\utils.py", line 330, in _get_non_gfk_field
+    field = opts.get_field(name)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\db\models\options.py", line 685, in get_field
+    raise FieldDoesNotExist(
+        "%s has no field named '%s'" % (self.object_name, field_name)
+    )
+django.core.exceptions.FieldDoesNotExist: Utenti has no field named 'action_checkbox'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\core\handlers\base.py", line 220, in _get_response
+    response = response.render()
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\response.py", line 114, in render
+    self.content = self.rendered_content
+                   ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\response.py", line 92, in rendered_content
+    return template.render(context, self._request)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\backends\django.py", line 107, in render
+    return self.template.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\base.py", line 171, in render
+    return self._render(context)
+           ~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\loader_tags.py", line 159, in render
+    return compiled_parent._render(context)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\loader_tags.py", line 159, in render
+    return compiled_parent._render(context)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\loader_tags.py", line 65, in render
+    result = block.nodelist.render(context)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\loader_tags.py", line 65, in render
+    result = block.nodelist.render(context)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\contrib\admin\templatetags\base.py", line 45, in render
+    return super().render(context)
+           ~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\library.py", line 359, in render
+    _dict = self.func(*resolved_args, **resolved_kwargs)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\contrib\admin\templatetags\admin_list.py", line 354, in result_list
+    "results": list(results(cl)),
+               ~~~~^^^^^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\contrib\admin\templatetags\admin_list.py", line 330, in results
+    yield ResultList(None, items_for_result(cl, res, None))
+          ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\contrib\admin\templatetags\admin_list.py", line 321, in __init__
+    super().__init__(*items)
+    ~~~~~~~~~~~~~~~~^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\contrib\admin\templatetags\admin_list.py", line 219, in items_for_result
+    f, attr, value = lookup_field(field_name, result, cl.model_admin)
+                     ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\contrib\admin\utils.py", line 299, in lookup_field
+    value = attr(obj)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\contrib\admin\options.py", line 1031, in action_checkbox
+    _("Select this object for an action - {}"), str(obj)
+                                                ~~~^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\models.py", line 104, in __str__
+    return f"{self.user.username} - {self.get_ruolo_display()}"
+                                     ^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'Utenti' object has no attribute 'get_ruolo_display'. Did you mean: 'get_ruolo_dispay'?
+2025-06-26 15:13:59,331 django.request [ERROR] Internal Server Error: /admin/produzione/utenti/
+Traceback (most recent call last):
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\db\models\options.py", line 683, in get_field
+    return self.fields_map[field_name]
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^
+KeyError: 'action_checkbox'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\contrib\admin\utils.py", line 290, in lookup_field
+    f = _get_non_gfk_field(opts, name)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\contrib\admin\utils.py", line 330, in _get_non_gfk_field
+    field = opts.get_field(name)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\db\models\options.py", line 685, in get_field
+    raise FieldDoesNotExist(
+        "%s has no field named '%s'" % (self.object_name, field_name)
+    )
+django.core.exceptions.FieldDoesNotExist: Utenti has no field named 'action_checkbox'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\core\handlers\base.py", line 220, in _get_response
+    response = response.render()
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\response.py", line 114, in render
+    self.content = self.rendered_content
+                   ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\response.py", line 92, in rendered_content
+    return template.render(context, self._request)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\backends\django.py", line 107, in render
+    return self.template.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\base.py", line 171, in render
+    return self._render(context)
+           ~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\loader_tags.py", line 159, in render
+    return compiled_parent._render(context)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\loader_tags.py", line 159, in render
+    return compiled_parent._render(context)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\loader_tags.py", line 65, in render
+    result = block.nodelist.render(context)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\loader_tags.py", line 65, in render
+    result = block.nodelist.render(context)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\contrib\admin\templatetags\base.py", line 45, in render
+    return super().render(context)
+           ~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\library.py", line 359, in render
+    _dict = self.func(*resolved_args, **resolved_kwargs)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\contrib\admin\templatetags\admin_list.py", line 354, in result_list
+    "results": list(results(cl)),
+               ~~~~^^^^^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\contrib\admin\templatetags\admin_list.py", line 330, in results
+    yield ResultList(None, items_for_result(cl, res, None))
+          ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\contrib\admin\templatetags\admin_list.py", line 321, in __init__
+    super().__init__(*items)
+    ~~~~~~~~~~~~~~~~^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\contrib\admin\templatetags\admin_list.py", line 219, in items_for_result
+    f, attr, value = lookup_field(field_name, result, cl.model_admin)
+                     ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\contrib\admin\utils.py", line 299, in lookup_field
+    value = attr(obj)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\contrib\admin\options.py", line 1031, in action_checkbox
+    _("Select this object for an action - {}"), str(obj)
+                                                ~~~^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\models.py", line 104, in __str__
+    return f"{self.user.username} - {self.get_ruolo_display()}"
+                                     ^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'Utenti' object has no attribute 'get_ruolo_display'. Did you mean: 'get_ruolo_dispay'?
+2025-06-26 15:14:28,319 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\models.py changed, reloading.
+2025-06-26 15:14:29,334 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-06-26 15:14:31,492 django.request [ERROR] Internal Server Error: /admin/produzione/utenti/
+Traceback (most recent call last):
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\db\models\options.py", line 683, in get_field
+    return self.fields_map[field_name]
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^
+KeyError: 'action_checkbox'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\contrib\admin\utils.py", line 290, in lookup_field
+    f = _get_non_gfk_field(opts, name)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\contrib\admin\utils.py", line 330, in _get_non_gfk_field
+    field = opts.get_field(name)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\db\models\options.py", line 685, in get_field
+    raise FieldDoesNotExist(
+        "%s has no field named '%s'" % (self.object_name, field_name)
+    )
+django.core.exceptions.FieldDoesNotExist: Utenti has no field named 'action_checkbox'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\core\handlers\base.py", line 220, in _get_response
+    response = response.render()
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\response.py", line 114, in render
+    self.content = self.rendered_content
+                   ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\response.py", line 92, in rendered_content
+    return template.render(context, self._request)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\backends\django.py", line 107, in render
+    return self.template.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\base.py", line 171, in render
+    return self._render(context)
+           ~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\loader_tags.py", line 159, in render
+    return compiled_parent._render(context)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\loader_tags.py", line 159, in render
+    return compiled_parent._render(context)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\loader_tags.py", line 65, in render
+    result = block.nodelist.render(context)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\loader_tags.py", line 65, in render
+    result = block.nodelist.render(context)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\contrib\admin\templatetags\base.py", line 45, in render
+    return super().render(context)
+           ~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\library.py", line 359, in render
+    _dict = self.func(*resolved_args, **resolved_kwargs)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\contrib\admin\templatetags\admin_list.py", line 354, in result_list
+    "results": list(results(cl)),
+               ~~~~^^^^^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\contrib\admin\templatetags\admin_list.py", line 330, in results
+    yield ResultList(None, items_for_result(cl, res, None))
+          ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\contrib\admin\templatetags\admin_list.py", line 321, in __init__
+    super().__init__(*items)
+    ~~~~~~~~~~~~~~~~^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\contrib\admin\templatetags\admin_list.py", line 219, in items_for_result
+    f, attr, value = lookup_field(field_name, result, cl.model_admin)
+                     ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\contrib\admin\utils.py", line 299, in lookup_field
+    value = attr(obj)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\contrib\admin\options.py", line 1031, in action_checkbox
+    _("Select this object for an action - {}"), str(obj)
+                                                ~~~^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\models.py", line 107, in __str__
+    return f"{self.user.username} - {self.get_ruolo_display()}"
+                                     ^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'Utenti' object has no attribute 'get_ruolo_display'. Did you mean: 'get_ruolo_dispay'?
+2025-06-26 15:14:57,970 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\models.py changed, reloading.
+2025-06-26 15:14:58,972 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-06-26 15:22:20,281 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\models.py changed, reloading.
+2025-06-26 15:22:21,259 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-06-26 15:22:51,880 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py changed, reloading.
+2025-06-26 15:22:52,864 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-06-26 15:22:57,373 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-06-26 15:22:59,786 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-06-26 15:23:12,534 django.request [ERROR] Internal Server Error: /admin/produzione/utenti/13/change/
+Traceback (most recent call last):
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\db\backends\sqlite3\base.py", line 360, in execute
+    return super().execute(query, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+sqlite3.OperationalError: no such column: produzione_utenti.ruolo
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\contrib\admin\options.py", line 719, in wrapper
+    return self.admin_site.admin_view(view)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\utils\decorators.py", line 192, in _view_wrapper
+    result = _process_exception(request, e)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\utils\decorators.py", line 190, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\views\decorators\cache.py", line 80, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\contrib\admin\sites.py", line 246, in inner
+    return view(request, *args, **kwargs)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\contrib\admin\options.py", line 1987, in change_view
+    return self.changeform_view(request, object_id, form_url, extra_context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\utils\decorators.py", line 48, in _wrapper
+    return bound_method(*args, **kwargs)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\utils\decorators.py", line 192, in _view_wrapper
+    result = _process_exception(request, e)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\utils\decorators.py", line 190, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\contrib\admin\options.py", line 1840, in changeform_view
+    return self._changeform_view(request, object_id, form_url, extra_context)
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\contrib\admin\options.py", line 1863, in _changeform_view
+    obj = self.get_object(request, unquote(object_id), to_field)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\contrib\admin\options.py", line 897, in get_object
+    return queryset.get(**{field.name: object_id})
+           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\db\models\query.py", line 629, in get
+    num = len(clone)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\db\models\query.py", line 366, in __len__
+    self._fetch_all()
+    ~~~~~~~~~~~~~~~^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\db\models\query.py", line 1949, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+                         ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\db\models\query.py", line 91, in __iter__
+    results = compiler.execute_sql(
+        chunked_fetch=self.chunked_fetch, chunk_size=self.chunk_size
+    )
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\db\models\sql\compiler.py", line 1623, in execute_sql
+    cursor.execute(sql, params)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\db\backends\utils.py", line 122, in execute
+    return super().execute(sql, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\db\backends\utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        sql, params, many=False, executor=self._execute
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\db\backends\utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\db\backends\utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\db\utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\db\backends\sqlite3\base.py", line 360, in execute
+    return super().execute(query, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+django.db.utils.OperationalError: no such column: produzione_utenti.ruolo
+2025-06-26 15:25:58,920 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py changed, reloading.
+2025-06-26 15:25:59,988 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-06-26 15:26:03,618 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-06-26 15:26:04,662 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-06-26 15:28:21,567 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-06-26 15:28:22,544 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-06-26 15:29:28,891 django.request [ERROR] Internal Server Error: /admin/auth/user/add/
+Traceback (most recent call last):
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\db\backends\sqlite3\base.py", line 360, in execute
+    return super().execute(query, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+sqlite3.IntegrityError: NOT NULL constraint failed: produzione_utenti.ruolo
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\contrib\admin\options.py", line 719, in wrapper
+    return self.admin_site.admin_view(view)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\utils\decorators.py", line 192, in _view_wrapper
+    result = _process_exception(request, e)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\utils\decorators.py", line 190, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\views\decorators\cache.py", line 80, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\contrib\admin\sites.py", line 246, in inner
+    return view(request, *args, **kwargs)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\utils\decorators.py", line 48, in _wrapper
+    return bound_method(*args, **kwargs)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\views\decorators\debug.py", line 143, in sensitive_post_parameters_wrapper
+    return view(request, *args, **kwargs)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\utils\decorators.py", line 48, in _wrapper
+    return bound_method(*args, **kwargs)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\utils\decorators.py", line 192, in _view_wrapper
+    result = _process_exception(request, e)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\utils\decorators.py", line 190, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\contrib\auth\admin.py", line 124, in add_view
+    return self._add_view(request, form_url, extra_context)
+           ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\contrib\auth\admin.py", line 152, in _add_view
+    return super().add_view(request, form_url, extra_context)
+           ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\contrib\admin\options.py", line 1984, in add_view
+    return self.changeform_view(request, None, form_url, extra_context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\utils\decorators.py", line 48, in _wrapper
+    return bound_method(*args, **kwargs)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\utils\decorators.py", line 192, in _view_wrapper
+    result = _process_exception(request, e)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\utils\decorators.py", line 190, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\contrib\admin\options.py", line 1843, in changeform_view
+    return self._changeform_view(request, object_id, form_url, extra_context)
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\contrib\admin\options.py", line 1894, in _changeform_view
+    self.save_model(request, new_object, form, not add)
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\contrib\admin\options.py", line 1314, in save_model
+    obj.save()
+    ~~~~~~~~^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\contrib\auth\base_user.py", line 65, in save
+    super().save(*args, **kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\db\models\base.py", line 902, in save
+    self.save_base(
+    ~~~~~~~~~~~~~~^
+        using=using,
+        ^^^^^^^^^^^^
+    ...<2 lines>...
+        update_fields=update_fields,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\db\models\base.py", line 1023, in save_base
+    post_save.send(
+    ~~~~~~~~~~~~~~^
+        sender=origin,
+        ^^^^^^^^^^^^^^
+    ...<4 lines>...
+        using=using,
+        ^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\dispatch\dispatcher.py", line 189, in send
+    response = receiver(signal=self, sender=sender, **named)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\signals.py", line 9, in crea_profilo
+    Utenti.objects.create(user=instance)
+    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\db\models\query.py", line 663, in create
+    obj.save(force_insert=True, using=self.db)
+    ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\db\models\base.py", line 902, in save
+    self.save_base(
+    ~~~~~~~~~~~~~~^
+        using=using,
+        ^^^^^^^^^^^^
+    ...<2 lines>...
+        update_fields=update_fields,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\db\models\base.py", line 1008, in save_base
+    updated = self._save_table(
+        raw,
+    ...<4 lines>...
+        update_fields,
+    )
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\db\models\base.py", line 1169, in _save_table
+    results = self._do_insert(
+        cls._base_manager, using, fields, returning_fields, raw
+    )
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\db\models\base.py", line 1210, in _do_insert
+    return manager._insert(
+           ~~~~~~~~~~~~~~~^
+        [self],
+        ^^^^^^^
+    ...<3 lines>...
+        raw=raw,
+        ^^^^^^^^
+    )
+    ^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\db\models\query.py", line 1868, in _insert
+    return query.get_compiler(using=using).execute_sql(returning_fields)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\db\models\sql\compiler.py", line 1882, in execute_sql
+    cursor.execute(sql, params)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\db\backends\utils.py", line 122, in execute
+    return super().execute(sql, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\db\backends\utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        sql, params, many=False, executor=self._execute
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\db\backends\utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\db\backends\utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\db\utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\db\backends\sqlite3\base.py", line 360, in execute
+    return super().execute(query, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+django.db.utils.IntegrityError: NOT NULL constraint failed: produzione_utenti.ruolo
+2025-06-26 15:31:42,979 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\models.py changed, reloading.
+2025-06-26 15:31:43,995 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-06-26 15:31:45,874 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-06-26 15:31:47,399 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-06-26 15:36:41,863 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-06-26 15:39:35,482 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py changed, reloading.
+2025-06-26 15:39:36,484 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-06-26 15:39:40,691 django.request [ERROR] Internal Server Error: /
+Traceback (most recent call last):
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py", line 23, in dashboard
+    ruolo_utente = utente.ruolo
+                   ^^^^^^^^^^^^
+AttributeError: 'QuerySet' object has no attribute 'ruolo'
+2025-06-26 15:40:54,224 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py changed, reloading.
+2025-06-26 15:40:55,253 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-06-26 15:41:17,656 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py changed, reloading.
+2025-06-26 15:41:18,668 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-06-26 18:28:36,832 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py changed, reloading.
+2025-06-26 18:28:37,906 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-06-26 18:39:35,075 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\constant.py changed, reloading.
+2025-06-26 18:39:36,150 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-06-26 18:40:01,681 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\constant.py changed, reloading.
+2025-06-26 18:40:02,856 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-06-30 11:10:58,763 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-06-30 11:11:02,378 django.request [WARNING] Not Found: /favicon.ico
+2025-06-30 12:33:45,496 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\models.py changed, reloading.
+2025-06-30 12:33:46,643 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-06-30 12:34:44,423 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\models.py changed, reloading.
+2025-06-30 12:34:45,326 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-06-30 16:38:39,423 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\gestionale\settings.py changed, reloading.
+2025-06-30 16:41:15,681 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-06-30 16:41:36,422 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\gestionale\settings.py changed, reloading.
+2025-06-30 16:41:37,410 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-06-30 16:42:41,741 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\gestionale\settings.py changed, reloading.
+2025-06-30 16:42:42,674 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-06-30 16:42:45,448 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-06-30 16:43:43,722 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-06-30 16:43:56,322 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-06-30 16:45:08,665 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-06-30 16:45:57,337 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-06-30 16:46:03,242 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-06-30 16:47:47,036 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\migrations\__init__.py changed, reloading.
+2025-06-30 16:47:48,229 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-06-30 16:54:23,089 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-06-30 16:54:25,713 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-06-30 16:54:57,079 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-06-30 16:54:58,007 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-06-30 16:57:48,782 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\models.py changed, reloading.
+2025-06-30 16:58:16,232 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-06-30 16:58:17,869 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-06-30 16:59:00,756 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-06-30 16:59:02,346 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-06-30 17:00:22,838 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-06-30 17:00:23,886 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-06-30 17:01:07,191 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-06-30 17:09:46,294 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-06-30 17:09:47,262 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-06-30 17:09:54,920 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-06-30 17:09:56,011 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-06-30 17:11:17,403 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-06-30 17:11:18,313 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-06-30 17:11:46,438 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-06-30 17:11:47,474 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-06-30 17:16:28,454 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-06-30 17:16:29,440 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-06-30 17:16:40,901 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-06-30 17:16:41,829 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-06-30 17:17:35,017 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-06-30 17:17:35,985 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-06-30 17:18:03,202 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-06-30 17:19:00,450 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-06-30 17:19:06,274 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-06-30 17:19:08,042 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-06-30 17:20:10,505 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-06-30 17:20:11,487 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-06-30 17:21:59,188 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-06-30 17:22:00,134 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-06-30 17:24:30,813 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-06-30 17:24:31,746 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-06-30 17:25:08,437 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-06-30 17:25:09,404 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-06-30 17:25:26,086 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-06-30 17:25:27,008 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-06-30 17:25:46,102 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-06-30 17:25:47,113 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-06-30 17:25:57,671 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-06-30 17:25:58,527 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-06-30 17:26:27,958 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-06-30 17:26:29,041 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-06-30 17:27:25,126 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-06-30 17:27:27,187 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-06-30 17:29:13,616 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-06-30 17:29:15,020 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-01 09:22:09,359 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-01 09:22:11,462 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-01 09:22:52,029 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-01 09:22:53,029 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-01 09:23:39,735 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-01 09:23:41,605 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-01 09:24:33,510 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-01 09:24:34,864 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-01 09:29:19,797 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-01 09:29:20,742 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-01 09:30:26,048 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-01 09:30:26,932 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-01 09:30:50,406 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-01 09:30:51,415 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-01 09:31:30,409 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-01 09:31:32,528 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-01 09:32:41,134 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-01 09:32:42,623 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-01 10:00:29,404 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-01 10:00:31,544 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-01 10:20:39,456 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-01 10:27:04,188 django.request [ERROR] Internal Server Error: /admin/produzione/utenti/
+Traceback (most recent call last):
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\db\models\options.py", line 683, in get_field
+    return self.fields_map[field_name]
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^
+KeyError: 'action_checkbox'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\contrib\admin\utils.py", line 290, in lookup_field
+    f = _get_non_gfk_field(opts, name)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\contrib\admin\utils.py", line 330, in _get_non_gfk_field
+    field = opts.get_field(name)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\db\models\options.py", line 685, in get_field
+    raise FieldDoesNotExist(
+        "%s has no field named '%s'" % (self.object_name, field_name)
+    )
+django.core.exceptions.FieldDoesNotExist: Utenti has no field named 'action_checkbox'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\core\handlers\base.py", line 220, in _get_response
+    response = response.render()
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\response.py", line 114, in render
+    self.content = self.rendered_content
+                   ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\response.py", line 92, in rendered_content
+    return template.render(context, self._request)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\backends\django.py", line 107, in render
+    return self.template.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\base.py", line 171, in render
+    return self._render(context)
+           ~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\loader_tags.py", line 159, in render
+    return compiled_parent._render(context)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\loader_tags.py", line 159, in render
+    return compiled_parent._render(context)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\loader_tags.py", line 65, in render
+    result = block.nodelist.render(context)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\loader_tags.py", line 65, in render
+    result = block.nodelist.render(context)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\contrib\admin\templatetags\base.py", line 45, in render
+    return super().render(context)
+           ~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\library.py", line 359, in render
+    _dict = self.func(*resolved_args, **resolved_kwargs)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\contrib\admin\templatetags\admin_list.py", line 354, in result_list
+    "results": list(results(cl)),
+               ~~~~^^^^^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\contrib\admin\templatetags\admin_list.py", line 330, in results
+    yield ResultList(None, items_for_result(cl, res, None))
+          ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\contrib\admin\templatetags\admin_list.py", line 321, in __init__
+    super().__init__(*items)
+    ~~~~~~~~~~~~~~~~^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\contrib\admin\templatetags\admin_list.py", line 219, in items_for_result
+    f, attr, value = lookup_field(field_name, result, cl.model_admin)
+                     ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\contrib\admin\utils.py", line 299, in lookup_field
+    value = attr(obj)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\contrib\admin\options.py", line 1031, in action_checkbox
+    _("Select this object for an action - {}"), str(obj)
+                                                ~~~^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\models.py", line 52, in __str__
+    return f"{self.user.username} - {self.ruolo}"
+              ^^^^^^^^^
+AttributeError: 'Utenti' object has no attribute 'user'
+2025-07-01 10:27:54,757 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\models.py changed, reloading.
+2025-07-01 10:27:55,699 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-01 10:28:01,354 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-01 10:28:02,420 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-01 10:33:45,483 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py changed, reloading.
+2025-07-01 10:33:46,435 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-01 10:34:26,027 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py changed, reloading.
+2025-07-01 10:34:26,956 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-01 10:36:33,147 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py changed, reloading.
+2025-07-01 10:36:34,112 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-01 10:37:28,629 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py changed, reloading.
+2025-07-01 10:37:29,678 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-01 10:44:03,822 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\models.py changed, reloading.
+2025-07-01 10:44:04,799 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-01 10:57:19,072 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\models.py changed, reloading.
+2025-07-01 10:57:20,115 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-01 11:01:58,853 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\models.py changed, reloading.
+2025-07-01 11:02:00,022 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-01 11:03:29,641 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\models.py changed, reloading.
+2025-07-01 11:03:30,654 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-01 11:03:33,833 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-01 11:03:35,500 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-01 11:39:28,207 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py changed, reloading.
+2025-07-01 11:39:29,358 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-01 11:53:38,755 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py changed, reloading.
+2025-07-01 11:53:39,842 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-01 11:55:36,830 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py changed, reloading.
+2025-07-01 11:55:37,855 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-01 11:56:22,989 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py changed, reloading.
+2025-07-01 11:56:23,939 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-01 11:57:58,821 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py changed, reloading.
+2025-07-01 11:57:59,929 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-01 11:59:47,337 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py changed, reloading.
+2025-07-01 11:59:48,386 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-01 12:00:23,822 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py changed, reloading.
+2025-07-01 12:00:24,991 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-01 12:02:06,685 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py changed, reloading.
+2025-07-01 12:02:07,804 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-01 12:03:10,737 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py changed, reloading.
+2025-07-01 12:03:11,642 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-01 12:05:08,630 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py changed, reloading.
+2025-07-01 12:05:09,646 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-01 12:05:55,639 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py changed, reloading.
+2025-07-01 12:05:56,614 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-01 12:06:30,487 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py changed, reloading.
+2025-07-01 12:06:31,475 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-01 12:06:54,141 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py changed, reloading.
+2025-07-01 12:06:55,193 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-01 12:10:05,366 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py changed, reloading.
+2025-07-01 12:10:06,380 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-01 12:10:26,392 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py changed, reloading.
+2025-07-01 12:10:27,450 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-01 12:12:55,959 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py changed, reloading.
+2025-07-01 12:12:56,953 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-01 12:13:04,654 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py changed, reloading.
+2025-07-01 12:13:05,720 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-01 12:14:07,344 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py changed, reloading.
+2025-07-01 12:14:08,299 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-01 12:14:52,611 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py changed, reloading.
+2025-07-01 12:14:53,568 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-01 12:17:41,129 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py changed, reloading.
+2025-07-01 12:17:42,137 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-01 12:17:54,992 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py changed, reloading.
+2025-07-01 12:17:56,002 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-01 12:21:27,119 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py changed, reloading.
+2025-07-01 12:21:28,150 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-01 12:24:02,427 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py changed, reloading.
+2025-07-01 12:24:03,433 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-01 12:25:14,978 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py changed, reloading.
+2025-07-01 12:25:15,952 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-01 12:29:54,725 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py changed, reloading.
+2025-07-01 12:29:55,668 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-01 12:31:37,481 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py changed, reloading.
+2025-07-01 12:31:38,551 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-01 12:34:05,327 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py changed, reloading.
+2025-07-01 12:34:06,396 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-01 12:35:35,099 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py changed, reloading.
+2025-07-01 12:35:36,098 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-01 12:36:01,940 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py changed, reloading.
+2025-07-01 12:36:02,891 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-01 12:36:41,117 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py changed, reloading.
+2025-07-01 12:36:42,218 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-01 12:37:35,179 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py changed, reloading.
+2025-07-01 12:37:36,228 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-01 12:38:32,216 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py changed, reloading.
+2025-07-01 12:38:33,220 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-01 12:38:53,658 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py changed, reloading.
+2025-07-01 12:38:54,727 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-01 12:39:14,026 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py changed, reloading.
+2025-07-01 12:39:15,011 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-01 12:39:52,204 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py changed, reloading.
+2025-07-01 12:39:53,182 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-01 12:40:27,422 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py changed, reloading.
+2025-07-01 12:40:28,417 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-01 12:41:41,926 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py changed, reloading.
+2025-07-01 12:41:42,930 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-01 12:43:04,366 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py changed, reloading.
+2025-07-01 12:43:05,371 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-01 12:44:03,358 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py changed, reloading.
+2025-07-01 12:44:04,392 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-01 12:44:29,570 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py changed, reloading.
+2025-07-01 12:44:30,771 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-01 12:52:10,332 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py changed, reloading.
+2025-07-01 12:52:11,371 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-01 12:55:11,256 django.request [ERROR] Internal Server Error: /
+Traceback (most recent call last):
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py", line 50, in dashboard
+    return render(request, 'produzione/dashboard.html', context)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\backends\django.py", line 79, in get_template
+    return Template(self.engine.get_template(template_name), self)
+                    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\engine.py", line 177, in get_template
+    template, origin = self.find_template(template_name)
+                       ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\engine.py", line 159, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\loaders\cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\loaders\base.py", line 28, in get_template
+    return Template(
+        contents,
+    ...<2 lines>...
+        self.engine,
+    )
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+                    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\base.py", line 196, in compile_nodelist
+    nodelist = parser.parse()
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\defaulttags.py", line 976, in do_if
+    nodelist = parser.parse(("endif",))
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\defaulttags.py", line 962, in do_if
+    nodelist = parser.parse(("elif", "else", "endif"))
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\defaulttags.py", line 862, in do_for
+    nodelist_loop = parser.parse(
+        (
+    ...<2 lines>...
+        )
+    )
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\defaulttags.py", line 976, in do_if
+    nodelist = parser.parse(("endif",))
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\base.py", line 483, in parse
+    raise self.error(
+        token, "Empty variable tag on line %d" % token.lineno
+    )
+django.template.exceptions.TemplateSyntaxError: Empty variable tag on line 77
+2025-07-01 12:56:51,798 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py changed, reloading.
+2025-07-01 12:56:52,925 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-01 14:25:09,437 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py changed, reloading.
+2025-07-01 14:25:10,556 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-02 09:31:31,312 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-02 09:31:39,932 django.request [WARNING] Not Found: /favicon.ico
+2025-07-02 09:45:49,161 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py changed, reloading.
+2025-07-02 09:45:50,186 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-02 09:58:10,105 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py changed, reloading.
+2025-07-02 09:58:11,154 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-02 11:21:55,899 django.request [ERROR] Internal Server Error: /
+Traceback (most recent call last):
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py", line 48, in dashboard
+    return render(request, 'produzione/dashboard.html', context)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\backends\django.py", line 79, in get_template
+    return Template(self.engine.get_template(template_name), self)
+                    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\engine.py", line 177, in get_template
+    template, origin = self.find_template(template_name)
+                       ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\engine.py", line 159, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\loaders\cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\loaders\base.py", line 28, in get_template
+    return Template(
+        contents,
+    ...<2 lines>...
+        self.engine,
+    )
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+                    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\base.py", line 196, in compile_nodelist
+    nodelist = parser.parse()
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\defaulttags.py", line 962, in do_if
+    nodelist = parser.parse(("elif", "else", "endif"))
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\base.py", line 523, in parse
+    self.unclosed_block_tag(parse_until)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\base.py", line 590, in unclosed_block_tag
+    raise self.error(token, msg)
+django.template.exceptions.TemplateSyntaxError: Unclosed tag on line 11: 'if'. Looking for one of: elif, else, endif.
+2025-07-02 11:45:38,356 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\signals.py changed, reloading.
+2025-07-02 11:45:41,698 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-02 11:56:26,482 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py changed, reloading.
+2025-07-02 11:56:27,624 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-02 11:56:30,185 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\signals.py changed, reloading.
+2025-07-02 11:56:31,269 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-02 11:56:31,320 django.utils.autoreload [INFO] Watching for file changes with StatReloader
+2025-07-02 11:56:59,608 django.request [ERROR] Internal Server Error: /login/
+Traceback (most recent call last):
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\utils\deprecation.py", line 122, in __call__
+    response = self.process_response(request, response)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\contrib\sessions\middleware.py", line 59, in process_response
+    request.session.save()
+    ~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\contrib\sessions\backends\db.py", line 123, in save
+    obj = self.create_model_instance(data)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\contrib\sessions\backends\db.py", line 102, in create_model_instance
+    session_data=self.encode(data),
+                 ~~~~~~~~~~~^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\contrib\sessions\backends\base.py", line 124, in encode
+    return signing.dumps(
+           ~~~~~~~~~~~~~^
+        session_dict,
+        ^^^^^^^^^^^^^
+    ...<2 lines>...
+        compress=True,
+        ^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\core\signing.py", line 150, in dumps
+    return TimestampSigner(key=key, salt=salt).sign_object(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        obj, serializer=serializer, compress=compress
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\core\signing.py", line 225, in sign_object
+    data = serializer().dumps(obj)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\core\signing.py", line 125, in dumps
+    return json.dumps(obj, separators=(",", ":")).encode("latin-1")
+           ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python313\Lib\json\__init__.py", line 238, in dumps
+    **kw).encode(obj)
+          ~~~~~~^^^^^
+  File "C:\Python313\Lib\json\encoder.py", line 200, in encode
+    chunks = self.iterencode(o, _one_shot=True)
+  File "C:\Python313\Lib\json\encoder.py", line 261, in iterencode
+    return _iterencode(o, 0)
+  File "C:\Python313\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+                    f'is not JSON serializable')
+TypeError: Object of type datetime is not JSON serializable
+2025-07-02 12:00:11,262 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py changed, reloading.
+2025-07-02 12:00:12,396 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-02 12:00:12,473 django.utils.autoreload [INFO] Watching for file changes with StatReloader
+2025-07-02 12:00:27,270 django.request [ERROR] Internal Server Error: /login/
+Traceback (most recent call last):
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\utils\deprecation.py", line 122, in __call__
+    response = self.process_response(request, response)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\contrib\sessions\middleware.py", line 59, in process_response
+    request.session.save()
+    ~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\contrib\sessions\backends\db.py", line 123, in save
+    obj = self.create_model_instance(data)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\contrib\sessions\backends\db.py", line 102, in create_model_instance
+    session_data=self.encode(data),
+                 ~~~~~~~~~~~^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\contrib\sessions\backends\base.py", line 124, in encode
+    return signing.dumps(
+           ~~~~~~~~~~~~~^
+        session_dict,
+        ^^^^^^^^^^^^^
+    ...<2 lines>...
+        compress=True,
+        ^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\core\signing.py", line 150, in dumps
+    return TimestampSigner(key=key, salt=salt).sign_object(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        obj, serializer=serializer, compress=compress
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\core\signing.py", line 225, in sign_object
+    data = serializer().dumps(obj)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\core\signing.py", line 125, in dumps
+    return json.dumps(obj, separators=(",", ":")).encode("latin-1")
+           ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python313\Lib\json\__init__.py", line 238, in dumps
+    **kw).encode(obj)
+          ~~~~~~^^^^^
+  File "C:\Python313\Lib\json\encoder.py", line 200, in encode
+    chunks = self.iterencode(o, _one_shot=True)
+  File "C:\Python313\Lib\json\encoder.py", line 261, in iterencode
+    return _iterencode(o, 0)
+  File "C:\Python313\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+                    f'is not JSON serializable')
+TypeError: Object of type datetime is not JSON serializable
+2025-07-02 12:02:15,947 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\utils.py changed, reloading.
+2025-07-02 12:02:19,241 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-02 12:02:19,504 django.utils.autoreload [INFO] Watching for file changes with StatReloader
+2025-07-02 12:03:36,161 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py changed, reloading.
+2025-07-02 12:03:37,128 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-02 12:03:37,184 django.utils.autoreload [INFO] Watching for file changes with StatReloader
+2025-07-02 12:17:13,585 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py changed, reloading.
+2025-07-02 12:17:14,591 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-02 12:17:14,658 django.utils.autoreload [INFO] Watching for file changes with StatReloader
+2025-07-02 12:23:10,244 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\utils.py changed, reloading.
+2025-07-02 12:23:11,257 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-02 12:23:11,333 django.utils.autoreload [INFO] Watching for file changes with StatReloader
+2025-07-02 12:23:12,952 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py changed, reloading.
+2025-07-02 12:23:13,946 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-02 12:23:13,987 django.utils.autoreload [INFO] Watching for file changes with StatReloader
+2025-07-02 12:23:57,991 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\utils.py changed, reloading.
+2025-07-02 12:23:59,016 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-02 12:23:59,129 django.utils.autoreload [INFO] Watching for file changes with StatReloader
