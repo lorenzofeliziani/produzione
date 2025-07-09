@@ -46,6 +46,7 @@ class Utenti(AbstractUser):
     id = models.AutoField(primary_key=id)
     nome = models.CharField(max_length=50,  null=True, blank=True)
     ruolo = models.ForeignKey(Profili,  on_delete=models.SET_NULL, null=True, blank=True)
+    is_operatore = models.BooleanField(null=True)
     fl_ope = models.CharField(max_length=1, choices=FL_OPE, null=True, blank=True)
 
     def __str__(self):

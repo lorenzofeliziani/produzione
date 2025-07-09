@@ -1,4 +1,4 @@
-from datetime import timedelta, datetime
+from datetime import timedelta, datetime, date
 
 
 def calcola_data_consegna(data_inizio, giorni):
@@ -20,12 +20,12 @@ def converti_datetime_in_str(lista_dict):
 def riformatta_date(avanzamento_ordini):
     for ordine in avanzamento_ordini:
         if ordine['data_cons']:
-            ordine['data_cons'] = datetime.fromisoformat(ordine['data_cons'])
+            ordine['data_cons'] = datetime.fromisoformat(ordine['data_cons']).date()
 
         if ordine['data_ord']:
-            ordine['data_ord'] = datetime.fromisoformat(ordine['data_ord'])
+            ordine['data_ord'] = datetime.fromisoformat(ordine['data_ord']).date()
 
         if ordine['data_sped']:
-            ordine['data_sped'] = datetime.fromisoformat(ordine['data_sped'])
+            ordine['data_sped'] = datetime.fromisoformat(ordine['data_sped']).date()
     
     return avanzamento_ordini

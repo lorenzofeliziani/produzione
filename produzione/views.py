@@ -1,8 +1,10 @@
 import traceback
+import copy
+from datetime import date
 from collections import defaultdict
 from .utils import calcola_data_consegna, riformatta_date
 from datetime import datetime
-
+from django.shortcuts import redirect
 from django.db import connection, transaction
 from django.db.models import Q
 from django.contrib import messages
@@ -18,25 +20,554 @@ except:
 
 @login_required(login_url='login')
 def dashboard(request):
-    avanzamento_ordini = request.session.get('avanzamento_ordini')
-    avanzamento_ordini_preferences = request.session.get('avanzamento_ordini_preferences')
     ruolo_utente = request.session.get('ruolo_utente')
 
-    avanzamento_ordini_ref = riformatta_date(avanzamento_ordini)
-
-    pagina = request.GET.get('pagina', '')
-    tipo = request.GET.get('tipo', '')
     context = {
-        'pagina': pagina, 
-        'tipo': tipo,
         'ruolo_utente': ruolo_utente,
-        'avanzamento_ordini': avanzamento_ordini_ref,
-        'avanzamento_ordini_preferences': avanzamento_ordini_preferences,
     }
     
     return render(request, 'produzione/dashboard.html', context)
 
-def get_avanzamento_ordini_preferences(avanzamento_ordini):
+@login_required(login_url='login')
+def avanzamento_ordini(request):
+    avanzamento_ordini = request.session.get('avanzamento_ordini')
+    ordini_da_pianificare = request.session.get('ordini_da_pianificare')
+    avanzamento_ordini_preferences = request.session.get('avanzamento_ordini_preferences')
+    ordini_da_pianificare_preferences = request.session.get('ordini_da_pianificare_preferences')
+    ruolo_utente = request.session.get('ruolo_utente')
+    
+    stati_ordini = list(
+    Stati_Ordini.objects.values_list('stato', flat=True).distinct().order_by('stato')
+        )
+
+    operatori = list(
+        Utenti.objects.filter(is_operatore=True).values_list('nome', flat=True).distinct().order_by('nome')
+        )
+    
+    if request.method == 'POST':
+        action = request.POST.get('form_type')
+        if action == "general_update":
+            if ruolo_utente in ["Amministratore", "Pianificazione"]:
+                aggiorna_dati(request)
+            avanzamento_ordini, ordini_da_pianificare = select_ordini(request, ruolo_utente)
+            avanzamento_ordini_preferences = get_ordini_preferences(avanzamento_ordini)
+            ordini_da_pianificare_preferences = get_ordini_preferences(ordini_da_pianificare)
+            request.session['avanzamento_ordini'] = avanzamento_ordini 
+            request.session['ordini_da_pianificare'] = ordini_da_pianificare
+            request.session['avanzamento_ordini_preferences'] = avanzamento_ordini_preferences
+            request.session['ordini_da_pianificare_preferences'] = ordini_da_pianificare_preferences
+        
+        elif action == "update_ord_list":
+            try:
+                numero_ordine = request.POST.get('ordine')
+                nuovo_operatore_nome = request.POST.get('operatore')
+                nuovo_stato_nome = request.POST.get('stato')
+                
+                stato_obj = Stati_Ordini.objects.filter(stato=nuovo_stato_nome).first()
+                operatore_obj = Utenti.objects.filter(nome=nuovo_operatore_nome).first()
+                
+                ordini_selezionati = Avanzamento_Ordini.objects.filter(ordine=numero_ordine)
+
+                adv_idx   = {(o['sede'], o['ordine'], o['n_riga']): o for o in avanzamento_ordini}
+                pian_idx  = {(o['sede'], o['ordine'], o['n_riga']): o for o in ordini_da_pianificare}
+
+                for row in ordini_selezionati:
+                    k = (row.sede, row.ordine, row.n_riga)
+
+                    if row.stato_ord.stato == "Da pianificare" and stato_obj.stato != "Da pianificare":
+                        pian_idx.pop(k, None)
+                    elif row.stato_ord.stato != "Da pianificare" and stato_obj.stato == "Da pianificare":
+                        pian_idx[k] = adv_idx[k] 
+
+                ordini_da_pianificare = list(pian_idx.values())
+
+                # Aggiorna il DB
+                ordini_selezionati.update(
+                    operatore=operatore_obj,
+                    stato_ord=stato_obj
+                )
+
+                # Aggiorna la sessione di avanzamento_ordini
+                for ordine in avanzamento_ordini:
+                    if ordine['ordine'] == numero_ordine:
+                        ordine['operatore'] = operatore_obj.username if operatore_obj else None
+                        ordine['des_operatore'] = operatore_obj.nome if operatore_obj else None
+                        ordine['id_stato_ord'] = stato_obj.id if stato_obj else None
+                        ordine['des_stato_ord'] = stato_obj.stato if stato_obj else None
+
+                # Salva in sessione
+                avanzamento_ordini_preferences = get_ordini_preferences(avanzamento_ordini)
+                ordini_da_pianificare_preferences = get_ordini_preferences(ordini_da_pianificare)
+
+                request.session['avanzamento_ordini'] = avanzamento_ordini
+                request.session['avanzamento_ordini_preferences'] = avanzamento_ordini_preferences
+                request.session['ordini_da_pianificare'] = ordini_da_pianificare
+                request.session['ordini_da_pianificare_preferences'] = ordini_da_pianificare_preferences
+
+            except Exception as e:
+                import traceback
+                traceback.print_exc()
+
+        elif action == "update_ord_single":
+            try:
+                numero_ordine = request.POST.get('ordine')
+                riga = int(request.POST.get('riga'))
+                nuovo_operatore_nome = request.POST.get('operatore')
+                nuovo_stato_nome = request.POST.get('stato')
+                
+                stato_obj = Stati_Ordini.objects.filter(stato=nuovo_stato_nome).first()
+                operatore_obj = Utenti.objects.filter(nome=nuovo_operatore_nome).first()
+                
+                ordine_db = Avanzamento_Ordini.objects.filter(ordine=numero_ordine, n_riga=riga).first()
+
+                adv_idx   = {(o['sede'], o['ordine'], o['n_riga']): o for o in avanzamento_ordini}
+                pian_idx  = {(o['sede'], o['ordine'], o['n_riga']): o for o in ordini_da_pianificare}
+
+                k = (ordine_db.sede, ordine_db.ordine, ordine_db.n_riga)
+
+                if ordine_db.stato_ord.stato == "Da pianificare" and stato_obj.stato != "Da pianificare":
+                    pian_idx.pop(k, None)
+                elif ordine_db.stato_ord.stato != "Da pianificare" and stato_obj.stato == "Da pianificare":
+                    pian_idx[k] = adv_idx[k] 
+
+                ordini_da_pianificare = list(pian_idx.values())
+
+                # Aggiorna il DB
+                Avanzamento_Ordini.objects.filter(id=ordine_db.id) \
+                    .update(operatore=operatore_obj, stato_ord=stato_obj)
+
+
+                for ordine in avanzamento_ordini:
+                    if ordine['ordine'] == numero_ordine and ordine['n_riga'] == riga:
+                        ordine['operatore'] = operatore_obj.username if operatore_obj is not None else None
+                        ordine['des_operatore'] = operatore_obj.nome if operatore_obj is not None else None
+                        ordine['id_stato_ord'] = stato_obj.id if stato_obj is not None else None
+                        ordine['des_stato_ord'] = stato_obj.stato if stato_obj is not None else None
+
+                # Salva in sessione
+                avanzamento_ordini_preferences = get_ordini_preferences(avanzamento_ordini)
+                ordini_da_pianificare_preferences = get_ordini_preferences(ordini_da_pianificare)
+
+                request.session['avanzamento_ordini'] = avanzamento_ordini
+                request.session['avanzamento_ordini_preferences'] = avanzamento_ordini_preferences
+                request.session['ordini_da_pianificare'] = ordini_da_pianificare
+                request.session['ordini_da_pianificare_preferences'] = ordini_da_pianificare_preferences
+            except Exception as e:
+                import traceback
+                traceback.print_exc()
+
+    avanzamento_ordini_render = riformatta_date(copy.deepcopy(avanzamento_ordini))
+    today = date.today()
+
+    context = {
+        'today': today,
+        'ruolo_utente': ruolo_utente,
+        'stati_ordini': stati_ordini,
+        'operatori': operatori,
+        'avanzamento_ordini': avanzamento_ordini_render,
+        'avanzamento_ordini_preferences': avanzamento_ordini_preferences,
+    }
+    
+    return render(request, 'produzione/avanzamento_ordini.html', context)
+
+@login_required(login_url='login')
+def ordini_da_pianificare(request):
+    avanzamento_ordini = request.session.get('avanzamento_ordini')
+    ordini_da_pianificare = request.session.get('ordini_da_pianificare')
+    avanzamento_ordini_preferences = request.session.get('avanzamento_ordini_preferences')
+    ordini_da_pianificare_preferences = request.session.get('ordini_da_pianificare_preferences')
+    ruolo_utente = request.session.get('ruolo_utente')
+    
+    stati_ordini = list(
+    Stati_Ordini.objects.values_list('stato', flat=True).distinct().order_by('stato')
+        )
+
+    operatori = list(
+        Utenti.objects.filter(is_operatore=True).values_list('nome', flat=True).distinct().order_by('nome')
+        )
+    
+    if request.method == 'POST':
+        action = request.POST.get('form_type')
+        if action == "general_update":
+            if ruolo_utente in ["Amministratore", "Pianificazione"]:
+                aggiorna_dati(request)
+            avanzamento_ordini, ordini_da_pianificare = select_ordini(request, ruolo_utente)
+            avanzamento_ordini_preferences = get_ordini_preferences(avanzamento_ordini)
+            ordini_da_pianificare_preferences = get_ordini_preferences(ordini_da_pianificare)
+            request.session['avanzamento_ordini'] = avanzamento_ordini 
+            request.session['ordini_da_pianificare'] = ordini_da_pianificare
+            request.session['avanzamento_ordini_preferences'] = avanzamento_ordini_preferences
+            request.session['ordini_da_pianificare_preferences'] = ordini_da_pianificare_preferences
+        
+        elif action == "update_ord_list":
+            try:
+                numero_ordine = request.POST.get('ordine')
+                nuovo_operatore_nome = request.POST.get('operatore')
+                nuovo_stato_nome = request.POST.get('stato')
+                
+                stato_obj = Stati_Ordini.objects.filter(stato=nuovo_stato_nome).first()
+                operatore_obj = Utenti.objects.filter(nome=nuovo_operatore_nome).first()
+                
+                ordini_selezionati = Avanzamento_Ordini.objects.filter(ordine=numero_ordine)
+
+                pian_idx  = {(o['sede'], o['ordine'], o['n_riga']): o for o in ordini_da_pianificare}
+
+                if stato_obj.stato != "Da pianificare":
+                    for row in ordini_selezionati:
+                        k = (row.sede, row.ordine, row.n_riga)
+                        pian_idx.pop(k, None)
+
+                ordini_da_pianificare = list(pian_idx.values())
+
+                # Aggiorna il DB
+                ordini_selezionati.update(
+                    operatore=operatore_obj,
+                    stato_ord=stato_obj
+                )
+
+                # Aggiorna la sessione di avanzamento_ordini
+                for ordine in avanzamento_ordini:
+                    if ordine['ordine'] == numero_ordine:
+                        ordine['operatore'] = operatore_obj.username if operatore_obj else None
+                        ordine['des_operatore'] = operatore_obj.nome if operatore_obj else None
+                        ordine['id_stato_ord'] = stato_obj.id if stato_obj else None
+                        ordine['des_stato_ord'] = stato_obj.stato if stato_obj else None
+
+                # Salva in sessione
+                avanzamento_ordini_preferences = get_ordini_preferences(avanzamento_ordini)
+                ordini_da_pianificare_preferences = get_ordini_preferences(ordini_da_pianificare)
+
+                request.session['avanzamento_ordini'] = avanzamento_ordini
+                request.session['avanzamento_ordini_preferences'] = avanzamento_ordini_preferences
+                request.session['ordini_da_pianificare'] = ordini_da_pianificare
+                request.session['ordini_da_pianificare_preferences'] = ordini_da_pianificare_preferences
+
+            except Exception as e:
+                import traceback
+                traceback.print_exc()
+
+        elif action == "update_ord_single":
+            try:
+                numero_ordine = request.POST.get('ordine')
+                riga = int(request.POST.get('riga'))
+                nuovo_operatore_nome = request.POST.get('operatore')
+                nuovo_stato_nome = request.POST.get('stato')
+                
+                stato_obj = Stati_Ordini.objects.filter(stato=nuovo_stato_nome).first()
+                operatore_obj = Utenti.objects.filter(nome=nuovo_operatore_nome).first()
+                
+                ordine_db = Avanzamento_Ordini.objects.filter(ordine=numero_ordine, n_riga=riga).first()
+
+                pian_idx  = {(o['sede'], o['ordine'], o['n_riga']): o for o in ordini_da_pianificare}
+
+                k = (ordine_db.sede, ordine_db.ordine, ordine_db.n_riga)
+
+                if stato_obj.stato != "Da pianificare":
+                    pian_idx.pop(k, None)
+
+                ordini_da_pianificare = list(pian_idx.values())
+
+                # Aggiorna il DB
+                Avanzamento_Ordini.objects.filter(id=ordine_db.id) \
+                    .update(operatore=operatore_obj, stato_ord=stato_obj)
+
+                for ordine in avanzamento_ordini:
+                    if ordine['ordine'] == numero_ordine and ordine['n_riga'] == riga:
+                        ordine['operatore'] = operatore_obj.username if operatore_obj is not None else None
+                        ordine['des_operatore'] = operatore_obj.nome if operatore_obj is not None else None
+                        ordine['id_stato_ord'] = stato_obj.id if stato_obj is not None else None
+                        ordine['des_stato_ord'] = stato_obj.stato if stato_obj is not None else None
+
+                # Salva in sessione
+                avanzamento_ordini_preferences = get_ordini_preferences(avanzamento_ordini)
+                ordini_da_pianificare_preferences = get_ordini_preferences(ordini_da_pianificare)
+
+                request.session['avanzamento_ordini'] = avanzamento_ordini
+                request.session['avanzamento_ordini_preferences'] = avanzamento_ordini_preferences
+                request.session['ordini_da_pianificare'] = ordini_da_pianificare
+                request.session['ordini_da_pianificare_preferences'] = ordini_da_pianificare_preferences
+            except Exception as e:
+                import traceback
+                traceback.print_exc()
+
+    ordini_da_pianificare_render = riformatta_date(copy.deepcopy(ordini_da_pianificare))
+    today = date.today()
+
+    context = {
+        'today': today,
+        'ruolo_utente': ruolo_utente,
+        'stati_ordini': stati_ordini,
+        'operatori': operatori,
+        'avanzamento_ordini': ordini_da_pianificare_render,
+        'avanzamento_ordini_preferences': ordini_da_pianificare_preferences,
+    }
+    
+    return render(request, 'produzione/ordini_da_pianificare.html', context)
+
+@login_required(login_url='login')
+def storico_ordini(request):
+    #avanzamento_ordini = request.session.get('avanzamento_ordini')
+    #ordini_da_pianificare = request.session.get('ordini_da_pianificare')
+    storico_ordini = request.session.get('storico_ordini')
+    #avanzamento_ordini_preferences = request.session.get('avanzamento_ordini_preferences')
+    #ordini_da_pianificare_preferences = request.session.get('ordini_da_pianificare_preferences')
+    storico_ordini_preferences = request.session.get('storico_ordini_preferences')
+    ruolo_utente = request.session.get('ruolo_utente')
+    
+    storico_ordini_render = riformatta_date(copy.deepcopy(storico_ordini))
+    today = date.today()
+
+    context = {
+        'today': today,
+        'ruolo_utente': ruolo_utente,
+        'avanzamento_ordini': storico_ordini_render,
+        'avanzamento_ordini_preferences': storico_ordini_preferences,
+    }
+    
+    return render(request, 'produzione/storico_ordini.html', context)
+
+@login_required(login_url='login')
+def tabelle(request):
+    ruolo_utente = request.session.get('ruolo_utente')
+    tipo = request.GET.get('tipo', '')
+
+    if request.method == "POST" and tipo == "utenti":
+        action = request.POST.get("action")
+        user_id = request.POST.get("user_id")
+        errore = False
+
+        try:
+            utente = Utenti.objects.get(id=user_id)
+        except Utenti.DoesNotExist:
+            utente = None
+
+        if action == "update" and utente:
+            new_user = request.POST.get("username")
+            new_nome = request.POST.get("nome")
+
+            if utente.username != new_user and Utenti.objects.filter(username=new_user).exists():
+                messages.error(request, "Username già esistente. Scegline uno diverso.")
+                errore = True
+            else:
+                utente.username = new_user
+
+            if utente.nome != new_nome and Utenti.objects.filter(nome=new_nome).exists():
+                messages.error(request, "Nome già esistente. Scegline uno diverso.")
+                errore = True
+            else:
+                utente.nome = new_nome
+
+            is_op = request.POST.get("is_operatore")
+            utente.is_operatore = {"True": True, "False": False}.get(is_op, None)
+
+            nuova_password = request.POST.get("password")
+            if nuova_password:
+                utente.set_password(nuova_password)
+
+            if not errore:
+                utente.save()
+
+        elif action == "create":
+            username = request.POST.get("utente_nome")
+            nome = request.POST.get("nome")
+            is_op = request.POST.get("is_operatore")
+            password = request.POST.get("pass_visibile")
+
+            if Utenti.objects.filter(username=username).exists():
+                messages.error(request, "Username già esistente.")
+                errore = True
+            elif Utenti.objects.filter(nome=nome).exists():
+                messages.error(request, "Nome già esistente.")
+                errore = True
+            elif not username or not password:
+                messages.error(request, "Username e password sono obbligatori.")
+                errore = True
+            else:
+                nuovo_utente = Utenti(
+                    username=username,
+                    nome=nome,
+                    is_operatore={"True": True, "False": False}.get(is_op, None)
+                )
+                nuovo_utente.set_password(password)
+                nuovo_utente.save()
+
+        elif action == "delete" and utente:
+            utente.delete()
+
+        # Se tutto è andato bene, redirect e torna alla sezione utenti
+        return redirect(request.path + "?tipo=utenti")
+
+    if request.method == "POST" and tipo == "profili":
+        action = request.POST.get("action")
+        profilo_id = request.POST.get("profilo_id")
+
+        try:
+            profilo = Profili.objects.get(id=profilo_id)
+        except Profili.DoesNotExist:
+            profilo = None
+
+        if action == "update" and profilo:
+            old_id = request.POST.get("profilo_id")
+            new_id = request.POST.get("id_profilo")
+            ruolo = request.POST.get("ruolo")
+
+            if old_id != new_id and ruolo == profilo.ruolo:
+                if not Profili.objects.filter(id=new_id).exists():
+                    profilo.delete()
+                    nuovo_profilo = Profili(id=new_id, ruolo=ruolo)
+                    nuovo_profilo.save()
+                else:
+                    messages.error(request, "Codice già esistente. Scegline uno diverso.")
+            elif profilo.ruolo != ruolo and old_id == new_id:
+                if Profili.objects.filter(ruolo=ruolo).exists():
+                    messages.error(request, "Ruolo già esistente. Scegline uno diverso.")
+                else:
+                    profilo.ruolo = ruolo
+                    profilo.save()
+            elif profilo.ruolo != ruolo and old_id != new_id:
+                if Profili.objects.filter(ruolo=ruolo).exists() or Profili.objects.filter(id=new_id).exists():
+                    messages.error(request, "Codice o Ruolo già esistente. Scegline uno diverso.")
+                else:
+                    nuovo_profilo = Profili(id=new_id, ruolo=ruolo)
+                    nuovo_profilo.save()
+
+
+        elif action == "create":
+            id_profilo = request.POST.get("id_profilo")
+            ruolo = request.POST.get("ruolo")
+            
+            if not Profili.objects.filter(id=id_profilo).exists() and not Profili.objects.filter(ruolo=ruolo).exists():
+                if id_profilo and ruolo:
+                    nuovo_profilo = Profili(
+                        id=id_profilo,
+                        ruolo=ruolo
+                    )
+                    nuovo_profilo.save()
+            else:
+                messages.error(request, "Codice o Ruolo già esistente. Scegline uno diverso.")
+
+        elif action == "delete" and profilo:
+            profilo.delete()
+
+        return redirect(request.path + f"?tipo=profili")
+
+    if request.method == "POST" and tipo == "stati_ordini":
+        action = request.POST.get("action")
+        stato_id = request.POST.get("stato_id")
+
+        try:
+            stato = Stati_Ordini.objects.get(id=stato_id)
+        except Stati_Ordini.DoesNotExist:
+            stato = None
+
+        if action == "update" and stato:
+            old_id = request.POST.get("stato_id")
+            new_id = request.POST.get("id_stato")
+            new_stato = request.POST.get("stato")
+
+            if old_id != new_id and new_stato == stato.stato:
+                if not Stati_Ordini.objects.filter(id=new_id).exists():
+                    stato.delete()
+                    nuovo_stato = Stati_Ordini(id=new_id, stato=new_stato)
+                    nuovo_stato.save()
+                else:
+                    messages.error(request, "Codice già esistente. Scegline uno diverso.")
+            elif stato.stato != new_stato and old_id == new_id:
+                if Stati_Ordini.objects.filter(stato=new_stato).exists():
+                    messages.error(request, "Stato già esistente. Scegline uno diverso.")
+                else:
+                    stato.stato = new_stato
+                    stato.save()
+            elif stato.stato != new_stato and old_id != new_id:
+                if Stati_Ordini.objects.filter(stato=new_stato).exists() or Stati_Ordini.objects.filter(id=new_id).exists():
+                    messages.error(request, "Codice o Stato già esistente. Scegline uno diverso.")
+                else:
+                    nuovo_stato = Stati_Ordini(id=new_id, stato=new_stato)
+                    nuovo_stato.save()
+
+        elif action == "create":
+            id_stato = request.POST.get("id_stato")
+            stato = request.POST.get("stato")
+            
+            if not Stati_Ordini.objects.filter(id=id_stato).exists() and not Stati_Ordini.objects.filter(stato=stato).exists():
+                if id_stato and stato:
+                    nuovo_stato = Stati_Ordini(
+                        id=id_stato,
+                        stato=stato
+                    )
+                    nuovo_stato.save()
+            else:
+                messages.error(request, "Codice o Stato già esistente. Scegline uno diverso.")
+
+        elif action == "delete" and stato:
+            stato.delete()
+
+        return redirect(request.path + f"?tipo=stati_ordini")
+
+    if request.method == "POST" and tipo == "legami_utenti-profili":
+
+        utente_id = request.POST.get("utente_id")
+        ruolo_id = request.POST.get("ruolo")
+
+        try:
+            utente = Utenti.objects.get(id=utente_id)
+        except Utenti.DoesNotExist:
+            utente = None
+
+        if utente:
+            if ruolo_id:
+                profilo = Profili.objects.get(id=ruolo_id)
+                utente.ruolo = profilo
+            else:
+                utente.ruolo = None
+            utente.save()
+
+        return redirect(request.path + f"?tipo=legami_utenti-profili")
+
+    if request.method == "POST" and tipo == "legami_profili-stati_ordini":
+        action = request.POST.get("action")
+        id_profilo_stato = request.POST.get("id_profilo_stato")
+
+        try:
+            profilo_stato = Profili_Stati.objects.get(id=id_profilo_stato)
+        except Profili_Stati.DoesNotExist:
+            profilo_stato = None
+        
+        if action == 'delete' and profilo_stato:
+            profilo_stato.delete()
+
+        elif action == 'create':
+            id_ruolo = request.POST.get("ruolo")
+            id_stato = request.POST.get("stato")
+            tipo_uso = request.POST.get("tipo_uso")
+            ruolo = Profili.objects.get(id=id_ruolo)
+            stato = Stati_Ordini.objects.get(id=id_stato)
+            if Profili_Stati.objects.filter(ruolo=ruolo, stato_ord=stato, tipo_uso=tipo_uso).exists():
+                messages.error(request, "Riga già presente.")
+            else:
+                nuovo_profilo_stato = Profili_Stati(ruolo=ruolo, stato_ord=stato, tipo_uso=tipo_uso)
+                nuovo_profilo_stato.save()
+
+        return redirect(request.path + f"?tipo=legami_profili-stati_ordini")
+    
+    utenti = Utenti.objects.all()
+    profili = Profili.objects.all()
+    stati = Stati_Ordini.objects.all()
+    profili_stati = Profili_Stati.objects.all()
+
+    context = {
+        'ruolo_utente': ruolo_utente,
+        'tipo': tipo,
+        'utenti': utenti,
+        'profili': profili,
+        'stati': stati,
+        'profili_stati': profili_stati
+    }
+    
+    return render(request, 'produzione/tabelle.html', context)
+
+
+def get_ordini_preferences(avanzamento_ordini):
     
     # Inizializza set vuoti per raccogliere valori unici
     ordini_unici = set()
@@ -52,14 +583,14 @@ def get_avanzamento_ordini_preferences(avanzamento_ordini):
             clienti_unici.add(item['des_cliente'])
         if item['des_stato_ord']:
             stati_unici.add(item['des_stato_ord'])
-        if item['operatore']:
-            operatori_unici.add(item['operatore'])
+        if item['des_operatore']:
+            operatori_unici.add(item['des_operatore'])
 
     # (Opzionale) Ordina i set convertendoli in liste
-    ordini_unici = sorted(ordini_unici)
-    clienti_unici = sorted(clienti_unici)
-    stati_unici = sorted(stati_unici)
-    operatori_unici = sorted(operatori_unici)
+    ordini_unici = list(ordini_unici)
+    clienti_unici = list(clienti_unici)
+    stati_unici = list(stati_unici)
+    operatori_unici = list(operatori_unici)
     
     return {
         ''
@@ -184,7 +715,7 @@ def aggiorna_dati(request):
     except Exception as e:
         messages.error(request, f"Errore aggiornamento dati: {str(e)}")
 
-def select_avanzamento_ordini(request, ruolo_utente):
+def select_ordini(request, ruolo_utente):
     try:
         with transaction.atomic():            # 0.Accedi a sage
             connection = bsdb04_connection()
@@ -211,11 +742,12 @@ def select_avanzamento_ordini(request, ruolo_utente):
                     (riga[2], riga[3], riga[5]): dict(zip(columns, riga))
                     for riga in ordini_aperti
                 }
-
                 avanzamenti = Avanzamento_Ordini.objects.select_related('stato_ord', 'operatore')
 
         
-            risultati = []
+            risultati_avanzamento_ordini = []
+            risultati_ordini_da_pianificare = []
+            risultati_storico_ordini = []
             
             for avanzamento in avanzamenti:
                 if ruolo_utente == "Produzione":
@@ -250,7 +782,7 @@ def select_avanzamento_ordini(request, ruolo_utente):
                 else:
                     data_cons = None 
 
-                risultati.append({
+                risultati_avanzamento_ordini.append({
                     'sede': avanzamento.sede,
                     'vis_note_ord': vis_note_ord,
                     'vis_note_prod': vis_note_prod,
@@ -258,7 +790,7 @@ def select_avanzamento_ordini(request, ruolo_utente):
                     'data_ord': str(data_ord) if data_ord else None,
                     'data_sped': str(data_sped) if data_sped else None,
                     'ordine': avanzamento.ordine,
-                    'n_riga': avanzamento.n_riga,
+                    'n_riga': int(avanzamento.n_riga),
                     'tipo_ordine': ordine_aperto.get('TIPO_ORDINE'),
                     'rif_cli': ordine_aperto.get('RIF_CLI'),
                     'articolo': ordine_aperto.get('ARTICOLO'),
@@ -280,10 +812,78 @@ def select_avanzamento_ordini(request, ruolo_utente):
                     'note_prod': avanzamento.note_prod,
                     'commerciale': ordine_aperto.get('COMMERCIALE'),
                 })
+
+                if ordine_aperto.get('TIPO_ORDINE') != 'SOR' and ordine_aperto.get('ARTICOLO') is not None and int(avanzamento.stato_ord.id)==10 and 'V' in list(tipo_uso):
+                    risultati_ordini_da_pianificare.append({
+                    'sede': avanzamento.sede,
+                    'vis_note_ord': vis_note_ord,
+                    'vis_note_prod': vis_note_prod,
+                    'data_cons': str(data_cons) if data_cons else None,
+                    'data_ord': str(data_ord) if data_ord else None,
+                    'data_sped': str(data_sped) if data_sped else None,
+                    'ordine': avanzamento.ordine,
+                    'n_riga': int(avanzamento.n_riga),
+                    'tipo_ordine': ordine_aperto.get('TIPO_ORDINE'),
+                    'rif_cli': ordine_aperto.get('RIF_CLI'),
+                    'articolo': ordine_aperto.get('ARTICOLO'),
+                    'old_code': ordine_aperto.get('OLD_CODE'),
+                    'des_articolo': ordine_aperto.get('DES_ARTICOLO'),
+                    'qta_ord': int(ordine_aperto.get('QTA_ORD')),
+                    'qta_cons': int(ordine_aperto.get('QTA_CONS')),
+                    'qta_res': int(ordine_aperto.get('QTA_ORD') - ordine_aperto.get('QTA_CONS')),
+                    'cd_cliente': ordine_aperto.get('CD_CLIENTE'),
+                    'rif_int': ordine_aperto.get('RIF_INT'),
+                    'des_cliente': ordine_aperto.get('DES_CLIENTE'),
+                    'id_stato_ord': avanzamento.stato_ord.id,
+                    'des_stato_ord': avanzamento.stato_ord.stato,
+                    'operatore': avanzamento.operatore.username if avanzamento.operatore else None,
+                    'des_operatore': avanzamento.operatore.nome if avanzamento.operatore else None,
+                    'tipo_uso': list(tipo_uso),
+                    'fl_note_ord': avanzamento.fl_note_ord,
+                    'fl_note_prod': avanzamento.fl_note_prod,
+                    'note_prod': avanzamento.note_prod,
+                    'commerciale': ordine_aperto.get('COMMERCIALE'),
+                })
+
+                if ordine_aperto.get('TIPO_ORDINE') != 'SOR' and ordine_aperto.get('ARTICOLO') is not None and 'V' in list(tipo_uso):
+                    risultati_storico_ordini.append({
+                    'sede': avanzamento.sede,
+                    'vis_note_ord': vis_note_ord,
+                    'vis_note_prod': vis_note_prod,
+                    'data_cons': str(data_cons) if data_cons else None,
+                    'data_ord': str(data_ord) if data_ord else None,
+                    'data_sped': str(data_sped) if data_sped else None,
+                    'ordine': avanzamento.ordine,
+                    'n_riga': int(avanzamento.n_riga),
+                    'tipo_ordine': ordine_aperto.get('TIPO_ORDINE'),
+                    'rif_cli': ordine_aperto.get('RIF_CLI'),
+                    'articolo': ordine_aperto.get('ARTICOLO'),
+                    'old_code': ordine_aperto.get('OLD_CODE'),
+                    'des_articolo': ordine_aperto.get('DES_ARTICOLO'),
+                    'qta_ord': int(ordine_aperto.get('QTA_ORD')),
+                    'qta_cons': int(ordine_aperto.get('QTA_CONS')),
+                    'qta_res': int(ordine_aperto.get('QTA_ORD') - ordine_aperto.get('QTA_CONS')),
+                    'cd_cliente': ordine_aperto.get('CD_CLIENTE'),
+                    'rif_int': ordine_aperto.get('RIF_INT'),
+                    'des_cliente': ordine_aperto.get('DES_CLIENTE'),
+                    'id_stato_ord': avanzamento.stato_ord.id,
+                    'des_stato_ord': avanzamento.stato_ord.stato,
+                    'operatore': avanzamento.operatore.username if avanzamento.operatore else None,
+                    'des_operatore': avanzamento.operatore.nome if avanzamento.operatore else None,
+                    'tipo_uso': list(tipo_uso),
+                    'fl_note_ord': avanzamento.fl_note_ord,
+                    'fl_note_prod': avanzamento.fl_note_prod,
+                    'note_prod': avanzamento.note_prod,
+                    'commerciale': ordine_aperto.get('COMMERCIALE'),
+                })       
     except Exception as e:
         error_msg = f"Errore con chiave {chiave}: {str(e)}"
         print(error_msg)
         print(traceback.format_exc())
         messages.error(request, error_msg)
     
-    return risultati 
+    risultati_avanzamento_ordini.sort(key=lambda x: (x['ordine'], x['n_riga']))
+    risultati_ordini_da_pianificare.sort(key=lambda x: (x['ordine'], x['n_riga']))
+    risultati_storico_ordini.sort(key=lambda x: (x['ordine'], x['n_riga']))
+
+    return risultati_avanzamento_ordini, risultati_ordini_da_pianificare, risultati_storico_ordini
