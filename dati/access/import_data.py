@@ -128,4 +128,4 @@ def import_profili_stati():
 
     print("Importazione completata.")
 
-import_profili_stati()
+import_avanzamento_ordini()

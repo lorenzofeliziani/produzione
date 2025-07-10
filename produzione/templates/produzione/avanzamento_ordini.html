@@ -32,6 +32,10 @@
       color: #f50000 !important;
     }
     
+    #edit-orders:disabled {
+    display: none;
+  }
+
     .form-control[readonly] {
     background-color: #e9ecef;  
     pointer-events: none;      
@@ -40,20 +44,8 @@
 </style>
 </head>
 <body>
-    <div class="position-absolute top-0 end-0 m-3 d-flex gap-2">
-        <form method="post">
-            {% csrf_token %}
-            <input type="hidden" name="form_type" value="general_update">
-            <button type="submit" class="btn btn-info">
-            Update
-            </button>
-        </form>
+    {% include 'produzione/header.html' %}
 
-    <!-- Bottone Esci -->
-        <a href="{% url 'dashboard' %}" class="btn btn-danger">
-            Esci
-        </a>
-    </div>
     <div class="container-fluid px-4 py-3">
         <h1 class="mb-4 text-primary">Stato Avanzamento Ordini</h1>
         <!-- Sezione filtri -->
@@ -97,18 +89,29 @@
                         <option value="{{ operatore }}"></option>
                     {% endfor %}
                     </datalist>
-              </div>
+                </div>
         </div>
 
-        <div class="mt-3 d-flex gap-2">
-            <button id="apply-filter" class="btn btn-primary">Applica filtro</button>
-            <button id="reset-filter" class="btn btn-secondary">Reset filtro</button>
-            {% if ruolo_utente != "Produzione" and ruolo_utente != "Commerciale" %}
-                <button id="edit-orders" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editModal" disabled>Modifica ordini</button>
-            {% endif %}
-            <button id="print-orders" class="btn btn-success" disabled>Stampa PDF</button>
+        <div class="mt-3 d-flex justify-content-between align-items-center">
+            <div class="d-flex gap-2">
+                <button id="apply-filter" class="btn btn-primary">Applica filtro</button>
+                <button id="reset-filter" class="btn btn-secondary">Reset filtro</button>
+                {% if ruolo_utente != "Produzione" and ruolo_utente != "Commerciale" %}
+                    <button id="edit-orders" class="btn btn-warning d-none" data-bs-toggle="modal" data-bs-target="#editModal">Modifica ordini</button>
+                {% endif %}
+                <button id="print-orders" class="btn btn-success">Stampa PDF</button>
+            </div>
+
+            <form method="post" class="mb-0">
+                {% csrf_token %}
+                <input type="hidden" name="form_type" value="general_update">
+                <button type="submit" class="btn btn-info text-white">
+                    Refresh
+                </button>
+            </form>
+          </div>
         </div>
-    </div>
+
 
     <div style="max-height: 500px; max-width: 100%; overflow: auto; border: 1px solid #ccc;">
         <table id="sortable-table" class="table table-bordered">
@@ -138,8 +141,8 @@
             <tr>
             <td>{{ item.des_cliente }}</td>
             <td class="{% if item.des_stato_ord == 'Da pianificare' %}bg-warning
-                        {% elif item.des_stato_ord in 'Da lavorare,Da trasf. in produzione,Da trasf. in spedizione' %}bg-orange
-                        {% elif item.des_stato_ord in 'Trasf. in produzione,Trasf. in spedizione' %}bg-primarynew text-white
+                        {% elif item.des_stato_ord in 'Trasf. in produzione,Da lavorare,Da trasf. in produzione,Da trasf. in spedizione' %}bg-orange
+                        {% elif item.des_stato_ord in 'Trasf. in spedizione' %}bg-primarynew text-white
                         {% elif item.des_stato_ord == 'In lavorazione' %}bg-warning
                         {% elif item.des_stato_ord == 'In attesa' %}bg-warning text-danger
                         {% elif item.des_stato_ord == 'Prodotto' %}bg-success text-white
@@ -415,121 +418,112 @@
     }
   });
   </script>
-  <script>
-  document.addEventListener('DOMContentLoaded', function () {
-  // Selezioni input e pulsanti
-  const filterOrdine = document.getElementById('filter-ordine');
-  const filterCliente = document.getElementById('filter-cliente');
-  const filterStato = document.getElementById('filter-stato');
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  const filterOrdine    = document.getElementById('filter-ordine');
+  const filterCliente   = document.getElementById('filter-cliente');
+  const filterStato     = document.getElementById('filter-stato');
   const filterOperatore = document.getElementById('filter-operatore');
 
-  const applyBtn = document.getElementById('apply-filter');
-  const resetBtn = document.getElementById('reset-filter');
-  const editBtn = document.getElementById('edit-orders');
-  const printBtn = document.getElementById('print-orders');
+  const applyBtn  = document.getElementById('apply-filter');
+  const resetBtn  = document.getElementById('reset-filter');
+  const editBtn   = document.getElementById('edit-orders');
+  const printBtn  = document.getElementById('print-orders');
 
   const table = document.getElementById('sortable-table');
   const tbody = table.querySelector('tbody');
 
-  // Funzione filtro
+  // 🔁 Funzione per abilitare/disabilitare il pulsante di stampa
+  function updatePrintButtonState() {
+    const visibleRows = [...tbody.rows].filter(row => row.style.display !== 'none');
+    printBtn.disabled = visibleRows.length === 0;
+  }
+
+  // 🔍 Funzione filtro
   function filterTable() {
-    const valOrdine = filterOrdine.value.trim().toLowerCase();
-    const valCliente = filterCliente.value.trim().toLowerCase();
-    const valStato = filterStato.value.trim().toLowerCase();
-    const valOperatore = filterOperatore.value.trim().toLowerCase();
+    const valOrdine    = filterOrdine.value.trim();
+    const valCliente   = filterCliente.value.trim();
+    const valStato     = filterStato.value.trim();
+    const valOperatore = filterOperatore.value.trim();
 
     let countFiltered = 0;
 
     [...tbody.rows].forEach(row => {
-      const tdCliente = row.cells[0].textContent.trim().toLowerCase();
-      const tdStato = row.cells[1].textContent.trim().toLowerCase();
-      const tdOperatore = row.cells[2].textContent.trim().toLowerCase();
-      const tdOrdine = row.cells[3].textContent.trim().toLowerCase();
+      const tdCliente   = row.cells[0].textContent.trim();
+      const tdStato     = row.cells[1].textContent.trim();
+      const tdOperatore = row.cells[2].textContent.trim();
+      const tdOrdine    = row.cells[3].textContent.trim();
 
-      // Verifica se la riga rispetta tutti i filtri
-      const match = 
+      const match =
         (valOrdine === '' || tdOrdine.includes(valOrdine)) &&
         (valCliente === '' || tdCliente.includes(valCliente)) &&
         (valStato === '' || tdStato.includes(valStato)) &&
         (valOperatore === '' || tdOperatore.includes(valOperatore));
 
       row.style.display = match ? '' : 'none';
-
-      if(match) countFiltered++;
+      if (match) countFiltered++;
     });
 
-    // Abilita/disabilita bottoni edit/print se ci sono risultati
-    if (filterOrdine.value.trim() !== '') {
-      editBtn.disabled = false;
+    if (valOrdine === '') {
+      editBtn.classList.add('d-none');
     } else {
-      editBtn.disabled = true;
-    };
-    printBtn.disabled = countFiltered === 0;
+      editBtn.classList.remove('d-none');
+    }
+
+    updatePrintButtonState();
   }
 
-  // Reset filtri
+  // 🔄 Funzione reset
   function resetFilter() {
-    filterOrdine.value = '';
-    filterCliente.value = '';
-    filterStato.value = '';
+    filterOrdine.value    = '';
+    filterCliente.value   = '';
+    filterStato.value     = '';
     filterOperatore.value = '';
 
     [...tbody.rows].forEach(row => row.style.display = '');
+
     editBtn.disabled = true;
-    printBtn.disabled = true;
+    editBtn.style.display = 'none';
+    updatePrintButtonState();
   }
 
+  // 📎 Eventi
   applyBtn.addEventListener('click', filterTable);
   resetBtn.addEventListener('click', resetFilter);
 
-// Funzionalità modale Modifica ordini (dummy)
-editBtn.addEventListener('click', function () {
-  const ordineVal = filterOrdine.value.trim();
+  // 📝 Pulsante "Modifica Ordine"
+  editBtn.addEventListener('click', function () {
+    const ordineVal = filterOrdine.value.trim();
 
-  // 1. Trova la riga con quel numero ordine
-  const rows = Array.from(tbody.querySelectorAll('tr'));
-  const foundRow = rows.find(row => {
-    const ordineCell = row.children[3];   // colonna N. Ordine
-    return ordineCell && ordineCell.textContent.trim() === ordineVal;
+    const rows = Array.from(tbody.querySelectorAll('tr'));
+    const foundRow = rows.find(row => row.children[3]?.textContent.trim() === ordineVal);
+
+    if (foundRow) {
+      const cliente   = foundRow.children[0].textContent.trim();
+      const stato     = foundRow.children[1].textContent.trim();
+      const operatore = foundRow.children[2].textContent.trim();
+
+      const modal = document.getElementById('editModal');
+      modal.querySelector('#ordine-readonly').value  = ordineVal;
+      modal.querySelector('#cliente-readonly').value = cliente;
+      modal.querySelector('select[name="operatore"]').value = operatore || '';
+      modal.querySelector('select[name="stato"]').value     = stato || '';
+    }
   });
 
-  if (foundRow) {
-    // 2. Ricava i valori attuali dalle colonne
-    const cliente   = foundRow.children[0].textContent.trim(); // Des. Cliente
-    const stato     = foundRow.children[1].textContent.trim(); // Stato Ord. (colonna 1)
-    const operatore = foundRow.children[2].textContent.trim(); // Operatore  (colonna 2)
-
-    // 3. Riempi i campi readonly
-    const modal = document.getElementById('editModal');
-    modal.querySelector('#ordine-readonly').value  = ordineVal;
-    modal.querySelector('#cliente-readonly').value = cliente;
-
-    // 4. Pre‑seleziona i menu a tendina
-    modal.querySelector('select[name="operatore"]').value = operatore || '';
-    modal.querySelector('select[name="stato"]').value     = stato     || '';
-  }
-});
-
-
-
-
-  // Funzionalità Stampa PDF (esempio semplice)
+  // 🖨️ Pulsante stampa
   printBtn.addEventListener('click', () => {
-    // recupera dati filtrati
     const visibleRows = [...tbody.rows].filter(r => r.style.display !== 'none');
+    if (visibleRows.length === 0) return alert('Nessun ordine selezionato.');
 
-    if(visibleRows.length === 0) return alert('Nessun ordine selezionato.');
-
-    // Creiamo semplice contenuto testo da stampare
     let content = 'Ordini Selezionati:\n\n';
     visibleRows.forEach(row => {
-      const ordine = row.cells[3].textContent.trim();
+      const ordine  = row.cells[3].textContent.trim();
       const cliente = row.cells[0].textContent.trim();
-      const stato = row.cells[1].textContent.trim();
+      const stato   = row.cells[1].textContent.trim();
       content += `Ordine: ${ordine}, Cliente: ${cliente}, Stato: ${stato}\n`;
     });
 
-    // Apriamo nuova finestra di stampa
     const printWindow = window.open('', '', 'width=600,height=400');
     printWindow.document.write('<pre>' + content + '</pre>');
     printWindow.document.close();
@@ -537,8 +531,11 @@ editBtn.addEventListener('click', function () {
     printWindow.print();
     printWindow.close();
   });
-  });
-  </script>
+
+  // ✅ Controllo iniziale all'avvio
+  updatePrintButtonState();
+});
+</script>
   <script>
   document.addEventListener('DOMContentLoaded', function () {
     const editModal = document.getElementById('editModalsingle');

@@ -10,6 +10,6 @@ FROM
     AND (PROD.SORDER.CPY_0 = PROD.SORDERQ.CPY_0)
 WHERE
     (
-        ((PROD.SORDER.CPY_0) = "DBELE")
-        AND ((PROD.SORDERQ.SOQSTA_0) <> 3)
+        (PROD.SORDER.CPY_0 = 'DBELE')
+        AND (PROD.SORDERQ.SOQSTA_0 <> 3)
     )

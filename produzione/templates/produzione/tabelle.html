@@ -24,9 +24,7 @@
 </script>
 </head>
 <body>
-<div class="position-absolute top-0 end-0 m-3 d-flex gap-2">
-<a href="{% url 'dashboard' %}" class="btn btn-danger">Esci</a>
-</div>
+{% include 'produzione/header.html' %}
 <div class="container-fluid px-4 py-3">
     <div class="row">
     <h1 class="mb-4 text-primary">Tabelle</h1>
@@ -66,12 +64,14 @@
             {% endif %}
             {% if tipo == 'utenti' %}
                 <h3>Utenti</h3>
+
                     <table class="table table-hover">
                     <thead>
                         <tr>
                         <th>Username</th>
                         <th>Nome</th>
                         <th>Password</th>
+                        <th>Ruolo</th>
                         <th>Operatore</th>
                         <th>Azioni</th>
                         </tr>
@@ -86,16 +86,27 @@
                             <td><input type="text" name="nome" value="{{ utente.nome }}" class="form-control"></td>
                             <td><input type="password" name="password" placeholder="Nuova password" class="form-control"></td>
                             <td>
+                                <select name="ruolo" class="form-select">
+                                    <option value="" {% if utente.ruolo is None %}selected{% endif %}>---</option>
+                                    {% for profilo in profili %}
+                                        <option value="{{ profilo.id }}" {% if utente.ruolo.id == profilo.id %}selected{% endif %}>
+                                            {{ profilo.ruolo }}
+                                        </option>
+                                    {% endfor %}
+                                </select>
+                            </td>                            
+                            <td>
                             <select name="is_operatore" class="form-select">
                                 <option value="" {% if utente.is_operatore is None %}selected{% endif %}>---</option>
                                 <option value="True" {% if utente.is_operatore %}selected{% endif %}>Sì</option>
                                 <option value="False" {% if utente.is_operatore is not none and not utente.is_operatore %}selected{% endif %}>No</option>
                             </select>
                             </td>
-                            <td>
-                            <button type="submit" name="action" value="update" class="btn btn-sm btn-primary">Salva</button>
-                            <button type="submit" name="action" value="delete" class="btn btn-sm btn-danger" onclick="return confirm('Eliminare questo utente?');">Elimina</button>
-                            </td>
+                                <td class="d-flex gap-2">
+                                <button type="submit" name="action" value="update" class="btn btn-sm btn-primary">Salva</button>
+                                <button type="submit" name="action" value="delete" class="btn btn-sm btn-danger" onclick="return confirm('Eliminare questo utente?');">Elimina</button>
+                                </td>
+
                         </form>
                         </tr>
                         {% endfor %}
@@ -107,6 +118,16 @@
                             <td><input type="text" name="utente_nome" placeholder="Username" class="form-control" required></td>
                             <td><input type="text" name="nome" placeholder="Nome" class="form-control" required></td>
                             <td><input type="text" name="pass_visibile" placeholder="Password" class="form-control" required autocomplete="new-password"></td>
+                            <td>
+                                <select name="ruolo" class="form-select">
+                                    <option value="" {% if utente.ruolo is None %}selected{% endif %}>---</option>
+                                    {% for profilo in profili %}
+                                        <option value="{{ profilo.id }}" {% if utente.ruolo.id == profilo.id %}selected{% endif %}>
+                                            {{ profilo.ruolo }}
+                                        </option>
+                                    {% endfor %}
+                                </select>
+                            </td>
                             <td>
                             <select name="is_operatore" class="form-select">
                                 <option value="" selected>---</option>
@@ -120,6 +141,7 @@
                     </tbody>
                     </table>
 
+
             {% elif tipo == 'profili' %}
                 <h3>Profili Utente</h3>
                 <table id="sortable-table" class="table table-hover">
@@ -132,10 +154,11 @@
                             <input type="hidden" name="profilo_id" value="{{ profilo.id }}">
                             <td><input type="text" name="id_profilo" value="{{ profilo.id }}" class="form-control"></td>
                             <td><input type="text" name="ruolo" value="{{ profilo.ruolo }}" class="form-control"></td>
-                            <td>
+                            <td class="d-flex gap-2">
                             <button type="submit" name="action" value="update" class="btn btn-sm btn-primary">Salva</button>
                             <button type="submit" name="action" value="delete" class="btn btn-sm btn-danger" onclick="return confirm('Eliminare questo profilo?');">Elimina</button>
                             </td>
+
                             </form>
                         </tr>
                         {% endfor %}
@@ -162,10 +185,11 @@
                             <input type="hidden" name="stato_id" value="{{ stato.id }}">
                             <td><input type="text" name="id_stato" value="{{ stato.id }}" class="form-control"></td>
                             <td><input type="text" name="stato" value="{{ stato.stato }}" class="form-control"></td>
-                            <td>
+                            <td class="d-flex gap-2">
                             <button type="submit" name="action" value="update" class="btn btn-sm btn-primary">Salva</button>
                             <button type="submit" name="action" value="delete" class="btn btn-sm btn-danger" onclick="return confirm('Eliminare questo stato?');">Elimina</button>
                             </td>
+
                             </form>
                         </tr>
                         {% endfor %}
@@ -180,7 +204,7 @@
                     </tbody>
                 </table>
 
-            {% elif tipo == 'legami_utenti-profili' %}
+            <!--{% elif tipo == 'legami_utenti-profili' %}
                 <h3>Legami Utenti-Profili</h3>
                 <table id="sortable-table" class="table table-hover">
                     <thead><tr><th>Utente</th><th>Profilo</th><th>Azioni</th></tr></thead>
@@ -209,7 +233,7 @@
                         {% endfor %}
                     </tbody>
 
-                </table>
+                </table>-->
 
             {% elif tipo == 'legami_profili-stati_ordini' %}
                 <h3>Legami Profili-Stati Ordini</h3>

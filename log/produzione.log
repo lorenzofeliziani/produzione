@@ -4731,3 +4731,363 @@ django.template.exceptions.TemplateSyntaxError: Invalid block tag on line 228: '
 2025-07-09 12:26:37,002 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py changed, reloading.
 2025-07-09 12:26:37,921 dati.sage.connect [INFO] Inizio funzione dashboard
 2025-07-09 12:26:37,970 django.utils.autoreload [INFO] Watching for file changes with StatReloader
+2025-07-09 12:48:46,654 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\signals.py changed, reloading.
+2025-07-09 12:48:47,722 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-09 12:48:47,775 django.utils.autoreload [INFO] Watching for file changes with StatReloader
+2025-07-09 13:00:56,071 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py changed, reloading.
+2025-07-09 13:00:59,169 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-09 13:00:59,354 django.utils.autoreload [INFO] Watching for file changes with StatReloader
+2025-07-09 13:01:13,497 django.request [ERROR] Internal Server Error: /
+Traceback (most recent call last):
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py", line 24, in dashboard
+    nome_utente = request.session['nome_utente']
+                  ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\contrib\sessions\backends\base.py", line 55, in __getitem__
+    return self._session[key]
+           ~~~~~~~~~~~~~^^^^^
+KeyError: 'nome_utente'
+2025-07-09 13:01:27,473 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py changed, reloading.
+2025-07-09 13:01:28,524 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-09 13:01:28,569 django.utils.autoreload [INFO] Watching for file changes with StatReloader
+2025-07-09 13:01:41,132 django.request [ERROR] Internal Server Error: /
+Traceback (most recent call last):
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py", line 24, in dashboard
+    nome_utente = request.session['nome_utente']
+                  ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\contrib\sessions\backends\base.py", line 55, in __getitem__
+    return self._session[key]
+           ~~~~~~~~~~~~~^^^^^
+KeyError: 'nome_utente'
+2025-07-09 13:01:41,787 django.request [ERROR] Internal Server Error: /
+Traceback (most recent call last):
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py", line 24, in dashboard
+    nome_utente = request.session['nome_utente']
+                  ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\contrib\sessions\backends\base.py", line 55, in __getitem__
+    return self._session[key]
+           ~~~~~~~~~~~~~^^^^^
+KeyError: 'nome_utente'
+2025-07-09 13:01:41,974 django.request [ERROR] Internal Server Error: /
+Traceback (most recent call last):
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py", line 24, in dashboard
+    nome_utente = request.session['nome_utente']
+                  ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\contrib\sessions\backends\base.py", line 55, in __getitem__
+    return self._session[key]
+           ~~~~~~~~~~~~~^^^^^
+KeyError: 'nome_utente'
+2025-07-09 13:02:25,438 django.request [ERROR] Internal Server Error: /
+Traceback (most recent call last):
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py", line 24, in dashboard
+    nome_utente = request.session['nome_utente']
+                  ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\contrib\sessions\backends\base.py", line 55, in __getitem__
+    return self._session[key]
+           ~~~~~~~~~~~~~^^^^^
+KeyError: 'nome_utente'
+2025-07-09 13:02:40,541 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-09 13:02:41,392 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-09 13:02:41,441 django.utils.autoreload [INFO] Watching for file changes with StatReloader
+2025-07-09 13:02:44,273 django.request [ERROR] Internal Server Error: /
+Traceback (most recent call last):
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py", line 24, in dashboard
+    nome_utente = request.session['nome_utente']
+                  ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\contrib\sessions\backends\base.py", line 55, in __getitem__
+    return self._session[key]
+           ~~~~~~~~~~~~~^^^^^
+KeyError: 'nome_utente'
+2025-07-09 13:07:14,899 django.request [WARNING] Not Found: /.well-known/appspecific/com.chrome.devtools.json
+2025-07-09 13:07:18,862 django.request [WARNING] Not Found: /.well-known/appspecific/com.chrome.devtools.json
+2025-07-09 13:07:20,405 django.request [WARNING] Not Found: /.well-known/appspecific/com.chrome.devtools.json
+2025-07-09 13:07:21,969 django.request [WARNING] Not Found: /.well-known/appspecific/com.chrome.devtools.json
+2025-07-09 13:07:23,130 django.request [WARNING] Not Found: /.well-known/appspecific/com.chrome.devtools.json
+2025-07-09 13:07:25,211 django.request [WARNING] Not Found: /.well-known/appspecific/com.chrome.devtools.json
+2025-07-09 13:07:31,392 django.request [WARNING] Not Found: /.well-known/appspecific/com.chrome.devtools.json
+2025-07-09 13:07:32,394 django.request [WARNING] Not Found: /.well-known/appspecific/com.chrome.devtools.json
+2025-07-09 13:07:33,742 django.request [WARNING] Not Found: /.well-known/appspecific/com.chrome.devtools.json
+2025-07-09 13:07:38,081 django.request [WARNING] Not Found: /.well-known/appspecific/com.chrome.devtools.json
+2025-07-09 13:11:47,321 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\signals.py changed, reloading.
+2025-07-09 13:11:48,303 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-09 13:11:48,353 django.utils.autoreload [INFO] Watching for file changes with StatReloader
+2025-07-09 13:31:30,774 django.request [ERROR] Internal Server Error: /avanzamento_ordini/
+Traceback (most recent call last):
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\backends\django.py", line 107, in render
+    return self.template.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\base.py", line 171, in render
+    return self._render(context)
+           ~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\loader_tags.py", line 199, in render
+    template = context.template.engine.select_template(template_name)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\engine.py", line 214, in select_template
+    raise TemplateDoesNotExist(", ".join(not_found))
+django.template.exceptions.TemplateDoesNotExist: header.html
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py", line 172, in avanzamento_ordini
+    return render(request, 'produzione/avanzamento_ordini.html', context)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\backends\django.py", line 109, in render
+    reraise(exc, self.backend)
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\backends\django.py", line 130, in reraise
+    raise new from exc
+django.template.exceptions.TemplateDoesNotExist: header.html
+2025-07-09 14:46:08,712 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py changed, reloading.
+2025-07-09 14:46:09,749 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-09 14:46:09,800 django.utils.autoreload [INFO] Watching for file changes with StatReloader
+2025-07-09 14:47:26,426 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py changed, reloading.
+2025-07-09 14:47:27,302 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-09 14:47:27,347 django.utils.autoreload [INFO] Watching for file changes with StatReloader
+2025-07-09 15:24:58,543 django.request [WARNING] Not Found: /.well-known/appspecific/com.chrome.devtools.json
+2025-07-09 15:28:29,863 django.request [WARNING] Not Found: /.well-known/appspecific/com.chrome.devtools.json
+2025-07-09 15:59:13,891 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py changed, reloading.
+2025-07-09 15:59:14,857 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-09 15:59:14,910 django.utils.autoreload [INFO] Watching for file changes with StatReloader
+2025-07-09 16:00:51,026 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py changed, reloading.
+2025-07-09 16:00:51,899 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-09 16:00:51,942 django.utils.autoreload [INFO] Watching for file changes with StatReloader
+2025-07-09 16:09:51,087 django.request [ERROR] Internal Server Error: /tabelle/
+Traceback (most recent call last):
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\db\models\fields\__init__.py", line 2128, in get_prep_value
+    return int(value)
+ValueError: invalid literal for int() with base 10: ''
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py", line 404, in tabelle
+    ruolo=Profili.objects.get(id=new_ruolo_id)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\db\models\query.py", line 619, in get
+    clone = self._chain() if self.query.combinator else self.filter(*args, **kwargs)
+                                                        ~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\db\models\query.py", line 1493, in filter
+    return self._filter_or_exclude(False, args, kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\db\models\query.py", line 1511, in _filter_or_exclude
+    clone._filter_or_exclude_inplace(negate, args, kwargs)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\db\models\query.py", line 1518, in _filter_or_exclude_inplace
+    self._query.add_q(Q(*args, **kwargs))
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\db\models\sql\query.py", line 1646, in add_q
+    clause, _ = self._add_q(q_object, can_reuse)
+                ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\db\models\sql\query.py", line 1678, in _add_q
+    child_clause, needed_inner = self.build_filter(
+                                 ~~~~~~~~~~~~~~~~~^
+        child,
+        ^^^^^^
+    ...<7 lines>...
+        update_join_types=update_join_types,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\db\models\sql\query.py", line 1588, in build_filter
+    condition = self.build_lookup(lookups, col, value)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\db\models\sql\query.py", line 1415, in build_lookup
+    lookup = lookup_class(lhs, rhs)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\db\models\lookups.py", line 38, in __init__
+    self.rhs = self.get_prep_lookup()
+               ~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\db\models\lookups.py", line 410, in get_prep_lookup
+    return super().get_prep_lookup()
+           ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\db\models\lookups.py", line 96, in get_prep_lookup
+    return self.lhs.output_field.get_prep_value(self.rhs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\db\models\fields\__init__.py", line 2130, in get_prep_value
+    raise e.__class__(
+        "Field '%s' expected a number but got %r." % (self.name, value),
+    ) from e
+ValueError: Field 'id' expected a number but got ''.
+2025-07-09 16:13:02,134 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py changed, reloading.
+2025-07-09 16:13:03,166 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-09 16:13:03,238 django.utils.autoreload [INFO] Watching for file changes with StatReloader
+2025-07-09 16:35:26,013 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-09 16:35:27,527 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-09 16:35:27,624 django.utils.autoreload [INFO] Watching for file changes with StatReloader
+2025-07-09 16:44:12,939 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-09 16:44:15,617 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-09 16:44:15,710 django.utils.autoreload [INFO] Watching for file changes with StatReloader
+2025-07-09 16:47:44,886 django.request [WARNING] Not Found: /favicon.ico
+2025-07-10 09:42:48,527 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-10 09:44:37,312 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-10 09:45:24,978 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-10 09:48:25,409 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-10 09:50:17,758 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-10 09:50:18,534 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-10 09:50:18,574 django.utils.autoreload [INFO] Watching for file changes with StatReloader
+2025-07-10 09:51:40,785 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\signals.py changed, reloading.
+2025-07-10 09:51:41,681 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-10 09:51:41,726 django.utils.autoreload [INFO] Watching for file changes with StatReloader
+2025-07-10 09:53:13,344 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\signals.py changed, reloading.
+2025-07-10 09:53:14,241 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-10 09:53:14,291 django.utils.autoreload [INFO] Watching for file changes with StatReloader
+2025-07-10 09:54:44,216 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\signals.py changed, reloading.
+2025-07-10 09:54:45,060 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-10 09:54:45,104 django.utils.autoreload [INFO] Watching for file changes with StatReloader
+2025-07-10 09:55:04,485 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-10 09:59:22,427 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-10 10:04:12,301 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-10 10:04:13,061 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-10 10:04:13,105 django.utils.autoreload [INFO] Watching for file changes with StatReloader
+2025-07-10 10:04:59,872 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-10 10:09:47,375 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-10 10:09:53,238 django.security.csrf [WARNING] Forbidden (CSRF token from POST incorrect.): /login/
+2025-07-10 10:16:18,683 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-10 10:20:08,423 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-10 10:22:25,290 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-10 10:25:56,686 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-10 10:26:10,493 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-10 10:30:21,817 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-10 10:32:28,292 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-10 10:36:04,393 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-10 10:43:18,332 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-10 10:56:08,918 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-10 10:57:40,903 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-10 11:00:45,467 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-10 11:01:59,375 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-10 11:06:17,046 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-10 11:16:25,762 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-10 11:16:26,529 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-10 11:16:26,572 django.utils.autoreload [INFO] Watching for file changes with StatReloader
+2025-07-10 11:28:04,298 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py changed, reloading.
+2025-07-10 11:28:07,065 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-10 11:28:07,337 django.utils.autoreload [INFO] Watching for file changes with StatReloader
+2025-07-10 11:31:44,845 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-10 11:34:04,528 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py changed, reloading.
+2025-07-10 11:34:05,455 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-10 11:34:05,501 django.utils.autoreload [INFO] Watching for file changes with StatReloader
+2025-07-10 11:35:14,641 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py changed, reloading.
+2025-07-10 11:35:15,521 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-10 11:35:15,576 django.utils.autoreload [INFO] Watching for file changes with StatReloader
+2025-07-10 11:39:34,740 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py changed, reloading.
+2025-07-10 11:39:35,651 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-10 11:39:35,700 django.utils.autoreload [INFO] Watching for file changes with StatReloader
+2025-07-10 11:47:42,344 django.request [ERROR] Internal Server Error: /avanzamento_ordini/
+Traceback (most recent call last):
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py", line 54, in avanzamento_ordini
+    avanzamento_ordini, ordini_da_pianificare = select_ordini(request, ruolo_utente)
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: too many values to unpack (expected 2)
+2025-07-10 11:55:04,579 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py changed, reloading.
+2025-07-10 11:55:05,494 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-10 11:55:05,550 django.utils.autoreload [INFO] Watching for file changes with StatReloader
+2025-07-10 11:58:05,853 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py changed, reloading.
+2025-07-10 11:58:06,691 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-10 11:58:06,740 django.utils.autoreload [INFO] Watching for file changes with StatReloader
+2025-07-10 12:01:38,441 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py changed, reloading.
+2025-07-10 12:01:39,317 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-10 12:01:39,364 django.utils.autoreload [INFO] Watching for file changes with StatReloader
+2025-07-10 12:01:57,697 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-10 12:06:45,903 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-10 13:05:51,712 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-10 13:07:12,415 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-10 13:10:28,423 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-10 13:11:02,965 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-10 13:11:03,708 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-10 13:11:03,765 django.utils.autoreload [INFO] Watching for file changes with StatReloader
+2025-07-10 13:19:27,792 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-10 13:19:28,590 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-10 13:19:28,638 django.utils.autoreload [INFO] Watching for file changes with StatReloader
+2025-07-10 14:17:56,743 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py changed, reloading.
+2025-07-10 14:17:59,135 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-10 14:17:59,295 django.utils.autoreload [INFO] Watching for file changes with StatReloader
+2025-07-10 14:20:10,345 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-10 14:20:11,102 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-10 14:20:11,155 django.utils.autoreload [INFO] Watching for file changes with StatReloader
+2025-07-10 14:28:19,046 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py changed, reloading.
+2025-07-10 14:28:20,123 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-10 14:28:20,172 django.utils.autoreload [INFO] Watching for file changes with StatReloader
+2025-07-10 14:39:57,802 django.request [WARNING] Not Found: /.well-known/appspecific/com.chrome.devtools.json
+2025-07-10 14:43:00,814 django.request [WARNING] Not Found: /favicon.ico
+2025-07-10 14:53:53,308 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py changed, reloading.
+2025-07-10 14:53:54,292 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-10 14:53:54,348 django.utils.autoreload [INFO] Watching for file changes with StatReloader
+2025-07-10 14:55:48,758 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-10 14:58:15,827 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py changed, reloading.
+2025-07-10 14:58:16,763 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-10 14:58:16,812 django.utils.autoreload [INFO] Watching for file changes with StatReloader
+2025-07-10 15:00:07,821 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-10 15:01:19,922 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-10 15:04:25,235 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-10 15:04:33,391 django.request [WARNING] Not Found: /favicon.ico
+2025-07-10 15:08:20,085 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-10 15:09:49,567 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-10 15:13:32,447 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-10 15:13:33,355 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-10 15:13:33,405 django.utils.autoreload [INFO] Watching for file changes with StatReloader

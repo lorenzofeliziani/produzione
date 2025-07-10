@@ -21,9 +21,10 @@ except:
 @login_required(login_url='login')
 def dashboard(request):
     ruolo_utente = request.session.get('ruolo_utente')
-
+    nome_utente = request.session['nome_utente']
     context = {
         'ruolo_utente': ruolo_utente,
+        'nome_utente': nome_utente
     }
     
     return render(request, 'produzione/dashboard.html', context)
@@ -35,6 +36,7 @@ def avanzamento_ordini(request):
     avanzamento_ordini_preferences = request.session.get('avanzamento_ordini_preferences')
     ordini_da_pianificare_preferences = request.session.get('ordini_da_pianificare_preferences')
     ruolo_utente = request.session.get('ruolo_utente')
+    nome_utente = request.session['nome_utente']
     
     stati_ordini = list(
     Stati_Ordini.objects.values_list('stato', flat=True).distinct().order_by('stato')
@@ -49,13 +51,16 @@ def avanzamento_ordini(request):
         if action == "general_update":
             if ruolo_utente in ["Amministratore", "Pianificazione"]:
                 aggiorna_dati(request)
-            avanzamento_ordini, ordini_da_pianificare = select_ordini(request, ruolo_utente)
+            avanzamento_ordini, ordini_da_pianificare, storico_ordini = select_ordini(request, ruolo_utente)
             avanzamento_ordini_preferences = get_ordini_preferences(avanzamento_ordini)
             ordini_da_pianificare_preferences = get_ordini_preferences(ordini_da_pianificare)
+            storico_ordini_preferences = get_ordini_preferences(storico_ordini)
             request.session['avanzamento_ordini'] = avanzamento_ordini 
             request.session['ordini_da_pianificare'] = ordini_da_pianificare
+            request.session['storico_ordini'] = storico_ordini
             request.session['avanzamento_ordini_preferences'] = avanzamento_ordini_preferences
             request.session['ordini_da_pianificare_preferences'] = ordini_da_pianificare_preferences
+            request.session['storico_ordini_preferences'] = storico_ordini_preferences
         
         elif action == "update_ord_list":
             try:
@@ -166,6 +171,7 @@ def avanzamento_ordini(request):
         'operatori': operatori,
         'avanzamento_ordini': avanzamento_ordini_render,
         'avanzamento_ordini_preferences': avanzamento_ordini_preferences,
+        'nome_utente': nome_utente
     }
     
     return render(request, 'produzione/avanzamento_ordini.html', context)
@@ -177,6 +183,7 @@ def ordini_da_pianificare(request):
     avanzamento_ordini_preferences = request.session.get('avanzamento_ordini_preferences')
     ordini_da_pianificare_preferences = request.session.get('ordini_da_pianificare_preferences')
     ruolo_utente = request.session.get('ruolo_utente')
+    nome_utente = request.session['nome_utente']
     
     stati_ordini = list(
     Stati_Ordini.objects.values_list('stato', flat=True).distinct().order_by('stato')
@@ -191,13 +198,16 @@ def ordini_da_pianificare(request):
         if action == "general_update":
             if ruolo_utente in ["Amministratore", "Pianificazione"]:
                 aggiorna_dati(request)
-            avanzamento_ordini, ordini_da_pianificare = select_ordini(request, ruolo_utente)
+            avanzamento_ordini, ordini_da_pianificare, storico_ordini = select_ordini(request, ruolo_utente)
             avanzamento_ordini_preferences = get_ordini_preferences(avanzamento_ordini)
             ordini_da_pianificare_preferences = get_ordini_preferences(ordini_da_pianificare)
+            storico_ordini_preferences = get_ordini_preferences(storico_ordini)
             request.session['avanzamento_ordini'] = avanzamento_ordini 
             request.session['ordini_da_pianificare'] = ordini_da_pianificare
+            request.session['storico_ordini'] = storico_ordini
             request.session['avanzamento_ordini_preferences'] = avanzamento_ordini_preferences
             request.session['ordini_da_pianificare_preferences'] = ordini_da_pianificare_preferences
+            request.session['storico_ordini_preferences'] = storico_ordini_preferences
         
         elif action == "update_ord_list":
             try:
@@ -300,6 +310,7 @@ def ordini_da_pianificare(request):
         'operatori': operatori,
         'avanzamento_ordini': ordini_da_pianificare_render,
         'avanzamento_ordini_preferences': ordini_da_pianificare_preferences,
+        'nome_utente': nome_utente
     }
     
     return render(request, 'produzione/ordini_da_pianificare.html', context)
@@ -313,6 +324,7 @@ def storico_ordini(request):
     #ordini_da_pianificare_preferences = request.session.get('ordini_da_pianificare_preferences')
     storico_ordini_preferences = request.session.get('storico_ordini_preferences')
     ruolo_utente = request.session.get('ruolo_utente')
+    nome_utente = request.session['nome_utente']
     
     storico_ordini_render = riformatta_date(copy.deepcopy(storico_ordini))
     today = date.today()
@@ -322,6 +334,7 @@ def storico_ordini(request):
         'ruolo_utente': ruolo_utente,
         'avanzamento_ordini': storico_ordini_render,
         'avanzamento_ordini_preferences': storico_ordini_preferences,
+        'nome_utente': nome_utente
     }
     
     return render(request, 'produzione/storico_ordini.html', context)
@@ -330,6 +343,7 @@ def storico_ordini(request):
 def tabelle(request):
     ruolo_utente = request.session.get('ruolo_utente')
     tipo = request.GET.get('tipo', '')
+    nome_utente = request.session['nome_utente']
 
     if request.method == "POST" and tipo == "utenti":
         action = request.POST.get("action")
@@ -344,6 +358,7 @@ def tabelle(request):
         if action == "update" and utente:
             new_user = request.POST.get("username")
             new_nome = request.POST.get("nome")
+            new_ruolo_id = request.POST.get("ruolo")
 
             if utente.username != new_user and Utenti.objects.filter(username=new_user).exists():
                 messages.error(request, "Username già esistente. Scegline uno diverso.")
@@ -356,6 +371,12 @@ def tabelle(request):
                 errore = True
             else:
                 utente.nome = new_nome
+            
+            if new_ruolo_id:
+                new_ruolo = Profili.objects.get(id=new_ruolo_id)
+            else:
+                new_ruolo = None
+            utente.ruolo = new_ruolo
 
             is_op = request.POST.get("is_operatore")
             utente.is_operatore = {"True": True, "False": False}.get(is_op, None)
@@ -363,6 +384,7 @@ def tabelle(request):
             nuova_password = request.POST.get("password")
             if nuova_password:
                 utente.set_password(nuova_password)
+
 
             if not errore:
                 utente.save()
@@ -372,6 +394,7 @@ def tabelle(request):
             nome = request.POST.get("nome")
             is_op = request.POST.get("is_operatore")
             password = request.POST.get("pass_visibile")
+            new_ruolo_id = request.POST.get("ruolo")
 
             if Utenti.objects.filter(username=username).exists():
                 messages.error(request, "Username già esistente.")
@@ -386,7 +409,8 @@ def tabelle(request):
                 nuovo_utente = Utenti(
                     username=username,
                     nome=nome,
-                    is_operatore={"True": True, "False": False}.get(is_op, None)
+                    is_operatore={"True": True, "False": False}.get(is_op, None),
+                    ruolo=Profili.objects.get(id=new_ruolo_id) if new_ruolo_id else None
                 )
                 nuovo_utente.set_password(password)
                 nuovo_utente.save()
@@ -561,7 +585,8 @@ def tabelle(request):
         'utenti': utenti,
         'profili': profili,
         'stati': stati,
-        'profili_stati': profili_stati
+        'profili_stati': profili_stati,
+        'nome_utente': nome_utente
     }
     
     return render(request, 'produzione/tabelle.html', context)
@@ -615,18 +640,26 @@ def aggiorna_dati(request):
                 cursor.execute(query_avanzamento_ordini)
                 response_avanzamento_ordini = cursor.fetchall()
             
-            ordini = [
+                # Ottieni chiavi già esistenti nel DB
+                esistenti = set(
+                    Avanzamento_Ordini.objects
+                    .values_list('sede', 'ordine', 'n_riga')
+                )
+
+                # Filtra solo quelli nuovi
+                ordini_nuovi = [
                     Avanzamento_Ordini(
                         sede=row[0],
                         ordine=row[1],
                         n_riga=row[2],
-                        stato_ord=row[3],
+                        stato_ord=Stati_Ordini.objects.get(id=row[3]),
                         note=row[4]
                     )
                     for row in response_avanzamento_ordini
+                    if (row[0], row[1], row[2]) not in esistenti
                 ]
-            
-            Avanzamento_Ordini.objects.bulk_create(ordini, batch_size=1000)
+
+            Avanzamento_Ordini.objects.bulk_create(ordini_nuovi, batch_size=1000)
 
             # 2.Cancella le note presenti
             Note_Ordini.objects.all().delete()
@@ -641,14 +674,13 @@ def aggiorna_dati(request):
 
             # Ordini senza note
             ordini = set(Avanzamento_Ordini.objects
-                        .filter(Q(note__isnull=True) | Q(note=''))
+                        .filter(Q(note__isnull=True) | Q(note='') | Q(note=' '))
                         .values_list('sede', 'ordine'))
 
             for cpy, sohn, sohtex1 in response_x_note:
                 if (cpy, sohn) in ordini:
                     Note_Ordini.objects.create(sede=cpy, ordine=sohn, note=sohtex1)
                     Avanzamento_Ordini.objects.filter(sede=cpy, ordine=sohn).update(note=sohtex1)
-
 
             # 4. Recupera gli ordini con note da aggiornare
             ordini = Avanzamento_Ordini.objects.filter(fl_note_ord="S")
@@ -659,10 +691,10 @@ def aggiorna_dati(request):
                 sohtex = ordine.note
 
                 # Cerca la nota esistente
-                note = Note.objects.filter(SOHNUM_0=sohnum).first()
+                note = Note.objects.filter(ordine=sohnum).first()
                 if note and sohtex:
                     with connection.cursor() as cursor:
-                        cursor.execute("SELECT TEXTE_0 FROM PROD.TEXCLOB WHERE CODE_0 = %s", [sohtex])
+                        cursor.execute("SELECT TEXTE_0 FROM PROD.TEXCLOB WHERE CODE_0 = ?", [sohtex])
                         row = cursor.fetchone()
                     
                     if row:
@@ -675,7 +707,7 @@ def aggiorna_dati(request):
 
 
             # 6. Accoda eventuali nuove note (non aggiornate)
-            ordini = Avanzamento_Ordini.objects.exclude(note__isnull=True).exclude(note='') \
+            ordini = Avanzamento_Ordini.objects.exclude(note__isnull=True).exclude(note='').exclude(note=' ') \
                     .values_list('sede', 'ordine', 'note')
 
             mappa = defaultdict(list)
@@ -684,12 +716,13 @@ def aggiorna_dati(request):
             codici = list(mappa.keys())
 
             if codici:
-                placeholders = ','.join(['%s'] * len(codici))
+                placeholders = ','.join(['?'] * len(codici))  # ODBC usa '?' invece di %s
+
                 query = f"""
                     SELECT CODE_0, TEXTE_0
                     FROM PROD.TEXCLOB
                     WHERE CODE_0 IN ({placeholders})
-                    AND TEXTE_0 LIKE '{{\\rtf1%'
+                    AND TEXTE_0 LIKE '{{\\rtf1%%'
                 """
 
                 with connection.cursor() as cursor:
@@ -720,14 +753,23 @@ def select_ordini(request, ruolo_utente):
         with transaction.atomic():            # 0.Accedi a sage
             connection = bsdb04_connection()
 
-            # 1.Aggiorna Avanzamento Ordini
+            # 1.Aggiorna Ordini
             with open(constant.C_QUERY_ORDINI_APERTI, 'r', encoding='utf-8') as file:
                 query_ordini_aperti = file.read()
 
+            with open(constant.C_QUERY_ORDINI_CHIUSI, 'r', encoding='utf-8') as file:
+                query_ordini_chiusi = file.read()
+
             with connection.cursor() as cursor:
+                # Esegui la prima query
                 cursor.execute(query_ordini_aperti)
                 ordini_aperti = cursor.fetchall()
-                columns = [col[0] for col in cursor.description]
+                columns_aperti = [col[0] for col in cursor.description]
+
+                if ruolo_utente not in ['Logistica', 'Produzione']:
+                    cursor.execute(query_ordini_chiusi)
+                    ordini_chiusi = cursor.fetchall()
+                    columns_chiusi = [col[0] for col in cursor.description]
             
             if ruolo_utente == "Produzione":
                 ordini_aperti_dict = {}
@@ -735,20 +777,27 @@ def select_ordini(request, ruolo_utente):
                     if riga[4] == 'SOR' and riga[7] is not None:
                         continue
                     else:
-                        ordini_aperti_dict[(riga[2], riga[3], riga[5])] = dict(zip(columns, riga))
+                        ordini_aperti_dict[(riga[2], riga[3], riga[5])] = dict(zip(columns_aperti, riga))
                 avanzamenti = Avanzamento_Ordini.objects.select_related('stato_ord', 'operatore').filter(operatore = request.user.id)
             else:
                 ordini_aperti_dict = {
-                    (riga[2], riga[3], riga[5]): dict(zip(columns, riga))
+                    (riga[2], riga[3], riga[5]): dict(zip(columns_aperti, riga))
                     for riga in ordini_aperti
                 }
                 avanzamenti = Avanzamento_Ordini.objects.select_related('stato_ord', 'operatore')
+            if ruolo_utente not in ['Logistica', 'Produzione']:
+                ordini_chiusi_dict = {
+                        (riga[2], riga[4], riga[6]): dict(zip(columns_chiusi, riga))
+                        for riga in ordini_chiusi
+                    }
+            else:
+                ordini_chiusi_dict = {}
 
-        
+
             risultati_avanzamento_ordini = []
             risultati_ordini_da_pianificare = []
             risultati_storico_ordini = []
-            
+
             for avanzamento in avanzamenti:
                 if ruolo_utente == "Produzione":
                     tipo_uso = 'V'
@@ -760,130 +809,188 @@ def select_ordini(request, ruolo_utente):
                     avanzamento.ordine,
                     avanzamento.n_riga,
                 )
-
-                ordine_aperto = ordini_aperti_dict.get(chiave)
-                if not ordine_aperto:
-                    continue
-                
                 # Calcola VIS_NOTE_ORD
                 vis_note_ord = '' if avanzamento.fl_note_ord == 'N' else 'NOTE'
 
                 # Calcola VIS_NOTE_PROD
                 vis_note_prod = 'NOTE' if avanzamento.fl_note_prod == 'S' or avanzamento.fl_note_ord == 'S' else ''
 
-                # Calcola DATA_CONS
-                data_sped = ordine_aperto.get('DATA_SPED')
-                data_ord = ordine_aperto.get('DATA_ORD')
-                if data_sped and data_ord:
-                    if (data_sped - data_ord).days > 4:
-                        data_cons = calcola_data_consegna(data_sped, 3)
+                ordine_aperto = ordini_aperti_dict.get(chiave)
+                ordine_chiuso = ordini_chiusi_dict.get(chiave)
+                if ordine_aperto:
+                    # Calcola DATA_CONS
+                    data_sped = ordine_aperto.get('DATA_SPED')
+                    data_ord = ordine_aperto.get('DATA_ORD')
+                    if data_sped and data_ord:
+                        if (data_sped - data_ord).days > 4:
+                            data_cons = calcola_data_consegna(data_sped, 3)
+                        else:
+                            data_cons = data_sped
                     else:
-                        data_cons = data_sped
+                        data_cons = None 
+
+                    risultati_avanzamento_ordini.append({
+                        'sede': avanzamento.sede,
+                        'vis_note_ord': vis_note_ord,
+                        'vis_note_prod': vis_note_prod,
+                        'data_cons': str(data_cons) if data_cons else None,
+                        'data_ord': str(data_ord) if data_ord else None,
+                        'data_sped': str(data_sped) if data_sped else None,
+                        'ordine': avanzamento.ordine,
+                        'n_riga': int(avanzamento.n_riga),
+                        'tipo_ordine': ordine_aperto.get('TIPO_ORDINE'),
+                        'rif_cli': ordine_aperto.get('RIF_CLI'),
+                        'articolo': ordine_aperto.get('ARTICOLO'),
+                        'old_code': ordine_aperto.get('OLD_CODE'),
+                        'des_articolo': ordine_aperto.get('DES_ARTICOLO'),
+                        'qta_ord': int(ordine_aperto.get('QTA_ORD')),
+                        'qta_cons': int(ordine_aperto.get('QTA_CONS')),
+                        'qta_res': int(ordine_aperto.get('QTA_ORD') - ordine_aperto.get('QTA_CONS')),
+                        'cd_cliente': ordine_aperto.get('CD_CLIENTE'),
+                        'rif_int': ordine_aperto.get('RIF_INT'),
+                        'des_cliente': ordine_aperto.get('DES_CLIENTE'),
+                        'id_stato_ord': avanzamento.stato_ord.id,
+                        'des_stato_ord': avanzamento.stato_ord.stato,
+                        'operatore': avanzamento.operatore.username if avanzamento.operatore else None,
+                        'des_operatore': avanzamento.operatore.nome if avanzamento.operatore else None,
+                        'tipo_uso': list(tipo_uso),
+                        'fl_note_ord': avanzamento.fl_note_ord,
+                        'fl_note_prod': avanzamento.fl_note_prod,
+                        'note_prod': avanzamento.note_prod,
+                        'commerciale': ordine_aperto.get('COMMERCIALE'),
+                    })
+
+                    if ordine_aperto.get('TIPO_ORDINE') != 'SOR' and ordine_aperto.get('ARTICOLO') is not None and int(avanzamento.stato_ord.id)==10 and 'V' in list(tipo_uso):
+                        risultati_ordini_da_pianificare.append({
+                        'sede': avanzamento.sede,
+                        'vis_note_ord': vis_note_ord,
+                        'vis_note_prod': vis_note_prod,
+                        'data_cons': str(data_cons) if data_cons else None,
+                        'data_ord': str(data_ord) if data_ord else None,
+                        'data_sped': str(data_sped) if data_sped else None,
+                        'ordine': avanzamento.ordine,
+                        'n_riga': int(avanzamento.n_riga),
+                        'tipo_ordine': ordine_aperto.get('TIPO_ORDINE'),
+                        'rif_cli': ordine_aperto.get('RIF_CLI'),
+                        'articolo': ordine_aperto.get('ARTICOLO'),
+                        'old_code': ordine_aperto.get('OLD_CODE'),
+                        'des_articolo': ordine_aperto.get('DES_ARTICOLO'),
+                        'qta_ord': int(ordine_aperto.get('QTA_ORD')),
+                        'qta_cons': int(ordine_aperto.get('QTA_CONS')),
+                        'qta_res': int(ordine_aperto.get('QTA_ORD') - ordine_aperto.get('QTA_CONS')),
+                        'cd_cliente': ordine_aperto.get('CD_CLIENTE'),
+                        'rif_int': ordine_aperto.get('RIF_INT'),
+                        'des_cliente': ordine_aperto.get('DES_CLIENTE'),
+                        'id_stato_ord': avanzamento.stato_ord.id,
+                        'des_stato_ord': avanzamento.stato_ord.stato,
+                        'operatore': avanzamento.operatore.username if avanzamento.operatore else None,
+                        'des_operatore': avanzamento.operatore.nome if avanzamento.operatore else None,
+                        'tipo_uso': list(tipo_uso),
+                        'fl_note_ord': avanzamento.fl_note_ord,
+                        'fl_note_prod': avanzamento.fl_note_prod,
+                        'note_prod': avanzamento.note_prod,
+                        'commerciale': ordine_aperto.get('COMMERCIALE'),
+                    })
+                    if ordine_chiuso:
+                        # Calcola DATA_CONS
+                        data_sped = ordine_chiuso.get('DATA_SPED')
+                        data_ord = ordine_chiuso.get('DATA_ORD')
+                        if data_sped and data_ord:
+                            if (data_sped - data_ord).days > 4:
+                                data_cons = calcola_data_consegna(data_sped, 3)
+                            else:
+                                data_cons = data_sped
+                        else:
+                            data_cons = None                                 
+                        if ordine_chiuso.get('TIPO_ORDINE') != 'SOR' and ordine_chiuso.get('ARTICOLO') is not None and 'V' in list(tipo_uso):
+                            risultati_storico_ordini.append({
+                            'sede': avanzamento.sede,
+                            'vis_note_ord': vis_note_ord,
+                            'vis_note_prod': vis_note_prod,
+                            'data_cons': str(data_cons) if data_cons else None,
+                            'data_ord': str(data_ord) if data_ord else None,
+                            'data_sped': str(data_sped) if data_sped else None,
+                            'ordine': avanzamento.ordine,
+                            'n_riga': int(avanzamento.n_riga),
+                            'tipo_ordine': ordine_chiuso.get('TIPO_ORDINE'),
+                            'rif_cli': ordine_chiuso.get('RIF_CLI'),
+                            'articolo': ordine_chiuso.get('ARTICOLO'),
+                            'old_code': ordine_chiuso.get('OLD_CODE'),
+                            'des_articolo': ordine_chiuso.get('DES_ARTICOLO'),
+                            'qta_ord': int(ordine_chiuso.get('QTA_ORD')),
+                            'qta_cons': int(ordine_chiuso.get('QTA_CONS')),
+                            'qta_res': int(ordine_chiuso.get('QTA_ORD') - ordine_chiuso.get('QTA_CONS')),
+                            'cd_cliente': ordine_chiuso.get('CD_CLIENTE'),
+                            'rif_int': ordine_chiuso.get('RIF_INT'),
+                            'des_cliente': ordine_chiuso.get('DES_CLIENTE'),
+                            'id_stato_ord': avanzamento.stato_ord.id,
+                            'des_stato_ord': avanzamento.stato_ord.stato,
+                            'operatore': avanzamento.operatore.username if avanzamento.operatore else None,
+                            'des_operatore': avanzamento.operatore.nome if avanzamento.operatore else None,
+                            'tipo_uso': list(tipo_uso),
+                            'fl_note_ord': avanzamento.fl_note_ord,
+                            'fl_note_prod': avanzamento.fl_note_prod,
+                            'note_prod': avanzamento.note_prod,
+                            'commerciale': ordine_chiuso.get('COMMERCIALE'),
+                        })
+                    else:
+                        continue
                 else:
-                    data_cons = None 
-
-                risultati_avanzamento_ordini.append({
-                    'sede': avanzamento.sede,
-                    'vis_note_ord': vis_note_ord,
-                    'vis_note_prod': vis_note_prod,
-                    'data_cons': str(data_cons) if data_cons else None,
-                    'data_ord': str(data_ord) if data_ord else None,
-                    'data_sped': str(data_sped) if data_sped else None,
-                    'ordine': avanzamento.ordine,
-                    'n_riga': int(avanzamento.n_riga),
-                    'tipo_ordine': ordine_aperto.get('TIPO_ORDINE'),
-                    'rif_cli': ordine_aperto.get('RIF_CLI'),
-                    'articolo': ordine_aperto.get('ARTICOLO'),
-                    'old_code': ordine_aperto.get('OLD_CODE'),
-                    'des_articolo': ordine_aperto.get('DES_ARTICOLO'),
-                    'qta_ord': int(ordine_aperto.get('QTA_ORD')),
-                    'qta_cons': int(ordine_aperto.get('QTA_CONS')),
-                    'qta_res': int(ordine_aperto.get('QTA_ORD') - ordine_aperto.get('QTA_CONS')),
-                    'cd_cliente': ordine_aperto.get('CD_CLIENTE'),
-                    'rif_int': ordine_aperto.get('RIF_INT'),
-                    'des_cliente': ordine_aperto.get('DES_CLIENTE'),
-                    'id_stato_ord': avanzamento.stato_ord.id,
-                    'des_stato_ord': avanzamento.stato_ord.stato,
-                    'operatore': avanzamento.operatore.username if avanzamento.operatore else None,
-                    'des_operatore': avanzamento.operatore.nome if avanzamento.operatore else None,
-                    'tipo_uso': list(tipo_uso),
-                    'fl_note_ord': avanzamento.fl_note_ord,
-                    'fl_note_prod': avanzamento.fl_note_prod,
-                    'note_prod': avanzamento.note_prod,
-                    'commerciale': ordine_aperto.get('COMMERCIALE'),
-                })
-
-                if ordine_aperto.get('TIPO_ORDINE') != 'SOR' and ordine_aperto.get('ARTICOLO') is not None and int(avanzamento.stato_ord.id)==10 and 'V' in list(tipo_uso):
-                    risultati_ordini_da_pianificare.append({
-                    'sede': avanzamento.sede,
-                    'vis_note_ord': vis_note_ord,
-                    'vis_note_prod': vis_note_prod,
-                    'data_cons': str(data_cons) if data_cons else None,
-                    'data_ord': str(data_ord) if data_ord else None,
-                    'data_sped': str(data_sped) if data_sped else None,
-                    'ordine': avanzamento.ordine,
-                    'n_riga': int(avanzamento.n_riga),
-                    'tipo_ordine': ordine_aperto.get('TIPO_ORDINE'),
-                    'rif_cli': ordine_aperto.get('RIF_CLI'),
-                    'articolo': ordine_aperto.get('ARTICOLO'),
-                    'old_code': ordine_aperto.get('OLD_CODE'),
-                    'des_articolo': ordine_aperto.get('DES_ARTICOLO'),
-                    'qta_ord': int(ordine_aperto.get('QTA_ORD')),
-                    'qta_cons': int(ordine_aperto.get('QTA_CONS')),
-                    'qta_res': int(ordine_aperto.get('QTA_ORD') - ordine_aperto.get('QTA_CONS')),
-                    'cd_cliente': ordine_aperto.get('CD_CLIENTE'),
-                    'rif_int': ordine_aperto.get('RIF_INT'),
-                    'des_cliente': ordine_aperto.get('DES_CLIENTE'),
-                    'id_stato_ord': avanzamento.stato_ord.id,
-                    'des_stato_ord': avanzamento.stato_ord.stato,
-                    'operatore': avanzamento.operatore.username if avanzamento.operatore else None,
-                    'des_operatore': avanzamento.operatore.nome if avanzamento.operatore else None,
-                    'tipo_uso': list(tipo_uso),
-                    'fl_note_ord': avanzamento.fl_note_ord,
-                    'fl_note_prod': avanzamento.fl_note_prod,
-                    'note_prod': avanzamento.note_prod,
-                    'commerciale': ordine_aperto.get('COMMERCIALE'),
-                })
-
-                if ordine_aperto.get('TIPO_ORDINE') != 'SOR' and ordine_aperto.get('ARTICOLO') is not None and 'V' in list(tipo_uso):
-                    risultati_storico_ordini.append({
-                    'sede': avanzamento.sede,
-                    'vis_note_ord': vis_note_ord,
-                    'vis_note_prod': vis_note_prod,
-                    'data_cons': str(data_cons) if data_cons else None,
-                    'data_ord': str(data_ord) if data_ord else None,
-                    'data_sped': str(data_sped) if data_sped else None,
-                    'ordine': avanzamento.ordine,
-                    'n_riga': int(avanzamento.n_riga),
-                    'tipo_ordine': ordine_aperto.get('TIPO_ORDINE'),
-                    'rif_cli': ordine_aperto.get('RIF_CLI'),
-                    'articolo': ordine_aperto.get('ARTICOLO'),
-                    'old_code': ordine_aperto.get('OLD_CODE'),
-                    'des_articolo': ordine_aperto.get('DES_ARTICOLO'),
-                    'qta_ord': int(ordine_aperto.get('QTA_ORD')),
-                    'qta_cons': int(ordine_aperto.get('QTA_CONS')),
-                    'qta_res': int(ordine_aperto.get('QTA_ORD') - ordine_aperto.get('QTA_CONS')),
-                    'cd_cliente': ordine_aperto.get('CD_CLIENTE'),
-                    'rif_int': ordine_aperto.get('RIF_INT'),
-                    'des_cliente': ordine_aperto.get('DES_CLIENTE'),
-                    'id_stato_ord': avanzamento.stato_ord.id,
-                    'des_stato_ord': avanzamento.stato_ord.stato,
-                    'operatore': avanzamento.operatore.username if avanzamento.operatore else None,
-                    'des_operatore': avanzamento.operatore.nome if avanzamento.operatore else None,
-                    'tipo_uso': list(tipo_uso),
-                    'fl_note_ord': avanzamento.fl_note_ord,
-                    'fl_note_prod': avanzamento.fl_note_prod,
-                    'note_prod': avanzamento.note_prod,
-                    'commerciale': ordine_aperto.get('COMMERCIALE'),
-                })       
+                    if ordine_chiuso:
+                        # Calcola DATA_CONS
+                        data_sped = ordine_chiuso.get('DATA_SPED')
+                        data_ord = ordine_chiuso.get('DATA_ORD')
+                        if data_sped and data_ord:
+                            if (data_sped - data_ord).days > 4:
+                                data_cons = calcola_data_consegna(data_sped, 3)
+                            else:
+                                data_cons = data_sped
+                        else:
+                            data_cons = None                                 
+                        if ordine_chiuso.get('TIPO_ORDINE') != 'SOR' and ordine_chiuso.get('ARTICOLO') is not None and 'V' in list(tipo_uso):
+                            risultati_storico_ordini.append({
+                            'sede': avanzamento.sede,
+                            'vis_note_ord': vis_note_ord,
+                            'vis_note_prod': vis_note_prod,
+                            'data_cons': str(data_cons) if data_cons else None,
+                            'data_ord': str(data_ord) if data_ord else None,
+                            'data_sped': str(data_sped) if data_sped else None,
+                            'ordine': avanzamento.ordine,
+                            'n_riga': int(avanzamento.n_riga),
+                            'tipo_ordine': ordine_chiuso.get('TIPO_ORDINE'),
+                            'rif_cli': ordine_chiuso.get('RIF_CLI'),
+                            'articolo': ordine_chiuso.get('ARTICOLO'),
+                            'old_code': ordine_chiuso.get('OLD_CODE'),
+                            'des_articolo': ordine_chiuso.get('DES_ARTICOLO'),
+                            'qta_ord': int(ordine_chiuso.get('QTA_ORD')),
+                            'qta_cons': int(ordine_chiuso.get('QTA_CONS')),
+                            'qta_res': int(ordine_chiuso.get('QTA_ORD') - ordine_chiuso.get('QTA_CONS')),
+                            'cd_cliente': ordine_chiuso.get('CD_CLIENTE'),
+                            'rif_int': ordine_chiuso.get('RIF_INT'),
+                            'des_cliente': ordine_chiuso.get('DES_CLIENTE'),
+                            'id_stato_ord': avanzamento.stato_ord.id,
+                            'des_stato_ord': avanzamento.stato_ord.stato,
+                            'operatore': avanzamento.operatore.username if avanzamento.operatore else None,
+                            'des_operatore': avanzamento.operatore.nome if avanzamento.operatore else None,
+                            'tipo_uso': list(tipo_uso),
+                            'fl_note_ord': avanzamento.fl_note_ord,
+                            'fl_note_prod': avanzamento.fl_note_prod,
+                            'note_prod': avanzamento.note_prod,
+                            'commerciale': ordine_chiuso.get('COMMERCIALE'),
+                        })
+                    else:
+                        continue       
     except Exception as e:
         error_msg = f"Errore con chiave {chiave}: {str(e)}"
         print(error_msg)
         print(traceback.format_exc())
         messages.error(request, error_msg)
     
-    risultati_avanzamento_ordini.sort(key=lambda x: (x['ordine'], x['n_riga']))
-    risultati_ordini_da_pianificare.sort(key=lambda x: (x['ordine'], x['n_riga']))
-    risultati_storico_ordini.sort(key=lambda x: (x['ordine'], x['n_riga']))
+    #risultati_avanzamento_ordini.sort(key=lambda x: (x['ordine'], x['n_riga']))
+    #risultati_ordini_da_pianificare.sort(key=lambda x: (x['ordine'], x['n_riga']))
+    #risultati_storico_ordini.sort(key=lambda x: (x['ordine'], x['n_riga']))
+    print(len(risultati_avanzamento_ordini))
+    print(len(risultati_ordini_da_pianificare))
+    print(len(risultati_storico_ordini))
 
     return risultati_avanzamento_ordini, risultati_ordini_da_pianificare, risultati_storico_ordini

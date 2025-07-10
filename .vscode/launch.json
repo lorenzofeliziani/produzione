@@ -1,0 +1,17 @@
+// .vscode/launch.json
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Django",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "manage.py",
+      "args": [
+        "runserver",
+        "--noreload"  // ← IMPORTANTE per il debug! Evita doppio avvio
+      ],
+      "django": true
+    }
+  ]
+}

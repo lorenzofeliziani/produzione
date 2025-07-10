@@ -11,8 +11,9 @@ from .views import aggiorna_dati, select_ordini, get_ordini_preferences
 def on_user_login(sender, request, user, **kwargs):
     try:
         utente = Utenti.objects.get(id=user.id)
+        nome_utente = utente.nome if utente else None
         ruolo_utente = utente.ruolo.ruolo if utente else None
-
+        
         # Esegui aggiornamento dati SOLO se ruolo richiesto
         if ruolo_utente in ["Amministratore", "Pianificazione"]:
             aggiorna_dati(request)  # se aggiorna_dati usa il request, ok; altrimenti va modificata
@@ -31,6 +32,7 @@ def on_user_login(sender, request, user, **kwargs):
         request.session['ordini_da_pianificare_preferences'] = ordini_da_pianificare_preferences
         request.session['storico_ordini_preferences'] = storico_ordini_preferences
         request.session['ruolo_utente'] = ruolo_utente
+        request.session['nome_utente'] = nome_utente
 
     except Exception as e:
         import traceback
