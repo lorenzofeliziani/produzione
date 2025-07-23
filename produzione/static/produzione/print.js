@@ -110,9 +110,6 @@ document.addEventListener('DOMContentLoaded', function () {
         pdfRowsBody.appendChild(tr);
       });
 
-      // Reset stato selezione
-      allSelected = true;
-      toggleAllBtn.textContent = 'Deseleziona tutte le righe';
     });
 
     // Toggle selezione singola riga
@@ -130,11 +127,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
         if (allAreSelected) {
           toggleAllBtn.textContent = 'Deseleziona tutte le righe';
+          allSelected = true;
         } else if (allDeselected) {
           toggleAllBtn.textContent = 'Seleziona tutte le righe';
+          allSelected = false;
         }
         else {
           toggleAllBtn.textContent = 'Deseleziona tutte le righe';
+          allSelected = true;
         }
       }
     });
