@@ -5,7 +5,7 @@ from .models import Utenti
 
 from django.contrib.auth.signals import user_logged_in
 from .utils import calcola_data_consegna, riformatta_date
-from .views import aggiorna_dati, select_ordini, get_ordini_preferences
+from .views import aggiorna_dati, select_ordini, get_ordini_preferences, group
 
 @receiver(user_logged_in)
 def on_user_login(sender, request, user, **kwargs):
@@ -23,6 +23,9 @@ def on_user_login(sender, request, user, **kwargs):
         avanzamento_ordini_preferences = get_ordini_preferences(avanzamento_ordini)
         ordini_da_pianificare_preferences = get_ordini_preferences(ordini_da_pianificare)
         storico_ordini_preferences = get_ordini_preferences(storico_ordini)
+        avanzamento_ordini_groups = group(avanzamento_ordini)
+        ordini_da_pianificare_groups = group(ordini_da_pianificare)
+        storico_ordini_groups = group(storico_ordini)        
 
         # Salva i dati in sessione (puoi anche serializzare se necessario)
         request.session['avanzamento_ordini'] = avanzamento_ordini 
@@ -31,6 +34,9 @@ def on_user_login(sender, request, user, **kwargs):
         request.session['avanzamento_ordini_preferences'] = avanzamento_ordini_preferences
         request.session['ordini_da_pianificare_preferences'] = ordini_da_pianificare_preferences
         request.session['storico_ordini_preferences'] = storico_ordini_preferences
+        request.session['avanzamento_ordini_groups'] = avanzamento_ordini_groups
+        request.session['ordini_da_pianificare_groups'] = ordini_da_pianificare_groups
+        request.session['storico_ordini_groups'] = storico_ordini_groups
         request.session['ruolo_utente'] = ruolo_utente
         request.session['nome_utente'] = nome_utente
 

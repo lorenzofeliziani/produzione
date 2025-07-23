@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="it">
 <head>
@@ -9,19 +10,33 @@
       background-color: #faad32 !important;
       color: white; 
     }
+    .text-orange {
+      color: #faad32; 
+    }
 
     .bg-warning {
       background-color: #fff827 !important;
       color: black;}
+    
+    .text-warning {
+      color: #fff827 ;}
     
     .bg-successnew {
       background-color: #56ee53 !important;
       color: black;
     }
 
+    .text-successnew {
+      color: #56ee53;
+    }
+
     .bg-primarynew {
-      background-color: #2679ed !important;
+      background-color: #5292ed !important;
       color: white;
+    }
+
+    .text-primarynew {
+      color: #4685dc;
     }
 
     .text-white {
@@ -32,23 +47,66 @@
       color: #f50000 !important;
     }
     
+    #edit-orders:disabled {
+    display: none;
+  }
+
     .form-control[readonly] {
     background-color: #e9ecef;  
     pointer-events: none;      
     user-select: none;         
       }
+    .hidden {
+  display: none;
+}
+
+    #sortable-table th,
+    #sortable-table td {
+        white-space: nowrap;        /* Evita il ritorno a capo */
+        overflow: hidden;           /* Nasconde il testo che esce */
+        text-overflow: ellipsis;    /* Mostra "..." alla fine */
+        max-width: 250px;           /* Limita la larghezza (puoi cambiare) */
+    }
+  
+    #sortable-table-groups th,
+    #sortable-table-groups td {
+        white-space: nowrap;        /* Evita il ritorno a capo */
+        overflow: hidden;           /* Nasconde il testo che esce */
+        text-overflow: ellipsis;    /* Mostra "..." alla fine */
+        max-width: 250px;           /* Limita la larghezza (puoi cambiare) */
+    }
+    
+</style>
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+
 </style>
 </head>
 <body>
     {% include 'produzione/header.html' %}
+
     <div class="container-fluid px-4 py-3">
         <h1 class="mb-4 text-primary">Storico Ordini</h1>
-        <!-- Sezione filtri -->
+        <div class="mb-3">
+          <div class="btn-group" role="group">
+            <input type="radio" class="btn-check" name="viewToggle" id="btn-grouped" value="standard"
+                  {% if modalita == 'standard' %}checked{% endif %}>
+            <label class="btn btn-outline-primary" for="btn-grouped">Standard</label>
+
+            <input type="radio" class="btn-check" name="viewToggle" id="btn-flat" value="espansa"
+                  {% if modalita == 'espansa' %}checked{% endif %}>
+            <label class="btn btn-outline-primary" for="btn-flat">Espansa</label>
+          </div>
+        </div>
+
         <div class="mb-3 p-3 border rounded bg-light">
             <div class="row g-3 align-items-end">
                 <div class="col-md-3">
                     <label for="filter-ordine" class="form-label">N. Ordine</label>
-                    <input list="ordini-list" id="filter-ordine" class="form-control" placeholder="N. Ordine">
+                    <input list="ordini-list" id="filter-ordine" value="{{ filtro.ordine }}" class="form-control" placeholder="N. Ordine">
                     <datalist id="ordini-list">
                     {% for ordine in avanzamento_ordini_preferences.ordini_unici %}
                         <option value="{{ ordine }}"></option>
@@ -58,7 +116,7 @@
 
                 <div class="col-md-3">
                     <label for="filter-cliente" class="form-label">Cliente</label>
-                    <input list="clienti-list" id="filter-cliente" class="form-control" placeholder="Cliente">
+                    <input list="clienti-list" id="filter-cliente" value="{{ filtro.cliente }}" class="form-control" placeholder="Cliente">
                     <datalist id="clienti-list">
                     {% for cliente in avanzamento_ordini_preferences.clienti_unici %}
                         <option value="{{ cliente }}"></option>
@@ -68,7 +126,7 @@
 
                 <div class="col-md-3">
                     <label for="filter-stato" class="form-label">Stato</label>
-                    <input list="stati-list" id="filter-stato" class="form-control" placeholder="Stato">
+                    <input list="stati-list" id="filter-stato" value="{{ filtro.stato }}" class="form-control" placeholder="Stato">
                     <datalist id="stati-list">
                     {% for stato in avanzamento_ordini_preferences.stati_unici %}
                         <option value="{{ stato }}"></option>
@@ -78,39 +136,50 @@
 
                 <div class="col-md-2">
                     <label for="filter-operatore" class="form-label">Operatore</label>
-                    <input list="operatori-list" id="filter-operatore" class="form-control" placeholder="Operatore">
+                    <input list="operatori-list" id="filter-operatore" value="{{ filtro.operatore }}" class="form-control" placeholder="Operatore">
                     <datalist id="operatori-list">
                     {% for operatore in avanzamento_ordini_preferences.operatori_unici %}
                         <option value="{{ operatore }}"></option>
                     {% endfor %}
                     </datalist>
-              </div>
-        </div>
+                </div>
+          </div>
 
-        <div class="mt-3 d-flex gap-2">
-            <button id="apply-filter" class="btn btn-primary">Applica filtro</button>
-            <button id="reset-filter" class="btn btn-secondary">Reset filtro</button>
-            <button id="print-orders" class="btn btn-success">Stampa PDF</button>
+        <div class="mt-3 d-flex justify-content-between align-items-center">
+            <div class="d-flex gap-2">
+                <button id="apply-filter" class="btn btn-primary">Applica filtro</button>
+                <button id="reset-filter" class="btn btn-secondary">Reset filtro</button>
+                {% if avanzamento_ordini|length > 0 and filtro.ordine %}
+                  <button id="print-orders" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#printModal">Stampa ordine</button>
+                {% endif %}
+            </div>
         </div>
-    </div>
+      </div>
 
+    <div id="flat-view" class="data-view"
+      {% if modalita == 'espansa' %}
+        style="display: block;"
+      {% else %}
+        style="display: none;"
+      {% endif %}>
     <div style="max-height: 500px; max-width: 100%; overflow: auto; border: 1px solid #ccc;">
         <table id="sortable-table" class="table table-bordered">
         <thead class="table-light">
             <tr>
             <th>Des. Cliente</th>
-            <th>Stato Ord.</th>
-            <th>Operatore</th>
-            <th>N. Ordine</th>
-            <th>N. Riga</th>
-            <th>Rif. Interno</th>
             <th>Data Ord.</th>
             <th>Data Cons.</th>
-            <th>Rif. Cliente</th>
-            <th>Note Prod.</th>
+            <th class="col-ordine">N. Ordine</th>
+            <th>N. Riga</th>
+            <th>Stato Ord.</th>
+            <th>Operatore</th>
             <th>Articolo</th>
             <th>Old Code</th>
             <th>Des. Articolo</th>
+            <th>Commerciale</th>
+            <th>Note Prod.</th>
+            <th>Rif. Interno</th>
+            <th>Rif. Cliente</th>
             <th>Qta Ord.</th>
             <th>Qta Cons.</th>
             <th>Qta Res.</th>
@@ -120,7 +189,18 @@
             {% for item in avanzamento_ordini %}
             <tr>
             <td>{{ item.des_cliente }}</td>
-            <td class="{% if item.des_stato_ord == 'Da pianificare' %}bg-warning
+            <td>{{ item.data_ord|date:"d/m/Y" }}</td>
+            <td>
+                {{ item.data_cons|date:"d/m/Y" }}
+            </td>
+            <td class="col-ordine">
+                <a>
+                {{ item.ordine }}</a>
+            </td>
+            <td>
+                <a>                   
+                {{ item.n_riga }}</a></td>
+                        <td class="{% if item.des_stato_ord == 'Da pianificare' %}bg-warning
                         {% elif item.des_stato_ord in 'Trasf. in produzione,Da lavorare,Da trasf. in produzione,Da trasf. in spedizione' %}bg-orange
                         {% elif item.des_stato_ord in 'Trasf. in spedizione' %}bg-primarynew text-white
                         {% elif item.des_stato_ord == 'In lavorazione' %}bg-warning
@@ -128,6 +208,7 @@
                         {% elif item.des_stato_ord == 'Prodotto' %}bg-success text-white
                         {% elif item.des_stato_ord == 'Sospeso' %}bg-danger text-white
                         {% else %}bg-secondary{% endif %}">
+
                 <a>
                 {{ item.des_stato_ord }}
                 </a>
@@ -142,28 +223,18 @@
                 {% endif %}
                 </a>
             </td>
-            <td>
-                <a>
-                {{ item.ordine }}</a>
-            </td>
-            <td>
-                <a>                   
-                {{ item.n_riga }}</a></td>
-            <td>{{ item.rif_int }}</td>
-            <td>{{ item.data_ord|date:"d/m/Y" }}</td>
-            <td>
-                {{ item.data_cons|date:"d/m/Y" }}
-            </td>
-            <td>{{ item.rif_cli }}</td>
+            <td>{{ item.articolo }}</td>
+            <td>{{ item.old_code }}</td>
+            <td>{{ item.des_articolo }}</td>
+            <td>{{ item.commerciale }}</td>
             <td>
                 {% if item.note_prod %}
                 {{ item.note_prod }}
                 {% else %}
                 {% endif %}
             </td>
-            <td>{{ item.articolo }}</td>
-            <td>{{ item.old_code }}</td>
-            <td>{{ item.des_articolo }}</td>
+            <td>{{ item.rif_int }}</td>
+            <td>{{ item.rif_cli }}</td>
             <td>{{ item.qta_ord }}</td>
             <td>{{ item.qta_cons }}</td>
             <td>{{ item.qta_res }}</td>
@@ -173,7 +244,215 @@
         </table>
     </div>
     </div>
+  
+
+    <div id="group-view" class="data-view"
+     {% if modalita == 'espansa' %}
+       style="display: none;"
+     {% else %}
+       style="display: block;"
+     {% endif %}>
+        
+    <div class="d-flex justify-content-end gap-2 my-2">
+      <button class="btn btn-outline-primary btn-sm sort-button" data-sort="cliente" data-order="asc">
+        Cliente <i class="fas fa-sort-alpha-down"></i>
+      </button>
+      <button class="btn btn-outline-primary btn-sm sort-button" data-sort="cliente" data-order="desc">
+        Cliente <i class="fas fa-sort-alpha-up-alt"></i>
+      </button>
+      <button class="btn btn-outline-success btn-sm sort-button" data-sort="data" data-order="asc">
+        Data Cons. <i class="fas fa-sort-numeric-down"></i>
+      </button>
+      <button class="btn btn-outline-success btn-sm sort-button" data-sort="data" data-order="desc">
+        Data Cons. <i class="fas fa-sort-numeric-up-alt"></i>
+      </button>
+    </div>
+
+
+    <div style="max-height: 500px; max-width: 100%; overflow: auto; border: 1px solid #ccc;">
+        <table id="sortable-table-groups" class="table table-bordered">
+        <thead>
+        </thead>
+        <tbody>
+            {% for ordine in avanzamento_ordini_groups %}
+              <tr  class="table-primary group-header" data-is-filtered="true"
+                data-group-id="{{ ordine.ordine }}"
+                data-cliente="{{ ordine.cliente}}"
+                data-data-cons="{{ ordine.data_cons|date:'Y-m-d' }}">        
+                <td colspan="15" style="cursor: pointer;">
+                  <strong>{{ ordine.cliente }}</strong> —
+                  Ordine <strong>{{ ordine.ordine }}</strong> —
+                  {% for stato, percentuale in ordine.percentuali_stato.items %}
+                  <strong class="{% if stato == 'Da pianificare' %}bg-warning
+                        {% elif stato in 'Trasf. in produzione,Da lavorare,Da trasf. in produzione,Da trasf. in spedizione' %}bg-orange
+                        {% elif stato in 'Trasf. in spedizione' %}bg-primarynew text-white
+                        {% elif stato == 'In lavorazione' %}bg-warning
+                        {% elif stato == 'In attesa' %}bg-warning text-danger
+                        {% elif stato == 'Prodotto' %}bg-success text-white
+                        {% elif stato == 'Sospeso' %}bg-danger text-white
+                        {% else %}bg-secondary{% endif %}">{{percentuale}}% {{stato}}</strong>  —
+                  {% endfor %}
+                  Data Consegna 
+                  <strong 
+                  >
+                    {{ ordine.data_cons|date:"d/m/Y" }}
+                  </strong>
+                </td>
+              </tr>
+            <tr class="group-row" data-group-id="{{ ordine.ordine }}" style="display: none;" data-is-filtered="true">
+            <th>Data Ord.</th>
+            <th>Data Cons.</th>
+            <th>N. Riga</th>
+            <th>Stato Ord.</th>
+            <th>Operatore</th>
+            <th>Articolo</th>
+            <th>Old Code</th>
+            <th>Des. Articolo</th>
+            <th>Commerciale</th>
+            <th>Note Prod.</th>
+            <th>Rif. Interno</th>
+            <th>Rif. Cliente</th>
+            <th>Qta Ord.</th>
+            <th>Qta Cons.</th>
+            <th>Qta Res.</th>
+            </tr>
+            {% for item in ordine.dati %}            
+            <tr class="group-row" data-group-id="{{ ordine.ordine }}" style="display: none;" data-is-filtered="true">
+            <td>{{ item.data_ord|date:"d/m/Y" }}</td>
+            <td>
+                {{ item.data_cons|date:"d/m/Y" }}
+            </td>
+            <td>
+                <a>                   
+                {{ item.n_riga }}</a></td>
+            <td class="{% if item.des_stato_ord == 'Da pianificare' %}bg-warning
+                        {% elif item.des_stato_ord in 'Trasf. in produzione,Da lavorare,Da trasf. in produzione,Da trasf. in spedizione' %}bg-orange
+                        {% elif item.des_stato_ord in 'Trasf. in spedizione' %}bg-primarynew text-white
+                        {% elif item.des_stato_ord == 'In lavorazione' %}bg-warning
+                        {% elif item.des_stato_ord == 'In attesa' %}bg-warning text-danger
+                        {% elif item.des_stato_ord == 'Prodotto' %}bg-success text-white
+                        {% elif item.des_stato_ord == 'Sospeso' %}bg-danger text-white
+                        {% else %}bg-secondary{% endif %}">
+
+                <a>
+                {{ item.des_stato_ord }}
+                </a>
+
+            </td>
+            <td>
+                <a>
+                {% if item.des_operatore %}
+                {{ item.des_operatore }}
+                {% else %}
+                {% endif %}
+                </a>
+            </td>
+            <td>{{ item.articolo }}</td>
+            <td>{{ item.old_code }}</td>
+            <td>{{ item.des_articolo }}</td>
+            <td>{{ item.commerciale }}</td>
+            <td>
+                {% if item.note_prod %}
+                {{ item.note_prod }}
+                {% else %}
+                {% endif %}
+            </td>
+            <td>{{ item.rif_int }}</td>
+            <td>{{ item.rif_cli }}</td>
+            <td>{{ item.qta_ord }}</td>
+            <td>{{ item.qta_cons }}</td>
+            <td>{{ item.qta_res }}</td>
+            </tr>
+            {% endfor %}
+            {% endfor %}
+        </tbody>
+        </table>
+    </div>
+    </div>
+    </div>
+
+     <div class="modal fade" id="printModal" tabindex="-1" aria-labelledby="printModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="printModalLabel">Stampa Ordine</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Chiudi"></button>
+          </div>
+          <div class="modal-body">
+            <div class="mb-3">
+              <label class="form-label fw-bold">Cliente</label>
+              <input type="text" class="form-control" id="pdf-cliente" readonly>
+            </div>
+            <div class="mb-3">
+              <label class="form-label fw-bold">Ordine</label>
+              <input type="text" class="form-control" id="pdf-ordine" readonly>
+            </div>
+            <div class="mb-3">
+              <label class="form-label fw-bold">Data Consegna</label>
+              <input type="text" class="form-control" id="pdf-data" readonly>
+            </div>
+
+            <table class="table table-bordered" id="pdf-rows-table">
+              <thead>
+                <tr>
+                  <th>Seleziona</th>
+                  <th>N. Riga</th>
+                  <th>Articolo</th>
+                  <th>Old Code</th>
+                  <th>Descrizione</th>
+                  <th>Qta Ord.</th>
+                  <th>Operatore</th>
+                </tr>
+              </thead>
+              <tbody id="pdf-rows-body">
+                <!-- righe generate dinamicamente -->
+              </tbody>
+            </table>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annulla</button>
+            <button type="button" id="toggle-select-all" class="btn btn-outline-primary">Seleziona tutte le righe</button>
+            <button type="button" class="btn btn-success" id="confirm-print">Stampa</button>
+          </div>
+        </div>
+      </div>
+    </div>
 </div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+  document.querySelectorAll('input[name="viewToggle"]').forEach(radio => {
+    radio.addEventListener('change', function () {
+      const modalita = this.value;
+      const url = new URL(window.location);
+      url.searchParams.set('modalita', modalita);  // Sovrascrive solo modalita
+      window.location.href = url;  // Mantiene tutti gli altri parametri
+    });
+  });
+  </script>
+
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      document.querySelectorAll(".group-header").forEach(function (headerRow) {
+        headerRow.addEventListener("click", function () {
+          const groupId = this.dataset.groupId;
+
+          const groupRows = Array.from(document.querySelectorAll(`.group-row[data-group-id="${groupId}"]`));
+          const filteredRows = groupRows.filter(row => row.dataset.isFiltered === "true");
+
+          const isVisible = filteredRows.some(row => row.style.display !== "none");
+
+          filteredRows.forEach(function (row) {
+            row.style.display = isVisible ? "none" : "table-row";
+          });
+        });
+      });
+    });
+
+  </script>
+
+
   <script>
   document.addEventListener('DOMContentLoaded', function () {
     const table = document.getElementById('sortable-table');
@@ -232,97 +511,101 @@
   });
   </script>
   <script>
-  document.addEventListener('DOMContentLoaded', function () {
-  // Selezioni input e pulsanti
-  const filterOrdine = document.getElementById('filter-ordine');
-  const filterCliente = document.getElementById('filter-cliente');
-  const filterStato = document.getElementById('filter-stato');
+document.addEventListener('DOMContentLoaded', function () {
+  const tableBody = document.querySelector('#sortable-table-groups tbody');
+  const sortButtons = document.querySelectorAll('.sort-button');
+
+  // Cache iniziale dei gruppi
+  const groupMap = new Map(); // key = groupId, value = {header, rows[]}
+  tableBody.querySelectorAll('.group-header').forEach(header => {
+    const groupId = header.dataset.groupId;
+    const rows = Array.from(tableBody.querySelectorAll(`.group-row[data-group-id="${groupId}"]`));
+    groupMap.set(groupId, { header, rows });
+  });
+
+  sortButtons.forEach(button => {
+    button.addEventListener('click', function () {
+      const sortType = this.dataset.sort;
+      const sortOrder = this.dataset.order;
+
+      // Sort dei gruppi
+      const sortedGroups = Array.from(groupMap.values()).sort((a, b) => {
+        let valA = '', valB = '';
+
+        if (sortType === 'cliente') {
+          valA = a.header.dataset.cliente || '';
+          valB = b.header.dataset.cliente || '';
+        } else if (sortType === 'data') {
+          valA = a.header.dataset.dataCons || '';
+          valB = b.header.dataset.dataCons || '';
+        }
+
+        return sortOrder === 'asc'
+          ? valA.localeCompare(valB)
+          : valB.localeCompare(valA);
+      });
+
+      // Ricostruzione ottimizzata della tabella
+      const fragment = document.createDocumentFragment();
+      sortedGroups.forEach(group => {
+        fragment.appendChild(group.header);
+        group.rows.forEach(row => fragment.appendChild(row));
+      });
+
+      tableBody.innerHTML = ''; // Pulisci una sola volta
+      tableBody.appendChild(fragment); // Re-rendering in blocco
+    });
+  });
+});
+</script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  const filterOrdine    = document.getElementById('filter-ordine');
+  const filterCliente   = document.getElementById('filter-cliente');
+  const filterStato     = document.getElementById('filter-stato');
   const filterOperatore = document.getElementById('filter-operatore');
 
-  const applyBtn = document.getElementById('apply-filter');
-  const resetBtn = document.getElementById('reset-filter');
-  const editBtn = document.getElementById('edit-orders');
-  const printBtn = document.getElementById('print-orders');
+  const applyBtn  = document.getElementById('apply-filter');
+  const resetBtn  = document.getElementById('reset-filter');
+  const editBtn   = document.getElementById('edit-orders');
+  const printBtn  = document.getElementById('print-orders');
 
   const table = document.getElementById('sortable-table');
   const tbody = table.querySelector('tbody');
 
-  // Funzione filtro
-  function filterTable() {
-    const valOrdine    = filterOrdine.value.trim();
-    const valCliente   = filterCliente.value.trim();
-    const valStato     = filterStato.value.trim();
-    const valOperatore = filterOperatore.value.trim();
+  applyBtn.addEventListener('click', function () {
+    const currentParams = new URLSearchParams(window.location.search);
+    const modalita = currentParams.get("modalita");  // Recupera il parametro
 
-    let countFiltered = 0;
+    const params = new URLSearchParams();
+    if (modalita) params.set("modalita", modalita);  // Mantiene la modalità
 
-    [...tbody.rows].forEach(row => {
-      const tdCliente   = row.cells[0].textContent.trim();
-      const tdStato     = row.cells[1].textContent.trim();
-      const tdOperatore = row.cells[2].textContent.trim();
-      const tdOrdine    = row.cells[3].textContent.trim();
+    params.set("ordine_filtro", document.getElementById('filter-ordine').value.trim());
+    params.set("cliente_filtro", document.getElementById('filter-cliente').value.trim());
+    params.set("stato_filtro", document.getElementById('filter-stato').value.trim());
+    params.set("operatore_filtro", document.getElementById('filter-operatore').value.trim());
 
-      // Verifica se la riga rispetta tutti i filtri
-      const match = 
-        (valOrdine === '' || tdOrdine.includes(valOrdine)) &&
-        (valCliente === '' || tdCliente.includes(valCliente)) &&
-        (valStato === '' || tdStato.includes(valStato)) &&
-        (valOperatore === '' || tdOperatore.includes(valOperatore));
-
-      row.style.display = match ? '' : 'none';
-
-      if(match) countFiltered++;
-    });
-
-    // Abilita/disabilita bottoni edit/print se ci sono risultati
-  }
-
-  // Reset filtri
-  function resetFilter() {
-    filterOrdine.value = '';
-    filterCliente.value = '';
-    filterStato.value = '';
-    filterOperatore.value = '';
-
-    [...tbody.rows].forEach(row => row.style.display = '');
-
-  }
-
-  applyBtn.addEventListener('click', filterTable);
-  resetBtn.addEventListener('click', resetFilter);
-
-// Funzionalità modale Modifica ordini (dummy)
-
-
-
-  // Funzionalità Stampa PDF (esempio semplice)
-  printBtn.addEventListener('click', () => {
-    // recupera dati filtrati
-    const visibleRows = [...tbody.rows].filter(r => r.style.display !== 'none');
-
-    if(visibleRows.length === 0) return alert('Nessun ordine selezionato.');
-
-    // Creiamo semplice contenuto testo da stampare
-    let content = 'Ordini Selezionati:\n\n';
-    visibleRows.forEach(row => {
-      const ordine = row.cells[3].textContent.trim();
-      const cliente = row.cells[0].textContent.trim();
-      const stato = row.cells[1].textContent.trim();
-      content += `Ordine: ${ordine}, Cliente: ${cliente}, Stato: ${stato}\n`;
-    });
-
-    // Apriamo nuova finestra di stampa
-    const printWindow = window.open('', '', 'width=600,height=400');
-    printWindow.document.write('<pre>' + content + '</pre>');
-    printWindow.document.close();
-    printWindow.focus();
-    printWindow.print();
-    printWindow.close();
+    const newUrl = `${window.location.pathname}?${params.toString()}`;
+    window.location.href = newUrl;
   });
+
+  resetBtn.addEventListener('click', function () {
+    const currentParams = new URLSearchParams(window.location.search);
+    const modalita = currentParams.get("modalita");
+
+    const params = new URLSearchParams();
+    if (modalita) params.set("modalita", modalita);  // Mantiene la modalità
+
+    const newUrl = `${window.location.pathname}?${params.toString()}`;
+    window.location.href = newUrl;
   });
+
+});
+</script>
+
+  <script src="{% static 'produzione/print.js' %}">
   </script>
-  
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="{% static 'produzione/print_group.js' %}">
+  </script>
 </body>
 </html>
