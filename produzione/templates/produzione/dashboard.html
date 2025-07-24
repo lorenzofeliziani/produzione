@@ -37,7 +37,7 @@
         <!-- MENU SINISTRO visibile solo se pagina NON è selezionata -->
         <div class="col-md-3">
           <div class="list-group">
-            <a href="{% url 'avanzamento_ordini' %}" class="list-group-item">Stato Avanzamento</a>
+            <a href="{% url 'avanzamento_ordini' %}" class="list-group-item">Ordini in Avanzamento</a>
             {% if ruolo_utente == 'Amministratore' or ruolo_utente == 'Pianificazione' %}
               <a href="{% url 'ordini_da_pianificare' %}" class="list-group-item">Ordini da Pianificare</a>
             {% endif %}

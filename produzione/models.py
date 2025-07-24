@@ -66,7 +66,7 @@ class Avanzamento_Ordini(models.Model):
     stato_ord = models.ForeignKey(Stati_Ordini, on_delete=models.SET_NULL, null=True, blank=True)
     operatore = models.ForeignKey(Utenti, on_delete=models.SET_NULL, null=True, blank=True)
     note = models.CharField(max_length=100, null=True, blank=True)
-    note_prod = models.CharField(max_length=100, null=True, blank=True)
+    note_prod = models.CharField(max_length=3000, null=True, blank=True)
     fl_note_prod = models.CharField(max_length=1, choices=FLAG, default='N')
     fl_note_ord = models.CharField(max_length=1, choices=FLAG, default='N')
     all_ord = models.CharField(max_length=100, null=True, blank=True)

@@ -21,7 +21,7 @@ except:
 @login_required(login_url='login')
 def dashboard(request):
     ruolo_utente = request.session.get('ruolo_utente')
-    nome_utente = request.session['nome_utente']
+    nome_utente = request.session.get('nome_utente')
     context = {
         'ruolo_utente': ruolo_utente,
         'nome_utente': nome_utente
@@ -31,7 +31,6 @@ def dashboard(request):
 
 @login_required(login_url='login')
 def avanzamento_ordini(request):
-    # Ripristino stato
     modalita = request.GET.get('modalita', 'standard')
     ordine_filtro   = request.GET.get("ordine_filtro", "")
     cliente_filtro   = request.GET.get("cliente_filtro", "")
@@ -188,7 +187,60 @@ def avanzamento_ordini(request):
             except Exception as e:
                 import traceback
                 traceback.print_exc()
+        elif action == "update_note":
+            try:
+                numero_ordine = request.POST.get('ordine')
+                nota = request.POST.get('nota')
+                ordini_selezionati = Avanzamento_Ordini.objects.filter(ordine=numero_ordine)
+                ordini_selezionati.update(note_prod=nota)
+                idx_ordine_da_pianificare = False
+                for ordine in avanzamento_ordini:
+                    if ordine['ordine'] == numero_ordine:
+                        ordine['note_prod'] = nota
+                        if ordine['des_stato_ord']== "Da pianificare":
+                            idx_ordine_da_pianificare = True
+                if idx_ordine_da_pianificare:
+                    for ordine in ordini_da_pianificare:
+                        if ordine['ordine'] == numero_ordine:
+                            ordine['note_prod'] = nota
 
+                    ordini_da_pianificare_groups = group(ordini_da_pianificare)
+                avanzamento_ordini_groups = group(avanzamento_ordini)
+                request.session['avanzamento_ordini_groups'] = avanzamento_ordini_groups
+                request.session['avanzamento_ordini'] = avanzamento_ordini
+                request.session['ordini_da_pianificare'] = ordini_da_pianificare
+                request.session['avanzamento_ordini_groups'] = avanzamento_ordini_groups
+            except Exception as e:
+                import traceback
+                traceback.print_exc()
+        elif action == "update_note_single":
+            try:
+                numero_ordine = request.POST.get('ordine')
+                riga = int(request.POST.get('riga'))
+                nota = request.POST.get('nota')
+                ordini_selezionati = Avanzamento_Ordini.objects.filter(ordine=numero_ordine, n_riga=riga).first()
+                idx_ordine_da_pianificare = False
+                if ordini_selezionati:
+                    ordini_selezionati.note_prod = nota
+                    ordini_selezionati.save()
+                    if ordini_selezionati.stato_ord.stato == "Da pianificare":
+                        idx_ordine_da_pianificare = True
+                for ordine in avanzamento_ordini:
+                    if ordine['ordine'] == numero_ordine and ordine['n_riga'] == riga:
+                        ordine['note_prod'] = nota
+                if idx_ordine_da_pianificare:
+                    for ordine in ordini_da_pianificare:
+                        if ordine['ordine'] == numero_ordine and ordine['n_riga'] == riga:
+                            ordine['note_prod'] = nota
+                    ordini_da_pianificare_groups = group(ordini_da_pianificare)
+                avanzamento_ordini_groups = group(avanzamento_ordini)
+                request.session['avanzamento_ordini_groups'] = avanzamento_ordini_groups
+                request.session['avanzamento_ordini'] = avanzamento_ordini
+                request.session['ordini_da_pianificare'] = ordini_da_pianificare
+                request.session['avanzamento_ordini_groups'] = avanzamento_ordini_groups
+            except Exception as e:
+                import traceback
+                traceback.print_exc()
 
     avanzamento_ordini_render = riformatta_date(copy.deepcopy(avanzamento_ordini))
     avanzamento_ordini_groups_render = riformatta_date_groups(copy.deepcopy(avanzamento_ordini_groups))
@@ -197,10 +249,10 @@ def avanzamento_ordini(request):
     if ordine_filtro or cliente_filtro or stato_filtro or operatore_filtro:
         avanzamento_ordini_render = [
             o for o in avanzamento_ordini_render
-            if (not ordine_filtro or ordine_filtro in o['ordine']) and
-            (not cliente_filtro or cliente_filtro in o['des_cliente']) and
-            (not stato_filtro or stato_filtro in o['des_stato_ord']) and
-            (not operatore_filtro or operatore_filtro in o['des_operatore'])
+            if (not ordine_filtro or ordine_filtro.lower() in o['ordine'].lower()) and
+            (not cliente_filtro or cliente_filtro.lower() in o['des_cliente'].lower()) and
+            (not stato_filtro or stato_filtro.lower() in o['des_stato_ord'].lower()) and
+            (not operatore_filtro or operatore_filtro.lower() in o['des_operatore'].lower())
         ]
 
         avanzamento_ordini_groups_render = group(avanzamento_ordini_render)
@@ -375,6 +427,54 @@ def ordini_da_pianificare(request):
             except Exception as e:
                 import traceback
                 traceback.print_exc()
+        elif action == "update_note":
+            try:
+                numero_ordine = request.POST.get('ordine')
+                nota = request.POST.get('nota')
+                ordini_selezionati = Avanzamento_Ordini.objects.filter(ordine=numero_ordine)
+                ordini_selezionati.update(note_prod=nota)
+                for ordine in avanzamento_ordini:
+                    if ordine['ordine'] == numero_ordine:
+                        ordine['note_prod'] = nota
+
+                for ordine in ordini_da_pianificare:
+                    if ordine['ordine'] == numero_ordine:
+                        ordine['note_prod'] = nota
+
+                ordini_da_pianificare_groups = group(ordini_da_pianificare)
+                avanzamento_ordini_groups = group(avanzamento_ordini)
+                request.session['avanzamento_ordini_groups'] = avanzamento_ordini_groups
+                request.session['avanzamento_ordini'] = avanzamento_ordini
+                request.session['ordini_da_pianificare'] = ordini_da_pianificare
+                request.session['avanzamento_ordini_groups'] = avanzamento_ordini_groups
+            except Exception as e:
+                import traceback
+                traceback.print_exc()
+        elif action == "update_note_single":
+            try:
+                numero_ordine = request.POST.get('ordine')
+                riga = int(request.POST.get('riga'))
+                nota = request.POST.get('nota')
+                ordini_selezionati = Avanzamento_Ordini.objects.filter(ordine=numero_ordine, n_riga=riga).first()
+                if ordini_selezionati:
+                    ordini_selezionati.note_prod = nota
+                    ordini_selezionati.save()
+
+                for ordine in avanzamento_ordini:
+                    if ordine['ordine'] == numero_ordine and ordine['n_riga'] == riga:
+                        ordine['note_prod'] = nota
+                for ordine in ordini_da_pianificare:
+                    if ordine['ordine'] == numero_ordine and ordine['n_riga'] == riga:
+                        ordine['note_prod'] = nota
+                ordini_da_pianificare_groups = group(ordini_da_pianificare)
+                avanzamento_ordini_groups = group(avanzamento_ordini)
+                request.session['avanzamento_ordini_groups'] = avanzamento_ordini_groups
+                request.session['avanzamento_ordini'] = avanzamento_ordini
+                request.session['ordini_da_pianificare'] = ordini_da_pianificare
+                request.session['avanzamento_ordini_groups'] = avanzamento_ordini_groups
+            except Exception as e:
+                import traceback
+                traceback.print_exc()
 
     ordini_da_pianificare_render = riformatta_date(copy.deepcopy(ordini_da_pianificare))
     ordini_da_pianificare_groups_render = riformatta_date_groups(copy.deepcopy(ordini_da_pianificare_groups))
@@ -383,10 +483,10 @@ def ordini_da_pianificare(request):
     if ordine_filtro or cliente_filtro or stato_filtro or operatore_filtro:
         ordini_da_pianificare_render = [
             o for o in ordini_da_pianificare_render
-            if (not ordine_filtro or ordine_filtro in o['ordine']) and
-            (not cliente_filtro or cliente_filtro in o['des_cliente']) and
-            (not stato_filtro or stato_filtro in o['des_stato_ord']) and
-            (not operatore_filtro or operatore_filtro in o['des_operatore'])
+            if (not ordine_filtro or ordine_filtro.lower() in o['ordine'].lower()) and
+            (not cliente_filtro or cliente_filtro.lower() in o['des_cliente'].lower()) and
+            (not stato_filtro or stato_filtro.lower() in o['des_stato_ord'].lower()) and
+            (not operatore_filtro or operatore_filtro.lower() in o['des_operatore'].lower())
         ]
 
         ordini_da_pianificare_groups_render = group(ordini_da_pianificare_render)
@@ -418,16 +518,49 @@ def storico_ordini(request):
     cliente_filtro   = request.GET.get("cliente_filtro", "")
     stato_filtro     = request.GET.get("stato_filtro", "")
     operatore_filtro = request.GET.get("operatore_filtro", "")
-    #avanzamento_ordini = request.session.get('avanzamento_ordini')
-    #ordini_da_pianificare = request.session.get('ordini_da_pianificare')
     storico_ordini = request.session.get('storico_ordini')
     storico_ordini_groups = request.session.get('storico_ordini_groups')
-    #avanzamento_ordini_preferences = request.session.get('avanzamento_ordini_preferences')
-    #ordini_da_pianificare_preferences = request.session.get('ordini_da_pianificare_preferences')
     storico_ordini_preferences = request.session.get('storico_ordini_preferences')
     ruolo_utente = request.session.get('ruolo_utente')
     nome_utente = request.session['nome_utente']
-    
+    if request.method == 'POST':
+        action = request.POST.get('form_type')
+        if action == "update_note":
+            try:
+                numero_ordine = request.POST.get('ordine')
+                nota = request.POST.get('nota')
+                ordini_selezionati = Avanzamento_Ordini.objects.filter(ordine=numero_ordine)
+                ordini_selezionati.update(note_prod=nota)
+                for ordine in storico_ordini:
+                    if ordine['ordine'] == numero_ordine:
+                        ordine['note_prod'] = nota
+
+                storico_ordini_groups = group(storico_ordini)
+                request.session['storico_ordini_groups'] = storico_ordini_groups
+                request.session['storico_ordini'] = storico_ordini
+            except Exception as e:
+                import traceback
+                traceback.print_exc()
+        elif action == "update_note_single":
+            try:
+                numero_ordine = request.POST.get('ordine')
+                riga = int(request.POST.get('riga'))
+                nota = request.POST.get('nota')
+                ordini_selezionati = Avanzamento_Ordini.objects.filter(ordine=numero_ordine, n_riga=riga).first()
+                if ordini_selezionati:
+                    ordini_selezionati.note_prod = nota
+                    ordini_selezionati.save()
+
+                for ordine in storico_ordini:
+                    if ordine['ordine'] == numero_ordine and ordine['n_riga'] == riga:
+                        ordine['note_prod'] = nota
+
+                storico_ordini_groups = group(storico_ordini)
+                request.session['storico_ordini_groups'] = storico_ordini_groups
+                request.session['storico_ordini'] = storico_ordini
+            except Exception as e:
+                import traceback
+                traceback.print_exc()
     storico_ordini_groups_render = riformatta_date_groups(copy.deepcopy(storico_ordini_groups))
     storico_ordini_render = riformatta_date(copy.deepcopy(storico_ordini))
     today = date.today()
@@ -435,10 +568,10 @@ def storico_ordini(request):
     if ordine_filtro or cliente_filtro or stato_filtro or operatore_filtro:
         storico_ordini_render = [
             o for o in storico_ordini_render
-            if (not ordine_filtro or ordine_filtro in o['ordine']) and
-            (not cliente_filtro or cliente_filtro in o['des_cliente']) and
-            (not stato_filtro or stato_filtro in o['des_stato_ord']) and
-            (not operatore_filtro or operatore_filtro in o['des_operatore'])
+            if (not ordine_filtro or ordine_filtro.lower() in o['ordine'].lower()) and
+            (not cliente_filtro or cliente_filtro.lower() in o['des_cliente'].lower()) and
+            (not stato_filtro or stato_filtro.lower() in o['des_stato_ord'].lower()) and
+            (not operatore_filtro or operatore_filtro.lower() in o['des_operatore'].lower())
         ]
 
         storico_ordini_groups_render = group(storico_ordini_render)
@@ -980,7 +1113,7 @@ def select_ordini(request, ruolo_utente):
                     else:
                         data_cons = None 
 
-                    if ordine_aperto.get('TIPO_ORDINE') != 'SOR':
+                    if ordine_aperto.get('TIPO_ORDINE') != 'SOR' and ordine_aperto.get('ARTICOLO') is not None and 'V' in list(tipo_uso):
                         risultati_avanzamento_ordini.append({
                             'sede': avanzamento.sede,
                             'vis_note_ord': vis_note_ord,
@@ -1012,7 +1145,7 @@ def select_ordini(request, ruolo_utente):
                             'commerciale': ordine_aperto.get('COMMERCIALE'),
                         })
 
-                    if ordine_aperto.get('TIPO_ORDINE') != 'SOR' and ordine_aperto.get('ARTICOLO') is not None and int(avanzamento.stato_ord.id)==10 and 'V' in list(tipo_uso):
+                    if ordine_aperto.get('TIPO_ORDINE') != 'SOR' and ordine_aperto.get('ARTICOLO') is not None and avanzamento.stato_ord.stato=='Da pianificare' and 'V' in list(tipo_uso):
                         risultati_ordini_da_pianificare.append({
                         'sede': avanzamento.sede,
                         'vis_note_ord': vis_note_ord,
@@ -1137,9 +1270,5 @@ def select_ordini(request, ruolo_utente):
         print(error_msg)
         print(traceback.format_exc())
         messages.error(request, error_msg)
-    
-    #risultati_avanzamento_ordini.sort(key=lambda x: (x['ordine'], x['n_riga']))
-    #risultati_ordini_da_pianificare.sort(key=lambda x: (x['ordine'], x['n_riga']))
-    #risultati_storico_ordini.sort(key=lambda x: (x['ordine'], x['n_riga']))
 
     return risultati_avanzamento_ordini, risultati_ordini_da_pianificare, risultati_storico_ordini

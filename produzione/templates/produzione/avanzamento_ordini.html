@@ -3,7 +3,7 @@
 <html lang="it">
 <head>
   <meta charset="UTF-8">
-  <title>Avanzamento Ordini</title>
+  <title>Ordini in Avanzamento</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <style>
     .bg-orange {
@@ -89,7 +89,7 @@
     {% include 'produzione/header.html' %}
 
     <div class="container-fluid px-4 py-3">
-        <h1 class="mb-4 text-primary">Stato Avanzamento Ordini</h1>
+        <h1 class="mb-4 text-primary">Ordini in Avanzamento</h1>
         <div class="mb-3">
           <div class="btn-group" role="group">
             <input type="radio" class="btn-check" name="viewToggle" id="btn-grouped" value="standard"
@@ -153,6 +153,7 @@
                   {% if ruolo_utente != "Produzione" and ruolo_utente != "Commerciale" %}
                       <button id="edit-orders" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editModal">Modifica ordine</button>
                   {% endif %}
+                  <button id="note-orders" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#noteModal">Annota ordine</button>
                   <button id="print-orders" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#printModal">Stampa ordine</button>
                 {% endif %}
             </div>
@@ -233,8 +234,8 @@
                 data-stato="{{ item.des_stato_ord }}">                   
                 {{ item.n_riga }}</a></td>
                         <td class="{% if item.des_stato_ord == 'Da pianificare' %}bg-warning
-                        {% elif item.des_stato_ord in 'Trasf. in produzione,Da lavorare,Da trasf. in produzione,Da trasf. in spedizione' %}bg-orange
-                        {% elif item.des_stato_ord in 'Trasf. in spedizione' %}bg-primarynew text-white
+                        {% elif item.des_stato_ord in 'Trasfer. in produzione,Da lavorare,Da trasf. in produzione,Da trasf. in spedizione' %}bg-orange
+                        {% elif item.des_stato_ord in 'Trasfer. in spedizione' %}bg-primarynew text-white
                         {% elif item.des_stato_ord == 'In lavorazione' %}bg-warning
                         {% elif item.des_stato_ord == 'In attesa' %}bg-warning text-danger
                         {% elif item.des_stato_ord == 'Prodotto' %}bg-success text-white
@@ -281,10 +282,21 @@
             <td>{{ item.des_articolo }}</td>
             <td>{{ item.commerciale }}</td>
             <td>
-                {% if item.note_prod %}
+                <a href="#"
+                class="cell-modal text-decoration-none text-reset d-block w-100 h-100"
+                data-bs-toggle="modal"
+                data-bs-target="#noteModalsingle"
+                data-ordine="{{ item.ordine }}"
+                data-riga="{{ item.n_riga }}"
+                data-cliente="{{ item.des_cliente }}"
+                data-articolo="{{ item.articolo }}"
+                data-des_articolo="{{ item.des_articolo }}"
+                data-nota="{{ item.note_prod }}"
+                data-stato="{{ item.des_stato_ord }}">{% if item.note_prod %}
                 {{ item.note_prod }}
                 {% else %}
-                {% endif %}
+                &nbsp;
+                {% endif %}</a>
             </td>
             <td>{{ item.rif_int }}</td>
             <td>{{ item.rif_cli }}</td>
@@ -337,8 +349,8 @@
                   Ordine <strong>{{ ordine.ordine }}</strong> —
                   {% for stato, percentuale in ordine.percentuali_stato.items %}
                   <strong class="{% if stato == 'Da pianificare' %}bg-warning
-                        {% elif stato in 'Trasf. in produzione,Da lavorare,Da trasf. in produzione,Da trasf. in spedizione' %}bg-orange
-                        {% elif stato in 'Trasf. in spedizione' %}bg-primarynew text-white
+                        {% elif stato in 'Trasfer. in produzione,Da lavorare,Da trasf. in produzione,Da trasf. in spedizione' %}bg-orange
+                        {% elif stato in 'Trasfer. in spedizione' %}bg-primarynew text-white
                         {% elif stato == 'In lavorazione' %}bg-warning
                         {% elif stato == 'In attesa' %}bg-warning text-danger
                         {% elif stato == 'Prodotto' %}bg-success text-white
@@ -393,8 +405,8 @@
                 data-stato="{{ item.des_stato_ord }}">                   
                 {{ item.n_riga }}</a></td>
             <td class="{% if item.des_stato_ord == 'Da pianificare' %}bg-warning
-                        {% elif item.des_stato_ord in 'Trasf. in produzione,Da lavorare,Da trasf. in produzione,Da trasf. in spedizione' %}bg-orange
-                        {% elif item.des_stato_ord in 'Trasf. in spedizione' %}bg-primarynew text-white
+                        {% elif item.des_stato_ord in 'Trasfer. in produzione,Da lavorare,Da trasf. in produzione,Da trasf. in spedizione' %}bg-orange
+                        {% elif item.des_stato_ord in 'Trasfer. in spedizione' %}bg-primarynew text-white
                         {% elif item.des_stato_ord == 'In lavorazione' %}bg-warning
                         {% elif item.des_stato_ord == 'In attesa' %}bg-warning text-danger
                         {% elif item.des_stato_ord == 'Prodotto' %}bg-success text-white
@@ -440,10 +452,20 @@
             <td>{{ item.des_articolo }}</td>
             <td>{{ item.commerciale }}</td>
             <td>
-                {% if item.note_prod %}
+                <a href="#"
+                class="cell-modal text-decoration-none text-reset d-block w-100 h-100"
+                data-bs-toggle="modal"
+                data-bs-target="#noteModalsingle"
+                data-ordine="{{ item.ordine }}"
+                data-riga="{{ item.n_riga }}"
+                data-cliente="{{ item.des_cliente }}"
+                data-articolo="{{ item.articolo }}"
+                data-des_articolo="{{ item.des_articolo }}"
+                data-nota="{{ item.note_prod }}">{% if item.note_prod %}
                 {{ item.note_prod }}
                 {% else %}
-                {% endif %}
+                &nbsp;
+                {% endif %}</a>
             </td>
             <td>{{ item.rif_int }}</td>
             <td>{{ item.rif_cli }}</td>
@@ -560,7 +582,97 @@
         </div>
     </div>
     </div>
-  </div>
+    <div class="modal fade" id="noteModal" tabindex="-1" aria-labelledby="noteModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+        <form id="note-form" method="post">
+            {% csrf_token %}
+            <!-- Campo nascosto per distinguere il tipo di form -->
+            <input type="hidden" name="form_type" value="update_note">
+
+            <div class="modal-header">
+            <h5 class="modal-title" id="noteModalLabel">Aggiorna Nota Ordine</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Chiudi"></button>
+            </div>
+
+            <div class="modal-body">
+            <div class="mb-3">
+                <label class="form-label">Numero Ordine</label>
+                <input type="text" class="form-control" id="ordine-readonly" name="ordine" readonly>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Cliente</label>
+                <input type="text" class="form-control" id="cliente-readonly" readonly>
+            </div>
+
+            <div class="mb-3">
+              <label for="message-text" class="form-label">Nota</label>
+              <textarea class="form-control" id="nota" name="nota"></textarea>
+            </div>
+
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Chiudi</button>
+            <button type="submit" class="btn btn-primary">Salva modifiche</button>
+            </div>
+        </form>
+        </div>
+    </div>
+    </div>
+    <div class="modal fade" id="noteModalsingle" tabindex="-1" aria-labelledby="noteModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+        <form id="note-form-single" method="post">
+            {% csrf_token %}
+            <!-- Campo nascosto per distinguere il tipo di form -->
+            <input type="hidden" name="form_type" value="update_note_single">
+
+            <div class="modal-header">
+            <h5 class="modal-title" id="noteModalLabel">Aggiorna Nota Ordine</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Chiudi"></button>
+            </div>
+
+            <div class="modal-body">
+            <div class="mb-3">
+                <label class="form-label">Numero Ordine</label>
+                <input type="text" class="form-control" id="ordine-readonly" name="ordine" readonly>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">N. Riga</label>
+                <input type="text" class="form-control" id="riga-readonly" name="riga" readonly>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Cliente</label>
+                <input type="text" class="form-control" id="cliente-readonly" readonly>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Articolo</label>
+                <input type="text" class="form-control" id="articolo-readonly" readonly>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Descrizione Articolo</label>
+                <input type="text" class="form-control" id="des_articolo-readonly" readonly>
+            </div>
+
+            <div class="mb-3">
+              <label for="message-text" class="form-label">Nota</label>
+              <textarea class="form-control" id="nota" name="nota"></textarea>
+            </div>
+
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Chiudi</button>
+            <button type="submit" class="btn btn-primary">Salva modifiche</button>
+            </div>
+        </form>
+        </div>
+    </div>
+    </div>
     <div class="modal fade" id="editModalsingle" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -781,6 +893,7 @@ document.addEventListener('DOMContentLoaded', function () {
   const resetBtn  = document.getElementById('reset-filter');
   const editBtn   = document.getElementById('edit-orders');
   const printBtn  = document.getElementById('print-orders');
+  const noteBtn   = document.getElementById('note-orders')
 
   const table = document.getElementById('sortable-table');
   const tbody = table.querySelector('tbody');
@@ -836,12 +949,31 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   });
 
+  noteBtn.addEventListener('click', function () {
+    const foundRow = tbody.querySelector('tr'); // oppure la riga selezionata
+    if (!foundRow) return;
+
+    const ordine  = foundRow.children[3]?.textContent.trim() || '';
+    const cliente = foundRow.children[0]?.textContent.trim() || '';
+    const nota    = foundRow.children[11]?.textContent.trim() || '';
+
+    const modal = document.getElementById('noteModal');
+    if (!modal) return;
+
+    modal.querySelector('#ordine-readonly').value  = ordine;
+    modal.querySelector('#cliente-readonly').value = cliente;
+    modal.querySelector('#nota').value             = nota;
+  });
+
+
+
 });
 </script>
 
   <script>
   document.addEventListener('DOMContentLoaded', function () {
     const editModal = document.getElementById('editModalsingle');
+    const noteModal = document.getElementById('noteModalsingle')
 
     editModal.addEventListener('show.bs.modal', function (event) {
       const trigger = event.relatedTarget;
@@ -869,12 +1001,37 @@ document.addEventListener('DOMContentLoaded', function () {
       editModal.querySelector('select[name="operatore"]').value = operatore;
       editModal.querySelector('select[name="stato"]').value     = stato || '';
     });
+
+    noteModal.addEventListener('show.bs.modal', function (event) {
+      const trigger = event.relatedTarget;
+      if (!trigger) return;
+
+      const ordine       = trigger.getAttribute('data-ordine');
+      const riga         = trigger.getAttribute('data-riga');
+      const cliente      = trigger.getAttribute('data-cliente');
+      const articolo     = trigger.getAttribute('data-articolo');
+      const des_articolo = trigger.getAttribute('data-des_articolo');
+      let   nota    = trigger.getAttribute('data-nota');
+
+
+      // valori readonly
+      noteModal.querySelector('#ordine-readonly').value        = ordine || '';
+      noteModal.querySelector('#riga-readonly').value          = riga || '';
+      noteModal.querySelector('#cliente-readonly').value       = cliente || '';
+      noteModal.querySelector('#articolo-readonly').value      = articolo || '';
+      noteModal.querySelector('#des_articolo-readonly').value  = des_articolo || '';
+
+      // normalizza operatore “None”
+      if (nota === null || nota === 'None') nota = '';
+
+      // assegna ai SELECT
+      noteModal.querySelector('#nota').value = nota;
+    });
   });
   </script>
 
   <script src="{% static 'produzione/print.js' %}">
   </script>
-  <script src="{% static 'produzione/print_group.js' %}">
-  </script>
+
 </body>
 </html>

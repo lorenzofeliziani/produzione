@@ -42,6 +42,7 @@ def on_user_login(sender, request, user, **kwargs):
 
     except Exception as e:
         import traceback
+        print(e)
         traceback.print_exc()
 
 

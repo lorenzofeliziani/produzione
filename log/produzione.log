@@ -5736,3 +5736,369 @@ Traceback (most recent call last):
     ...<8 lines>...
     )
 django.template.exceptions.TemplateSyntaxError: Invalid block tag on line 241: 'endfor', expected 'endif'. Did you forget to register or load this tag?
+2025-07-23 19:52:21,071 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py changed, reloading.
+2025-07-23 19:52:23,970 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-23 19:52:24,154 django.utils.autoreload [INFO] Watching for file changes with StatReloader
+2025-07-23 19:54:42,304 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py changed, reloading.
+2025-07-23 19:54:43,216 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-23 19:54:43,263 django.utils.autoreload [INFO] Watching for file changes with StatReloader
+2025-07-23 19:55:09,918 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\models.py changed, reloading.
+2025-07-23 19:55:10,772 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-23 19:55:10,816 django.utils.autoreload [INFO] Watching for file changes with StatReloader
+2025-07-23 19:55:17,539 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\models.py changed, reloading.
+2025-07-23 19:55:18,556 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-23 19:55:18,617 django.utils.autoreload [INFO] Watching for file changes with StatReloader
+2025-07-23 19:55:34,669 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-23 19:55:37,485 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-23 19:56:21,670 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py changed, reloading.
+2025-07-23 19:56:22,541 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-23 19:56:22,590 django.utils.autoreload [INFO] Watching for file changes with StatReloader
+2025-07-23 19:59:06,846 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py changed, reloading.
+2025-07-23 19:59:07,936 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-23 19:59:07,982 django.utils.autoreload [INFO] Watching for file changes with StatReloader
+2025-07-23 20:12:02,555 django.request [WARNING] Not Found: /.well-known/appspecific/com.chrome.devtools.json
+2025-07-23 20:12:34,728 django.request [WARNING] Not Found: /.well-known/appspecific/com.chrome.devtools.json
+2025-07-23 20:13:35,949 django.request [WARNING] Not Found: /.well-known/appspecific/com.chrome.devtools.json
+2025-07-23 20:16:50,173 django.request [WARNING] Not Found: /.well-known/appspecific/com.chrome.devtools.json
+2025-07-23 20:16:58,415 django.request [WARNING] Not Found: /.well-known/appspecific/com.chrome.devtools.json
+2025-07-23 20:17:43,006 django.request [WARNING] Not Found: /.well-known/appspecific/com.chrome.devtools.json
+2025-07-23 20:17:53,705 django.request [WARNING] Not Found: /.well-known/appspecific/com.chrome.devtools.json
+2025-07-23 20:19:21,263 django.request [WARNING] Not Found: /.well-known/appspecific/com.chrome.devtools.json
+2025-07-23 20:21:48,973 django.request [WARNING] Not Found: /.well-known/appspecific/com.chrome.devtools.json
+2025-07-23 20:22:07,770 django.request [WARNING] Not Found: /.well-known/appspecific/com.chrome.devtools.json
+2025-07-23 20:25:27,780 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py changed, reloading.
+2025-07-23 20:25:29,161 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-23 20:25:29,210 django.utils.autoreload [INFO] Watching for file changes with StatReloader
+2025-07-23 20:43:51,568 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py changed, reloading.
+2025-07-23 20:43:52,671 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-23 20:43:52,723 django.utils.autoreload [INFO] Watching for file changes with StatReloader
+2025-07-23 20:51:01,152 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py changed, reloading.
+2025-07-23 20:51:02,553 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-23 20:51:02,611 django.utils.autoreload [INFO] Watching for file changes with StatReloader
+2025-07-24 09:48:26,406 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py changed, reloading.
+2025-07-24 09:48:29,249 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-24 09:48:29,491 django.utils.autoreload [INFO] Watching for file changes with StatReloader
+2025-07-24 09:54:08,556 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py changed, reloading.
+2025-07-24 09:54:09,452 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-24 09:54:09,503 django.utils.autoreload [INFO] Watching for file changes with StatReloader
+2025-07-24 09:55:03,250 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py changed, reloading.
+2025-07-24 09:55:04,190 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-24 09:55:04,239 django.utils.autoreload [INFO] Watching for file changes with StatReloader
+2025-07-24 10:08:38,324 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py changed, reloading.
+2025-07-24 10:08:39,775 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-24 10:08:39,827 django.utils.autoreload [INFO] Watching for file changes with StatReloader
+2025-07-24 10:12:29,613 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py changed, reloading.
+2025-07-24 10:12:30,661 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-24 10:12:30,714 django.utils.autoreload [INFO] Watching for file changes with StatReloader
+2025-07-24 10:13:53,689 django.request [ERROR] Internal Server Error: /
+Traceback (most recent call last):
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py", line 24, in dashboard
+    nome_utente = request.session['nome_utente']
+                  ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\contrib\sessions\backends\base.py", line 55, in __getitem__
+    return self._session[key]
+           ~~~~~~~~~~~~~^^^^^
+KeyError: 'nome_utente'
+2025-07-24 10:15:51,566 django.request [ERROR] Internal Server Error: /
+Traceback (most recent call last):
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py", line 24, in dashboard
+    nome_utente = request.session['nome_utente']
+                  ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\contrib\sessions\backends\base.py", line 55, in __getitem__
+    return self._session[key]
+           ~~~~~~~~~~~~~^^^^^
+KeyError: 'nome_utente'
+2025-07-24 10:16:28,545 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-24 10:16:31,817 django.request [ERROR] Internal Server Error: /
+Traceback (most recent call last):
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py", line 24, in dashboard
+    nome_utente = request.session['nome_utente']
+                  ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\contrib\sessions\backends\base.py", line 55, in __getitem__
+    return self._session[key]
+           ~~~~~~~~~~~~~^^^^^
+KeyError: 'nome_utente'
+2025-07-24 10:16:41,059 django.request [ERROR] Internal Server Error: /
+Traceback (most recent call last):
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py", line 24, in dashboard
+    nome_utente = request.session['nome_utente']
+                  ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\contrib\sessions\backends\base.py", line 55, in __getitem__
+    return self._session[key]
+           ~~~~~~~~~~~~~^^^^^
+KeyError: 'nome_utente'
+2025-07-24 10:17:14,727 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\signals.py changed, reloading.
+2025-07-24 10:17:15,722 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-24 10:17:15,795 django.utils.autoreload [INFO] Watching for file changes with StatReloader
+2025-07-24 10:17:27,272 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-24 10:17:31,881 django.request [ERROR] Internal Server Error: /
+Traceback (most recent call last):
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py", line 24, in dashboard
+    nome_utente = request.session['nome_utente']
+                  ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\contrib\sessions\backends\base.py", line 55, in __getitem__
+    return self._session[key]
+           ~~~~~~~~~~~~~^^^^^
+KeyError: 'nome_utente'
+2025-07-24 10:20:42,787 django.request [ERROR] Internal Server Error: /
+Traceback (most recent call last):
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py", line 24, in dashboard
+    nome_utente = request.session['nome_utente']
+                  ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\contrib\sessions\backends\base.py", line 55, in __getitem__
+    return self._session[key]
+           ~~~~~~~~~~~~~^^^^^
+KeyError: 'nome_utente'
+2025-07-24 10:21:26,728 django.request [ERROR] Internal Server Error: /
+Traceback (most recent call last):
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py", line 24, in dashboard
+    nome_utente = request.session['nome_utente']
+                  ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\contrib\sessions\backends\base.py", line 55, in __getitem__
+    return self._session[key]
+           ~~~~~~~~~~~~~^^^^^
+KeyError: 'nome_utente'
+2025-07-24 10:25:37,324 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py changed, reloading.
+2025-07-24 10:25:38,307 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-24 10:25:38,360 django.utils.autoreload [INFO] Watching for file changes with StatReloader
+2025-07-24 10:29:52,749 django.request [ERROR] Internal Server Error: /
+Traceback (most recent call last):
+  File "c:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "c:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "c:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py", line 24, in dashboard
+    nome_utente = request.session.get['nome_utente']
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\contrib\sessions\backends\base.py", line 55, in __getitem__
+    return self._session[key]
+           ~~~~~~~~~~~~~^^^^^
+KeyError: 'nome_utente'
+2025-07-24 10:32:00,149 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-24 10:32:04,236 django.request [ERROR] Internal Server Error: /
+Traceback (most recent call last):
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py", line 24, in dashboard
+    nome_utente = request.session.get['nome_utente']
+                  ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+TypeError: 'method' object is not subscriptable
+2025-07-24 10:32:16,310 django.request [ERROR] Internal Server Error: /
+Traceback (most recent call last):
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py", line 24, in dashboard
+    nome_utente = request.session.get['nome_utente']
+                  ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+TypeError: 'method' object is not subscriptable
+2025-07-24 10:32:55,264 django.request [ERROR] Internal Server Error: /
+Traceback (most recent call last):
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py", line 24, in dashboard
+    nome_utente = request.session.get['nome_utente']
+                  ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+TypeError: 'method' object is not subscriptable
+2025-07-24 10:33:38,537 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-24 10:33:41,340 django.request [ERROR] Internal Server Error: /
+Traceback (most recent call last):
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py", line 24, in dashboard
+    nome_utente = request.session.get['nome_utente']
+                  ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+TypeError: 'method' object is not subscriptable
+2025-07-24 10:34:11,103 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-24 10:34:13,343 django.request [ERROR] Internal Server Error: /
+Traceback (most recent call last):
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py", line 24, in dashboard
+    nome_utente = request.session.get['nome_utente']
+                  ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+TypeError: 'method' object is not subscriptable
+2025-07-24 10:34:49,422 django.request [ERROR] Internal Server Error: /
+Traceback (most recent call last):
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py", line 24, in dashboard
+    nome_utente = request.session.get['nome_utente']
+                  ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+TypeError: 'method' object is not subscriptable
+2025-07-24 10:35:25,823 django.request [ERROR] Internal Server Error: /
+Traceback (most recent call last):
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py", line 24, in dashboard
+    nome_utente = request.session.get['nome_utente']
+                  ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+TypeError: 'method' object is not subscriptable
+2025-07-24 11:29:59,044 django.request [ERROR] Internal Server Error: /
+Traceback (most recent call last):
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py", line 24, in dashboard
+    nome_utente = request.session.get['nome_utente']
+                  ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+TypeError: 'method' object is not subscriptable
+2025-07-24 11:31:06,565 django.request [ERROR] Internal Server Error: /
+Traceback (most recent call last):
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py", line 24, in dashboard
+    nome_utente = request.session.get['nome_utente']
+                  ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+TypeError: 'method' object is not subscriptable
+2025-07-24 11:31:54,369 django.request [ERROR] Internal Server Error: /
+Traceback (most recent call last):
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py", line 24, in dashboard
+    nome_utente = request.session.get['nome_utente']
+                  ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+TypeError: 'method' object is not subscriptable
+2025-07-24 11:35:34,888 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-24 11:35:52,215 django.request [ERROR] Internal Server Error: /
+Traceback (most recent call last):
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py", line 24, in dashboard
+    nome_utente = request.session.get['nome_utente']
+                  ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+TypeError: 'method' object is not subscriptable
+2025-07-24 11:36:24,780 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-24 11:37:11,404 django.request [ERROR] Internal Server Error: /
+Traceback (most recent call last):
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py", line 24, in dashboard
+    nome_utente = request.session.get['nome_utente']
+                  ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+TypeError: 'method' object is not subscriptable
+2025-07-24 11:40:26,079 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py changed, reloading.
+2025-07-24 11:40:27,180 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-24 11:40:27,239 django.utils.autoreload [INFO] Watching for file changes with StatReloader
+2025-07-24 11:41:16,593 django.request [ERROR] Internal Server Error: /
+Traceback (most recent call last):
+  File "c:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "c:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "c:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py", line 24, in dashboard
+    nome_utente = request.session.get('nome_utente')
+TypeError: 'method' object is not subscriptable
+2025-07-24 11:43:01,732 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-24 11:43:02,762 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-24 11:43:02,804 django.utils.autoreload [INFO] Watching for file changes with StatReloader
+2025-07-24 11:43:15,884 django.request [ERROR] Internal Server Error: /avanzamento_ordini/
+Traceback (most recent call last):
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py", line 46, in avanzamento_ordini
+    nome_utente = request.session['nome_utente']
+                  ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\contrib\sessions\backends\base.py", line 55, in __getitem__
+    return self._session[key]
+           ~~~~~~~~~~~~~^^^^^
+KeyError: 'nome_utente'
+2025-07-24 11:55:50,323 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py changed, reloading.
+2025-07-24 11:55:51,606 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-24 11:55:51,657 django.utils.autoreload [INFO] Watching for file changes with StatReloader
