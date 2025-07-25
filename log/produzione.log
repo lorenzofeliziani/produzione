@@ -6102,3 +6102,24 @@ KeyError: 'nome_utente'
 2025-07-24 11:55:50,323 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py changed, reloading.
 2025-07-24 11:55:51,606 dati.sage.connect [INFO] Inizio funzione dashboard
 2025-07-24 11:55:51,657 django.utils.autoreload [INFO] Watching for file changes with StatReloader
+2025-07-24 17:35:28,750 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\gestionale\settings.py changed, reloading.
+2025-07-24 17:35:31,747 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-24 17:35:31,965 django.utils.autoreload [INFO] Watching for file changes with StatReloader
+2025-07-24 17:56:03,254 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\dati\sage\appLogger.py changed, reloading.
+2025-07-24 17:56:04,043 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-24 17:56:04,094 django.utils.autoreload [INFO] Watching for file changes with StatReloader
+2025-07-24 17:57:48,032 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\dati\sage\appLogger.py changed, reloading.
+2025-07-24 17:57:48,929 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-24 17:57:48,980 django.utils.autoreload [INFO] Watching for file changes with StatReloader
+2025-07-24 18:06:31,287 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\constant.py changed, reloading.
+2025-07-24 18:06:32,044 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-24 18:06:32,089 django.utils.autoreload [INFO] Watching for file changes with StatReloader
+2025-07-24 18:10:18,239 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-24 18:10:48,647 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-24 19:42:29,682 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-24 19:42:30,568 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-24 19:42:30,619 django.utils.autoreload [INFO] Watching for file changes with StatReloader
+2025-07-24 20:20:06,156 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-24 20:20:07,018 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-24 20:20:07,066 django.utils.autoreload [INFO] Watching for file changes with StatReloader
+2025-07-24 20:22:56,983 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\gestionale\settings.py changed, reloading.

@@ -8,7 +8,7 @@ import logging
 if os.name == 'nt':  # Windows
     log_path = os.path.join(Path(__file__).resolve().parent.parent.parent, 'log', 'produzione.log')
 else:  # Linux / Unix
-    log_path = '/var/log/produzione.log'
+    log_path = '/home/screen/gestioneProduzioneTest/log/produzione.log'
 
 # Configurazione base del logging
 logging.basicConfig(
