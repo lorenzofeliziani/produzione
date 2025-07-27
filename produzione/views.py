@@ -36,6 +36,8 @@ def avanzamento_ordini(request):
     cliente_filtro   = request.GET.get("cliente_filtro", "")
     stato_filtro     = request.GET.get("stato_filtro", "")
     operatore_filtro = request.GET.get("operatore_filtro", "")
+    articolo_filtro = request.GET.get("articolo_filtro", "")
+    old_code_filtro = request.GET.get("old_code_filtro", "")
     avanzamento_ordini = request.session.get('avanzamento_ordini')
     ordini_da_pianificare = request.session.get('ordini_da_pianificare')
     avanzamento_ordini_preferences = request.session.get('avanzamento_ordini_preferences')
@@ -60,6 +62,8 @@ def avanzamento_ordini(request):
         cliente_filtro   = request.GET.get("cliente_filtro", "")
         stato_filtro     = request.GET.get("stato_filtro", "")
         operatore_filtro = request.GET.get("operatore_filtro", "")
+        articolo_filtro = request.GET.get("articolo_filtro", "")
+        old_code_filtro = request.GET.get("old_code_filtro", "")
         if action == "general_update":
             if ruolo_utente in ["Amministratore", "Pianificazione"]:
                 aggiorna_dati(request)
@@ -246,17 +250,19 @@ def avanzamento_ordini(request):
     avanzamento_ordini_groups_render = riformatta_date_groups(copy.deepcopy(avanzamento_ordini_groups))
     today = date.today()
 
-    if ordine_filtro or cliente_filtro or stato_filtro or operatore_filtro:
+    if ordine_filtro or cliente_filtro or stato_filtro or operatore_filtro or articolo_filtro or old_code_filtro:
         avanzamento_ordini_render = [
             o for o in avanzamento_ordini_render
-            if (not ordine_filtro or ordine_filtro.lower() in o['ordine'].lower()) and
-            (not cliente_filtro or cliente_filtro.lower() in o['des_cliente'].lower()) and
-            (not stato_filtro or stato_filtro.lower() in o['des_stato_ord'].lower()) and
-            (not operatore_filtro or operatore_filtro.lower() in o['des_operatore'].lower())
+            if (not ordine_filtro or ordine_filtro.lower() in (o.get('ordine') or '').lower()) and
+            (not cliente_filtro or cliente_filtro.lower() in (o.get('des_cliente') or '').lower()) and
+            (not stato_filtro or stato_filtro.lower() in (o.get('des_stato_ord') or '').lower()) and
+            (not operatore_filtro or operatore_filtro.lower() in (o.get('des_operatore') or '').lower()) and 
+            (not articolo_filtro or articolo_filtro.lower() in (o.get('articolo') or '').lower()) and
+            (not old_code_filtro or old_code_filtro.lower() in (o.get('old_code') or '').lower())
         ]
 
-        avanzamento_ordini_groups_render = group(avanzamento_ordini_render)
 
+        avanzamento_ordini_groups_render = group(avanzamento_ordini_render)
     context = {
         'today': today,
         'modalita': modalita,
@@ -265,6 +271,8 @@ def avanzamento_ordini(request):
             "cliente": cliente_filtro,
             "stato": stato_filtro,
             "operatore": operatore_filtro,
+            "articolo": articolo_filtro,
+            "old_code": old_code_filtro,
         },
         'ruolo_utente': ruolo_utente,
         'stati_ordini': stati_ordini,
@@ -272,7 +280,7 @@ def avanzamento_ordini(request):
         'avanzamento_ordini': avanzamento_ordini_render,
         'avanzamento_ordini_groups': avanzamento_ordini_groups_render,
         'avanzamento_ordini_preferences': avanzamento_ordini_preferences,
-        'nome_utente': nome_utente
+        'nome_utente': nome_utente,
     }
     
     return render(request, 'produzione/avanzamento_ordini.html', context)
@@ -284,6 +292,8 @@ def ordini_da_pianificare(request):
     cliente_filtro   = request.GET.get("cliente_filtro", "")
     stato_filtro     = request.GET.get("stato_filtro", "")
     operatore_filtro = request.GET.get("operatore_filtro", "")
+    articolo_filtro = request.GET.get("articolo_filtro", "")
+    old_code_filtro = request.GET.get("old_code_filtro", "")
     avanzamento_ordini = request.session.get('avanzamento_ordini')
     ordini_da_pianificare = request.session.get('ordini_da_pianificare')
     avanzamento_ordini_preferences = request.session.get('avanzamento_ordini_preferences')
@@ -307,6 +317,8 @@ def ordini_da_pianificare(request):
         cliente_filtro   = request.GET.get("cliente_filtro", "")
         stato_filtro     = request.GET.get("stato_filtro", "")
         operatore_filtro = request.GET.get("operatore_filtro", "")
+        articolo_filtro = request.GET.get("articolo_filtro", "")
+        old_code_filtro = request.GET.get("old_code_filtro", "")
         action = request.POST.get('form_type')
         if action == "general_update":
             if ruolo_utente in ["Amministratore", "Pianificazione"]:
@@ -337,8 +349,8 @@ def ordini_da_pianificare(request):
                 
                 stato_obj = Stati_Ordini.objects.filter(stato=nuovo_stato_nome).first()
                 operatore_obj = Utenti.objects.filter(nome=nuovo_operatore_nome).first()
-                
-                ordini_selezionati = Avanzamento_Ordini.objects.filter(ordine=numero_ordine)
+
+                ordini_selezionati = Avanzamento_Ordini.objects.filter(ordine=numero_ordine, )
 
                 pian_idx  = {(o['sede'], o['ordine'], o['n_riga']): o for o in ordini_da_pianificare}
 
@@ -480,13 +492,15 @@ def ordini_da_pianificare(request):
     ordini_da_pianificare_groups_render = riformatta_date_groups(copy.deepcopy(ordini_da_pianificare_groups))
     today = date.today()
 
-    if ordine_filtro or cliente_filtro or stato_filtro or operatore_filtro:
+    if ordine_filtro or cliente_filtro or stato_filtro or operatore_filtro or articolo_filtro or old_code_filtro:
         ordini_da_pianificare_render = [
             o for o in ordini_da_pianificare_render
-            if (not ordine_filtro or ordine_filtro.lower() in o['ordine'].lower()) and
-            (not cliente_filtro or cliente_filtro.lower() in o['des_cliente'].lower()) and
-            (not stato_filtro or stato_filtro.lower() in o['des_stato_ord'].lower()) and
-            (not operatore_filtro or operatore_filtro.lower() in o['des_operatore'].lower())
+            if (not ordine_filtro or ordine_filtro.lower() in (o.get('ordine') or '').lower()) and
+            (not cliente_filtro or cliente_filtro.lower() in (o.get('des_cliente') or '').lower()) and
+            (not stato_filtro or stato_filtro.lower() in (o.get('des_stato_ord') or '').lower()) and
+            (not operatore_filtro or operatore_filtro.lower() in (o.get('des_operatore') or '').lower()) and 
+            (not articolo_filtro or articolo_filtro.lower() in (o.get('articolo') or '').lower()) and
+            (not old_code_filtro or old_code_filtro.lower() in (o.get('old_code') or '').lower())
         ]
 
         ordini_da_pianificare_groups_render = group(ordini_da_pianificare_render)
@@ -499,6 +513,8 @@ def ordini_da_pianificare(request):
             "cliente": cliente_filtro,
             "stato": stato_filtro,
             "operatore": operatore_filtro,
+            "articolo": articolo_filtro,
+            "old_code": old_code_filtro,
         },
         'ruolo_utente': ruolo_utente,
         'stati_ordini': stati_ordini,
@@ -518,6 +534,8 @@ def storico_ordini(request):
     cliente_filtro   = request.GET.get("cliente_filtro", "")
     stato_filtro     = request.GET.get("stato_filtro", "")
     operatore_filtro = request.GET.get("operatore_filtro", "")
+    articolo_filtro = request.GET.get("articolo_filtro", "")
+    old_code_filtro = request.GET.get("old_code_filtro", "")
     storico_ordini = request.session.get('storico_ordini')
     storico_ordini_groups = request.session.get('storico_ordini_groups')
     storico_ordini_preferences = request.session.get('storico_ordini_preferences')
@@ -565,15 +583,16 @@ def storico_ordini(request):
     storico_ordini_render = riformatta_date(copy.deepcopy(storico_ordini))
     today = date.today()
 
-    if ordine_filtro or cliente_filtro or stato_filtro or operatore_filtro:
+    if ordine_filtro or cliente_filtro or stato_filtro or operatore_filtro or articolo_filtro or old_code_filtro:
         storico_ordini_render = [
             o for o in storico_ordini_render
-            if (not ordine_filtro or ordine_filtro.lower() in o['ordine'].lower()) and
-            (not cliente_filtro or cliente_filtro.lower() in o['des_cliente'].lower()) and
-            (not stato_filtro or stato_filtro.lower() in o['des_stato_ord'].lower()) and
-            (not operatore_filtro or operatore_filtro.lower() in o['des_operatore'].lower())
+            if (not ordine_filtro or ordine_filtro.lower() in (o.get('ordine') or '').lower()) and
+            (not cliente_filtro or cliente_filtro.lower() in (o.get('des_cliente') or '').lower()) and
+            (not stato_filtro or stato_filtro.lower() in (o.get('des_stato_ord') or '').lower()) and
+            (not operatore_filtro or operatore_filtro.lower() in (o.get('des_operatore') or '').lower()) and 
+            (not articolo_filtro or articolo_filtro.lower() in (o.get('articolo') or '').lower()) and
+            (not old_code_filtro or old_code_filtro.lower() in (o.get('old_code') or '').lower())
         ]
-
         storico_ordini_groups_render = group(storico_ordini_render)
 
     context = {
@@ -584,6 +603,8 @@ def storico_ordini(request):
             "cliente": cliente_filtro,
             "stato": stato_filtro,
             "operatore": operatore_filtro,
+            "articolo": articolo_filtro,
+            "old_code": old_code_filtro,
         },
         'ruolo_utente': ruolo_utente,
         'avanzamento_ordini': storico_ordini_render,
@@ -884,6 +905,8 @@ def get_ordini_preferences(avanzamento_ordini):
     clienti_unici = set()
     stati_unici = set()
     operatori_unici = set()
+    articoli_unici = set()
+    old_codes_unici = set()
 
     # Un solo ciclo per popolare tutti i set
     for item in avanzamento_ordini:
@@ -895,19 +918,26 @@ def get_ordini_preferences(avanzamento_ordini):
             stati_unici.add(item['des_stato_ord'])
         if item['des_operatore']:
             operatori_unici.add(item['des_operatore'])
+        if item['articolo']:
+            articoli_unici.add(item['articolo'])
+        if item['old_code']:
+            old_codes_unici.add(item['old_code'])
 
     # (Opzionale) Ordina i set convertendoli in liste
     ordini_unici = list(ordini_unici)
     clienti_unici = list(clienti_unici)
     stati_unici = list(stati_unici)
     operatori_unici = list(operatori_unici)
-    
+    articoli_unici = list(articoli_unici)
+    old_codes_unici = list(old_codes_unici)
+
     return {
-        ''
         'ordini_unici': ordini_unici,
         'clienti_unici': clienti_unici,
         'stati_unici': stati_unici,
         'operatori_unici': operatori_unici,
+        'articoli_unici': articoli_unici,
+        'old_codes_unici': old_codes_unici,
     }
 
 def aggiorna_dati(request):

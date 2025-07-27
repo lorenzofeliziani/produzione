@@ -134,12 +134,32 @@
                     </datalist>
                 </div>
 
-                <div class="col-md-2">
+                <div class="col-md-3">
                     <label for="filter-operatore" class="form-label">Operatore</label>
                     <input list="operatori-list" id="filter-operatore" value="{{ filtro.operatore }}" class="form-control" placeholder="Operatore">
                     <datalist id="operatori-list">
                     {% for operatore in avanzamento_ordini_preferences.operatori_unici %}
                         <option value="{{ operatore }}"></option>
+                    {% endfor %}
+                    </datalist>
+                </div>
+
+                <div class="col-md-3">
+                    <label for="filter-articolo" class="form-label">Articolo</label>
+                    <input list="articolo-list" id="filter-articolo" value="{{ filtro.articolo }}" class="form-control" placeholder="Articolo">
+                    <datalist id="articolo-list">
+                    {% for articolo in avanzamento_ordini_preferences.articoli_unici %}
+                        <option value="{{ articolo }}"></option>
+                    {% endfor %}
+                    </datalist>
+                </div>
+
+                <div class="col-md-3">
+                    <label for="filter-old-code" class="form-label">Old Code</label>
+                    <input list="old-code-list" id="filter-old-code" value="{{ filtro.old_code }}" class="form-control" placeholder="Old Code">
+                    <datalist id="old-code-list">
+                    {% for old_code in avanzamento_ordini_preferences.old_codes_unici %}
+                        <option value="{{ old_code }}"></option>
                     {% endfor %}
                     </datalist>
                 </div>
@@ -149,12 +169,12 @@
             <div class="d-flex gap-2">
                 <button id="apply-filter" class="btn btn-primary">Applica filtro</button>
                 <button id="reset-filter" class="btn btn-secondary">Reset filtro</button>
-                {% if avanzamento_ordini|length > 0 and filtro.ordine %}
+                <button id="print-orders" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#printModal">Stampa</button>
+                {% if avanzamento_ordini_groups|length == 1 %}
                   {% if ruolo_utente != "Produzione" and ruolo_utente != "Commerciale" %}
                       <button id="edit-orders" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editModal">Modifica ordine</button>
                   {% endif %}
                   <button id="note-orders" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#noteModal">Annota ordine</button>
-                  <button id="print-orders" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#printModal">Stampa ordine</button>
                 {% endif %}
             </div>
 
@@ -367,7 +387,7 @@
                   </strong>
                 </td>
               </tr>
-            <tr class="group-row" data-group-id="{{ ordine.ordine }}" style="display: none;" data-is-filtered="true">
+            <tr class="group-row" data-group-id="{{ ordine.ordine }}" data-meta="true" style="display: none;" data-is-filtered="true">
             <th>Data Ord.</th>
             <th>Data Cons.</th>
             <th>N. Riga</th>
@@ -385,7 +405,8 @@
             <th>Qta Res.</th>
             </tr>
             {% for item in ordine.dati %}            
-            <tr class="group-row" data-group-id="{{ ordine.ordine }}" style="display: none;" data-is-filtered="true">
+            <tr class="group-row" data-group-id="{{ ordine.ordine }}" 
+            style="display: none;" data-is-filtered="true" data-meta="false" >
             <td>{{ item.data_ord|date:"d/m/Y" }}</td>
             <td class="{% if item.data_cons and item.data_cons < today %}bg-danger text-white
             {% endif %}">
@@ -485,43 +506,14 @@
       <div class="modal-dialog modal-xl">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="printModalLabel">Stampa Ordine</h5>
+            <h5 class="modal-title" id="printModalLabel">Stampa Ordini</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Chiudi"></button>
           </div>
-          <div class="modal-body">
-            <div class="mb-3">
-              <label class="form-label fw-bold">Cliente</label>
-              <input type="text" class="form-control" id="pdf-cliente" readonly>
-            </div>
-            <div class="mb-3">
-              <label class="form-label fw-bold">Ordine</label>
-              <input type="text" class="form-control" id="pdf-ordine" readonly>
-            </div>
-            <div class="mb-3">
-              <label class="form-label fw-bold">Data Consegna</label>
-              <input type="text" class="form-control" id="pdf-data" readonly>
-            </div>
-
-            <table class="table table-bordered" id="pdf-rows-table">
-              <thead>
-                <tr>
-                  <th>Seleziona</th>
-                  <th>N. Riga</th>
-                  <th>Articolo</th>
-                  <th>Old Code</th>
-                  <th>Descrizione</th>
-                  <th>Qta Ord.</th>
-                  <th>Operatore</th>
-                </tr>
-              </thead>
-              <tbody id="pdf-rows-body">
-                <!-- righe generate dinamicamente -->
-              </tbody>
-            </table>
+          <div class="modal-body" id="pdf-orders-container" style="max-height: 70vh; overflow-y: auto;">
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annulla</button>
-            <button type="button" id="toggle-select-all" class="btn btn-outline-primary">Seleziona tutte le righe</button>
+            <button type="button" id="toggle-select-all" class="btn btn-outline-primary">Deseleziona tutte le righe</button>
             <button type="button" class="btn btn-success" id="confirm-print">Stampa</button>
           </div>
         </div>
@@ -909,6 +901,8 @@ document.addEventListener('DOMContentLoaded', function () {
     params.set("cliente_filtro", document.getElementById('filter-cliente').value.trim());
     params.set("stato_filtro", document.getElementById('filter-stato').value.trim());
     params.set("operatore_filtro", document.getElementById('filter-operatore').value.trim());
+    params.set("articolo_filtro", document.getElementById('filter-articolo').value.trim());
+    params.set("old_code_filtro", document.getElementById('filter-old-code').value.trim());
 
     const newUrl = `${window.location.pathname}?${params.toString()}`;
     window.location.href = newUrl;
@@ -932,7 +926,6 @@ document.addEventListener('DOMContentLoaded', function () {
     const ordineVal = filterOrdine.value.trim();
 
     const foundRow = Array.from(tbody.querySelectorAll('tr'))[0];
-    console.log(foundRow)
     
     if (foundRow) {
       const cliente   = foundRow.children[0].textContent.trim();
@@ -1030,7 +1023,234 @@ document.addEventListener('DOMContentLoaded', function () {
   });
   </script>
 
-  <script src="{% static 'produzione/print.js' %}">
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+    const printBtn = document.getElementById('print-orders');
+    const toggleAllBtn = document.getElementById('toggle-select-all');
+    const confirmPrintBtn = document.getElementById('confirm-print');
+    const container = document.getElementById('pdf-orders-container');
+
+  let modal;
+  let allSelected = true;
+
+  printBtn.addEventListener('click', () => {
+    const headers = Array.from(document.querySelectorAll('.group-header'));
+    const rows = Array.from(document.querySelectorAll(`.group-row`));
+
+    container.innerHTML = '';
+
+    headers.forEach(row => {
+
+      const cliente = row.dataset.cliente;
+      const ordine = row.dataset.groupId;
+      const data = row.dataset.dataCons;
+
+      const selected_rows = rows
+        .filter(row => row.dataset.groupId === ordine && row.dataset.meta === "false")
+        .map(row => {
+          const cells = Array.from(row.children).map(cell => cell.textContent.trim());
+          return cells;
+        });
+
+      const section = document.createElement('div');
+      section.classList.add('mb-5');
+      section.innerHTML = `
+        <div class="mb-2">
+          <strong>Ordine N.</strong> ${ordine} &nbsp; 
+          <strong>Cliente</strong> ${cliente} &nbsp; 
+          <strong>Data Consegna</strong> ${data} &nbsp;
+        </div>
+        <table class="table table-bordered" data-ordine="${ordine}" data-cliente="${cliente}" data-data="${data}">
+          <thead>
+            <tr>
+              <th>Seleziona</th>
+              <th>N. Riga</th>
+              <th>Articolo</th>
+              <th>Old Code</th>
+              <th>Descrizione</th>
+              <th>Qta Ord.</th>
+              <th>Operatore</th>
+              <th>Note</th>
+            </tr>
+          </thead>
+          <tbody id="pdf-rows-body-${cliente}">
+            ${selected_rows.map(row => `
+              <tr>
+                <td><input type="checkbox" class="form-check-input toggle-row" data-selected="true" checked data-ordine="${ordine}"></td>
+                <td>${row[2]}</td>
+                <td>${row[5]}</td>
+                <td>${row[6]}</td>
+                <td>${row[7]}</td>
+                <td>${row[12]}</td>
+                <td>${row[4]}</td>
+                <td>${row[9]}</td>
+              </tr>
+            `).join('')}
+          </tbody>
+        </table>
+      `;
+
+      container.appendChild(section);
+    });
+    modal = bootstrap.Modal.getOrCreateInstance(document.getElementById('printModal'));
+    modal.show();
+
+  });
+   
+  // Event delegation su tutto il contenitore
+  container.addEventListener('click', (e) => {
+    if (e.target.classList.contains('toggle-row')) {
+      const checkbox = e.target;
+      const selected = checkbox.dataset.selected === 'true';
+      checkbox.dataset.selected = (!selected).toString();
+
+      // Raccogli tutte le checkbox
+      const allCheckboxes = document.querySelectorAll('#pdf-orders-container .toggle-row');
+
+      const allDeselected = Array.from(allCheckboxes).every(cb => !cb.checked);
+      const allAreSelected = Array.from(allCheckboxes).every(cb => cb.checked);
+
+      if (allAreSelected) {
+        toggleAllBtn.textContent = 'Deseleziona tutte le righe';
+        allSelected = true;
+      } else if (allDeselected) {
+        toggleAllBtn.textContent = 'Seleziona tutte le righe';
+        allSelected = false;
+      } else {
+        toggleAllBtn.textContent = 'Deseleziona tutte le righe';
+        allSelected = true;
+      }
+    }
+  });
+
+  // Toggle tutte
+  toggleAllBtn.addEventListener('click', () => {
+    const allCheckboxes = document.querySelectorAll('#pdf-orders-container .toggle-row');
+    allSelected = !allSelected;
+    toggleAllBtn.textContent = allSelected ? 'Deseleziona tutte le righe' : 'Seleziona tutte le righe';
+
+    allCheckboxes.forEach(cb => {
+      cb.checked = allSelected;
+      cb.dataset.selected = allSelected.toString();
+    });
+  });
+
+
+  confirmPrintBtn.addEventListener('click', () => {
+    let htmlContent = `
+      <html>
+      <head>
+        <title>Ordini</title>
+        <style>
+
+          body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            color: #333;
+          }
+
+          h1 {
+            color: #0b2e61;
+            margin-bottom: 30px;
+          }
+
+          table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+          }
+
+          th, td {
+            border: 1px solid #ccc;
+            padding: 8px;
+            text-align: left;
+          }
+
+          th {
+            background-color: #0b2e61;
+            color: white;
+          }
+
+          .ordine {
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+          }
+
+          .header-info {
+            margin-bottom: 10px;
+          }
+
+          .footer {
+            margin-top: 40px;
+            font-size: 0.8em;
+            color: #666;
+            text-align: right;
+          }
+        </style>
+      </head>
+      <body>
+        <h1>Ordini</h1>
+      `;
+
+
+      document.querySelectorAll('#pdf-orders-container table').forEach(table => {
+        const ordine = table.dataset.ordine;
+        const cliente = table.dataset.cliente;
+        const data = table.dataset.data;
+
+        htmlContent += `
+          <div class="ordine">
+            <div class="header-info">
+              <div><strong>Ordine N.:</strong> ${ordine}</div>
+              <div><strong>Cliente:</strong> ${cliente}</div>
+              <div><strong>Data consegna:</strong> ${data}</div>
+            </div>
+            <table>
+              <thead>
+                <tr>
+                  <th>N. riga</th>
+                  <th>Cod. articolo</th>
+                  <th>Old code</th>
+                  <th>Descrizione</th>
+                  <th>Q.tà</th>
+                  <th>Operatore</th>
+                  <th>Note produzione</th>
+                </tr>
+              </thead>
+              <tbody>
+        `;
+
+
+        const rows = table.querySelectorAll('tbody tr');
+        rows.forEach(row => {
+          const checkbox = row.querySelector('input[type="checkbox"]');
+          if (checkbox && checkbox.checked) {
+            const cells = row.querySelectorAll('td');
+            htmlContent += '<tr>';
+            for (let i = 1; i < cells.length; i++) {
+              htmlContent += `<td>${cells[i].textContent}</td>`;
+            }
+            htmlContent += '</tr>';
+          }
+        });
+
+      htmlContent += `</tbody></table></div>`;
+
+      });
+
+      htmlContent += `
+      </body>
+      </html>
+      `;
+
+      const printWindow = window.open('', '', 'width=800,height=600');
+      printWindow.document.write(htmlContent);
+      printWindow.document.close();
+      printWindow.focus();
+      printWindow.print();
+      
+  });
+  });
   </script>
 
 </body>

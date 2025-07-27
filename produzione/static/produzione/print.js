@@ -156,26 +156,42 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Stampa solo righe selezionate
     confirmPrintBtn.addEventListener('click', () => {
-      const selectedRows = [];
+      const groupedRows = new Map();
+
       pdfRowsBody.querySelectorAll('tr').forEach(row => {
-        const btn = row.querySelector('.toggle-row');
-        if (btn.dataset.selected === 'true') {
-          const data = Array.from(row.children).slice(1).map(td => td.textContent.trim());
-          selectedRows.push(data);
+        const checkbox = row.querySelector('.toggle-row');
+        if (checkbox.dataset.selected === 'true') {
+          const cells = Array.from(row.children).slice(1).map(td => td.textContent.trim());
+
+          const ordine = cells[1];  // indice 1 = ordine
+          const cliente = cells[0]; // indice 0 = cliente
+          const data = pdfDataInput.value; // usa input globale
+
+          if (!groupedRows.has(ordine)) {
+            groupedRows.set(ordine, { cliente, data, righe: [] });
+          }
+
+          groupedRows.get(ordine).righe.push([
+            cells[2], // nRiga
+            cells[3], // articolo
+            cells[4], // oldCode
+            cells[5], // descrizione
+            cells[6], // qta
+            cells[7], // operatore
+          ]);
         }
       });
 
-      if (selectedRows.length === 0) {
+      if (groupedRows.size === 0) {
         alert("Seleziona almeno una riga da stampare.");
         return;
       }
 
-      const cliente = pdfClienteInput.value;
-      const ordine = pdfOrdineInput.value;
-      const data = pdfDataInput.value;
-
-      printOrder(cliente, ordine, data, selectedRows);
+      groupedRows.forEach(({ cliente, data, righe }, ordine) => {
+        printOrder(cliente, ordine, data, righe);
+      });
     });
+
   });
 
  

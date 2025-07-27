@@ -6123,3 +6123,180 @@ KeyError: 'nome_utente'
 2025-07-24 20:20:07,018 dati.sage.connect [INFO] Inizio funzione dashboard
 2025-07-24 20:20:07,066 django.utils.autoreload [INFO] Watching for file changes with StatReloader
 2025-07-24 20:22:56,983 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\gestionale\settings.py changed, reloading.
+2025-07-25 17:26:36,931 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-25 17:26:37,971 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-25 17:26:38,023 django.utils.autoreload [INFO] Watching for file changes with StatReloader
+2025-07-25 17:26:40,979 django.security.DisallowedHost [ERROR] Invalid HTTP_HOST header: '127.0.0.1:8000'. You may need to add '127.0.0.1' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\utils\deprecation.py", line 119, in __call__
+    response = self.process_request(request)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\middleware\common.py", line 48, in process_request
+    host = request.get_host()
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\http\request.py", line 191, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: '127.0.0.1:8000'. You may need to add '127.0.0.1' to ALLOWED_HOSTS.
+2025-07-25 17:26:41,128 django.security.DisallowedHost [ERROR] Invalid HTTP_HOST header: '127.0.0.1:8000'. You may need to add '127.0.0.1' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\utils\deprecation.py", line 119, in __call__
+    response = self.process_request(request)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\middleware\common.py", line 48, in process_request
+    host = request.get_host()
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\http\request.py", line 191, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: '127.0.0.1:8000'. You may need to add '127.0.0.1' to ALLOWED_HOSTS.
+2025-07-25 17:27:07,417 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\gestionale\settings.py changed, reloading.
+2025-07-25 17:27:08,417 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-25 17:27:08,468 django.utils.autoreload [INFO] Watching for file changes with StatReloader
+2025-07-25 17:27:17,092 django.security.DisallowedHost [ERROR] Invalid HTTP_HOST header: '127.0.0.1:8000'. You may need to add '127.0.0.1' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\utils\deprecation.py", line 119, in __call__
+    response = self.process_request(request)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\middleware\common.py", line 48, in process_request
+    host = request.get_host()
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\http\request.py", line 191, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: '127.0.0.1:8000'. You may need to add '127.0.0.1' to ALLOWED_HOSTS.
+2025-07-25 17:27:17,230 django.security.DisallowedHost [ERROR] Invalid HTTP_HOST header: '127.0.0.1:8000'. You may need to add '127.0.0.1' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\utils\deprecation.py", line 119, in __call__
+    response = self.process_request(request)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\middleware\common.py", line 48, in process_request
+    host = request.get_host()
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\http\request.py", line 191, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: '127.0.0.1:8000'. You may need to add '127.0.0.1' to ALLOWED_HOSTS.
+2025-07-25 17:28:59,600 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-25 17:29:00,910 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-25 17:29:00,954 django.utils.autoreload [INFO] Watching for file changes with StatReloader
+2025-07-25 17:29:03,961 django.security.DisallowedHost [ERROR] Invalid HTTP_HOST header: '127.0.0.1:8000'. You may need to add '127.0.0.1' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\utils\deprecation.py", line 119, in __call__
+    response = self.process_request(request)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\middleware\common.py", line 48, in process_request
+    host = request.get_host()
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\http\request.py", line 191, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: '127.0.0.1:8000'. You may need to add '127.0.0.1' to ALLOWED_HOSTS.
+2025-07-25 17:29:04,086 django.security.DisallowedHost [ERROR] Invalid HTTP_HOST header: '127.0.0.1:8000'. You may need to add '127.0.0.1' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\utils\deprecation.py", line 119, in __call__
+    response = self.process_request(request)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\middleware\common.py", line 48, in process_request
+    host = request.get_host()
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\http\request.py", line 191, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: '127.0.0.1:8000'. You may need to add '127.0.0.1' to ALLOWED_HOSTS.
+2025-07-25 17:29:42,524 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\gestionale\settings.py changed, reloading.
+2025-07-25 17:29:43,476 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-25 17:29:43,523 django.utils.autoreload [INFO] Watching for file changes with StatReloader
+2025-07-25 17:29:47,330 django.security.DisallowedHost [ERROR] Invalid HTTP_HOST header: '127.0.0.1:8000'. You may need to add '127.0.0.1' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\utils\deprecation.py", line 119, in __call__
+    response = self.process_request(request)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\middleware\common.py", line 48, in process_request
+    host = request.get_host()
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\http\request.py", line 191, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: '127.0.0.1:8000'. You may need to add '127.0.0.1' to ALLOWED_HOSTS.
+2025-07-25 17:29:47,466 django.security.DisallowedHost [ERROR] Invalid HTTP_HOST header: '127.0.0.1:8000'. You may need to add '127.0.0.1' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\utils\deprecation.py", line 119, in __call__
+    response = self.process_request(request)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\middleware\common.py", line 48, in process_request
+    host = request.get_host()
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\http\request.py", line 191, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: '127.0.0.1:8000'. You may need to add '127.0.0.1' to ALLOWED_HOSTS.
+2025-07-25 17:29:58,692 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\gestionale\settings.py changed, reloading.
+2025-07-25 17:29:59,856 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-25 17:29:59,900 django.utils.autoreload [INFO] Watching for file changes with StatReloader
+2025-07-25 17:30:01,477 django.request [WARNING] Not Found: /favicon.ico
+2025-07-25 17:50:27,887 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\gestionale\settings.py changed, reloading.
+2025-07-25 17:50:28,837 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-25 17:50:28,889 django.utils.autoreload [INFO] Watching for file changes with StatReloader
+2025-07-25 18:32:28,182 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py changed, reloading.
+2025-07-25 18:32:29,532 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-25 18:32:29,586 django.utils.autoreload [INFO] Watching for file changes with StatReloader
+2025-07-25 18:57:14,278 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py changed, reloading.
+2025-07-25 18:57:15,306 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-25 18:57:15,356 django.utils.autoreload [INFO] Watching for file changes with StatReloader
+2025-07-26 15:23:46,475 django.request [WARNING] Not Found: /.well-known/appspecific/com.chrome.devtools.json
+2025-07-26 21:29:29,055 django.request [WARNING] Not Found: /.well-known/appspecific/com.chrome.devtools.json
+2025-07-26 21:31:50,899 django.request [WARNING] Not Found: /.well-known/appspecific/com.chrome.devtools.json
+2025-07-27 10:19:02,077 django.request [WARNING] Not Found: /.well-known/appspecific/com.chrome.devtools.json
+2025-07-27 19:41:02,629 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py changed, reloading.
+2025-07-27 19:41:05,897 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-27 19:41:06,085 django.utils.autoreload [INFO] Watching for file changes with StatReloader
+2025-07-27 19:49:23,604 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py changed, reloading.
+2025-07-27 19:49:24,838 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-27 19:49:24,894 django.utils.autoreload [INFO] Watching for file changes with StatReloader
+2025-07-27 20:06:04,592 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py changed, reloading.
+2025-07-27 20:06:05,674 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-27 20:06:05,720 django.utils.autoreload [INFO] Watching for file changes with StatReloader
+2025-07-27 20:07:49,427 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py changed, reloading.
+2025-07-27 20:07:50,382 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-27 20:07:50,442 django.utils.autoreload [INFO] Watching for file changes with StatReloader
+2025-07-27 20:20:47,635 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py changed, reloading.
+2025-07-27 20:20:48,824 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-27 20:20:48,877 django.utils.autoreload [INFO] Watching for file changes with StatReloader
+2025-07-27 20:22:36,733 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py changed, reloading.
+2025-07-27 20:22:37,936 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-27 20:22:37,988 django.utils.autoreload [INFO] Watching for file changes with StatReloader
+2025-07-27 20:29:00,074 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py changed, reloading.
+2025-07-27 20:29:01,310 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-27 20:29:01,367 django.utils.autoreload [INFO] Watching for file changes with StatReloader
+2025-07-27 20:30:11,728 django.request [ERROR] Internal Server Error: /avanzamento_ordini/
+Traceback (most recent call last):
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py", line 259, in avanzamento_ordini
+    (not operatore_filtro or operatore_filtro.lower() in o['des_operatore'].lower()) and
+                                                         ^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'lower'
+2025-07-27 20:30:32,323 django.request [ERROR] Internal Server Error: /avanzamento_ordini/
+Traceback (most recent call last):
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py", line 259, in avanzamento_ordini
+    (not operatore_filtro or operatore_filtro.lower() in o['des_operatore'].lower()) and
+                                                         ^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'lower'
+2025-07-27 20:32:11,895 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py changed, reloading.
+2025-07-27 20:32:13,086 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-27 20:32:13,141 django.utils.autoreload [INFO] Watching for file changes with StatReloader
+2025-07-27 20:33:59,960 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py changed, reloading.
+2025-07-27 20:34:01,083 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-27 20:34:01,135 django.utils.autoreload [INFO] Watching for file changes with StatReloader
+2025-07-27 20:34:13,991 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py changed, reloading.
+2025-07-27 20:34:14,921 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-27 20:34:14,962 django.utils.autoreload [INFO] Watching for file changes with StatReloader
+2025-07-27 20:39:21,201 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py changed, reloading.
+2025-07-27 20:39:22,482 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-27 20:39:22,532 django.utils.autoreload [INFO] Watching for file changes with StatReloader
+2025-07-27 20:42:01,321 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py changed, reloading.
+2025-07-27 20:42:02,389 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-27 20:42:02,440 django.utils.autoreload [INFO] Watching for file changes with StatReloader
