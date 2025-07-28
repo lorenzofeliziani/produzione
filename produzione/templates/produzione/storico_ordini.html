@@ -90,7 +90,7 @@
 
     <div class="container-fluid px-4 py-3">
         <h1 class="mb-4 text-primary">Storico Ordini</h1>
-        <div class="mb-3">
+        <div class="mb-3 d-flex justify-content-between align-items-center">
           <div class="btn-group" role="group">
             <input type="radio" class="btn-check" name="viewToggle" id="btn-grouped" value="standard"
                   {% if modalita == 'standard' %}checked{% endif %}>
@@ -100,6 +100,15 @@
                   {% if modalita == 'espansa' %}checked{% endif %}>
             <label class="btn btn-outline-primary" for="btn-flat">Espansa</label>
           </div>
+
+          <div style="width: 300px;">
+            <select id="tipo-ordini" class="form-select border-primary text-primary">
+              <option value="" {% if not tipo_ordini %}selected{% endif %}>Produzioni e Riparazioni</option>
+              <option value="produzioni" {% if tipo_ordini == "produzioni" %}selected{% endif %}>Solo Produzioni</option>
+              <option value="riparazioni" {% if tipo_ordini == "riparazioni" %}selected{% endif %}>Solo Riparazioni</option>
+            </select>
+          </div>
+
         </div>
 
         <div class="mb-3 p-3 border rounded bg-light">
@@ -659,6 +668,18 @@
   });
   </script>
 
+ <script>
+  document.getElementById('tipo-ordini').addEventListener('change', function () {
+    const tipoOrdini = this.value;
+
+    // Prendi i parametri correnti dall'URL
+    const url = new URL(window.location);
+    url.searchParams.set('tipo_ordini', tipoOrdini);
+
+    // Ricostruisci l'URL
+    window.location.href = url;
+  });
+  </script>
 
   <script>
     document.addEventListener("DOMContentLoaded", function () {
@@ -804,10 +825,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
   applyBtn.addEventListener('click', function () {
     const currentParams = new URLSearchParams(window.location.search);
-    const modalita = currentParams.get("modalita");  // Recupera il parametro
+    const modalita = currentParams.get("modalita"); 
+    const tipo_ordini = currentParams.get("tipo_ordini");
 
     const params = new URLSearchParams();
     if (modalita) params.set("modalita", modalita);  // Mantiene la modalità
+    if (tipo_ordini) params.set("tipo_ordini", tipo_ordini);
 
     params.set("ordine_filtro", document.getElementById('filter-ordine').value.trim());
     params.set("cliente_filtro", document.getElementById('filter-cliente').value.trim());
@@ -823,9 +846,11 @@ document.addEventListener('DOMContentLoaded', function () {
   resetBtn.addEventListener('click', function () {
     const currentParams = new URLSearchParams(window.location.search);
     const modalita = currentParams.get("modalita");
+    const tipo_ordini = currentParams.get("tipo_ordini");
 
     const params = new URLSearchParams();
     if (modalita) params.set("modalita", modalita);  // Mantiene la modalità
+    if (tipo_ordini) params.set("tipo_ordini", tipo_ordini);
 
     const newUrl = `${window.location.pathname}?${params.toString()}`;
     window.location.href = newUrl;

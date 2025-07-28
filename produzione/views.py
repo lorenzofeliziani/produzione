@@ -32,6 +32,7 @@ def dashboard(request):
 @login_required(login_url='login')
 def avanzamento_ordini(request):
     modalita = request.GET.get('modalita', 'standard')
+    tipo_ordini = request.GET.get("tipo_ordini", "")
     ordine_filtro   = request.GET.get("ordine_filtro", "")
     cliente_filtro   = request.GET.get("cliente_filtro", "")
     stato_filtro     = request.GET.get("stato_filtro", "")
@@ -58,6 +59,7 @@ def avanzamento_ordini(request):
     if request.method == 'POST':
         action = request.POST.get('form_type')
         modalita = request.GET.get('modalita', 'standard')
+        tipo_ordini = request.GET.get("tipo_ordini", "")
         ordine_filtro   = request.GET.get("ordine_filtro", "")
         cliente_filtro   = request.GET.get("cliente_filtro", "")
         stato_filtro     = request.GET.get("stato_filtro", "")
@@ -250,7 +252,7 @@ def avanzamento_ordini(request):
     avanzamento_ordini_groups_render = riformatta_date_groups(copy.deepcopy(avanzamento_ordini_groups))
     today = date.today()
 
-    if ordine_filtro or cliente_filtro or stato_filtro or operatore_filtro or articolo_filtro or old_code_filtro:
+    if ordine_filtro or cliente_filtro or stato_filtro or operatore_filtro or articolo_filtro or old_code_filtro or tipo_ordini:
         avanzamento_ordini_render = [
             o for o in avanzamento_ordini_render
             if (not ordine_filtro or ordine_filtro.lower() in (o.get('ordine') or '').lower()) and
@@ -258,7 +260,8 @@ def avanzamento_ordini(request):
             (not stato_filtro or stato_filtro.lower() in (o.get('des_stato_ord') or '').lower()) and
             (not operatore_filtro or operatore_filtro.lower() in (o.get('des_operatore') or '').lower()) and 
             (not articolo_filtro or articolo_filtro.lower() in (o.get('articolo') or '').lower()) and
-            (not old_code_filtro or old_code_filtro.lower() in (o.get('old_code') or '').lower())
+            (not old_code_filtro or old_code_filtro.lower() in (o.get('old_code') or '').lower()) and
+            (not tipo_ordini or (o.get('tipo_ordine')=='SOR' and tipo_ordini == 'riparazioni') or (o.get('tipo_ordine')!='SOR' and tipo_ordini == 'produzioni') )
         ]
 
 
@@ -274,6 +277,7 @@ def avanzamento_ordini(request):
             "articolo": articolo_filtro,
             "old_code": old_code_filtro,
         },
+        "tipo_ordini": tipo_ordini,
         'ruolo_utente': ruolo_utente,
         'stati_ordini': stati_ordini,
         'operatori': operatori,
@@ -294,6 +298,7 @@ def ordini_da_pianificare(request):
     operatore_filtro = request.GET.get("operatore_filtro", "")
     articolo_filtro = request.GET.get("articolo_filtro", "")
     old_code_filtro = request.GET.get("old_code_filtro", "")
+    tipo_ordini = request.GET.get("tipo_ordini", "")
     avanzamento_ordini = request.session.get('avanzamento_ordini')
     ordini_da_pianificare = request.session.get('ordini_da_pianificare')
     avanzamento_ordini_preferences = request.session.get('avanzamento_ordini_preferences')
@@ -313,6 +318,7 @@ def ordini_da_pianificare(request):
     
     if request.method == 'POST':
         modalita = request.GET.get('modalita', 'standard')
+        tipo_ordini = request.GET.get("tipo_ordini", "")
         ordine_filtro   = request.GET.get("ordine_filtro", "")
         cliente_filtro   = request.GET.get("cliente_filtro", "")
         stato_filtro     = request.GET.get("stato_filtro", "")
@@ -492,7 +498,7 @@ def ordini_da_pianificare(request):
     ordini_da_pianificare_groups_render = riformatta_date_groups(copy.deepcopy(ordini_da_pianificare_groups))
     today = date.today()
 
-    if ordine_filtro or cliente_filtro or stato_filtro or operatore_filtro or articolo_filtro or old_code_filtro:
+    if ordine_filtro or cliente_filtro or stato_filtro or operatore_filtro or articolo_filtro or old_code_filtro or tipo_ordini:
         ordini_da_pianificare_render = [
             o for o in ordini_da_pianificare_render
             if (not ordine_filtro or ordine_filtro.lower() in (o.get('ordine') or '').lower()) and
@@ -500,7 +506,9 @@ def ordini_da_pianificare(request):
             (not stato_filtro or stato_filtro.lower() in (o.get('des_stato_ord') or '').lower()) and
             (not operatore_filtro or operatore_filtro.lower() in (o.get('des_operatore') or '').lower()) and 
             (not articolo_filtro or articolo_filtro.lower() in (o.get('articolo') or '').lower()) and
-            (not old_code_filtro or old_code_filtro.lower() in (o.get('old_code') or '').lower())
+            (not old_code_filtro or old_code_filtro.lower() in (o.get('old_code') or '').lower()) and
+            (not tipo_ordini or (o.get('tipo_ordine')=='SOR' and tipo_ordini == 'riparazioni') or (o.get('tipo_ordine')!='SOR' and tipo_ordini == 'produzioni') )
+
         ]
 
         ordini_da_pianificare_groups_render = group(ordini_da_pianificare_render)
@@ -516,6 +524,7 @@ def ordini_da_pianificare(request):
             "articolo": articolo_filtro,
             "old_code": old_code_filtro,
         },
+        "tipo_ordini": tipo_ordini,
         'ruolo_utente': ruolo_utente,
         'stati_ordini': stati_ordini,
         'operatori': operatori,
@@ -537,6 +546,7 @@ def storico_ordini(request):
     articolo_filtro = request.GET.get("articolo_filtro", "")
     old_code_filtro = request.GET.get("old_code_filtro", "")
     storico_ordini = request.session.get('storico_ordini')
+    tipo_ordini = request.GET.get("tipo_ordini", "")
     storico_ordini_groups = request.session.get('storico_ordini_groups')
     storico_ordini_preferences = request.session.get('storico_ordini_preferences')
     ruolo_utente = request.session.get('ruolo_utente')
@@ -583,7 +593,7 @@ def storico_ordini(request):
     storico_ordini_render = riformatta_date(copy.deepcopy(storico_ordini))
     today = date.today()
 
-    if ordine_filtro or cliente_filtro or stato_filtro or operatore_filtro or articolo_filtro or old_code_filtro:
+    if ordine_filtro or cliente_filtro or stato_filtro or operatore_filtro or articolo_filtro or old_code_filtro or tipo_ordini:
         storico_ordini_render = [
             o for o in storico_ordini_render
             if (not ordine_filtro or ordine_filtro.lower() in (o.get('ordine') or '').lower()) and
@@ -591,7 +601,9 @@ def storico_ordini(request):
             (not stato_filtro or stato_filtro.lower() in (o.get('des_stato_ord') or '').lower()) and
             (not operatore_filtro or operatore_filtro.lower() in (o.get('des_operatore') or '').lower()) and 
             (not articolo_filtro or articolo_filtro.lower() in (o.get('articolo') or '').lower()) and
-            (not old_code_filtro or old_code_filtro.lower() in (o.get('old_code') or '').lower())
+            (not old_code_filtro or old_code_filtro.lower() in (o.get('old_code') or '').lower()) and
+            (not tipo_ordini or (o.get('tipo_ordine')=='SOR' and tipo_ordini == 'riparazioni') or (o.get('tipo_ordine')!='SOR' and tipo_ordini == 'produzioni') )
+
         ]
         storico_ordini_groups_render = group(storico_ordini_render)
 
@@ -606,6 +618,7 @@ def storico_ordini(request):
             "articolo": articolo_filtro,
             "old_code": old_code_filtro,
         },
+        "tipo_ordini": tipo_ordini,
         'ruolo_utente': ruolo_utente,
         'avanzamento_ordini': storico_ordini_render,
         'avanzamento_ordini_groups': storico_ordini_groups_render,
@@ -1143,7 +1156,7 @@ def select_ordini(request, ruolo_utente):
                     else:
                         data_cons = None 
 
-                    if ordine_aperto.get('TIPO_ORDINE') != 'SOR' and ordine_aperto.get('ARTICOLO') is not None and 'V' in list(tipo_uso):
+                    if ordine_aperto.get('ARTICOLO') is not None and 'V' in list(tipo_uso):
                         risultati_avanzamento_ordini.append({
                             'sede': avanzamento.sede,
                             'vis_note_ord': vis_note_ord,
@@ -1175,7 +1188,7 @@ def select_ordini(request, ruolo_utente):
                             'commerciale': ordine_aperto.get('COMMERCIALE'),
                         })
 
-                    if ordine_aperto.get('TIPO_ORDINE') != 'SOR' and ordine_aperto.get('ARTICOLO') is not None and avanzamento.stato_ord.stato=='Da pianificare' and 'V' in list(tipo_uso):
+                    if ordine_aperto.get('ARTICOLO') is not None and avanzamento.stato_ord.stato=='Da pianificare' and 'V' in list(tipo_uso):
                         risultati_ordini_da_pianificare.append({
                         'sede': avanzamento.sede,
                         'vis_note_ord': vis_note_ord,
@@ -1217,7 +1230,7 @@ def select_ordini(request, ruolo_utente):
                                 data_cons = data_sped
                         else:
                             data_cons = None                                 
-                        if ordine_chiuso.get('TIPO_ORDINE') != 'SOR' and ordine_chiuso.get('ARTICOLO') is not None and 'V' in list(tipo_uso):
+                        if ordine_chiuso.get('ARTICOLO') is not None and 'V' in list(tipo_uso):
                             risultati_storico_ordini.append({
                             'sede': avanzamento.sede,
                             'vis_note_ord': vis_note_ord,
@@ -1262,7 +1275,7 @@ def select_ordini(request, ruolo_utente):
                                 data_cons = data_sped
                         else:
                             data_cons = None                                 
-                        if ordine_chiuso.get('TIPO_ORDINE') != 'SOR' and ordine_chiuso.get('ARTICOLO') is not None and 'V' in list(tipo_uso):
+                        if ordine_chiuso.get('ARTICOLO') is not None and 'V' in list(tipo_uso):
                             risultati_storico_ordini.append({
                             'sede': avanzamento.sede,
                             'vis_note_ord': vis_note_ord,

@@ -6300,3 +6300,42 @@ AttributeError: 'NoneType' object has no attribute 'lower'
 2025-07-27 20:42:01,321 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py changed, reloading.
 2025-07-27 20:42:02,389 dati.sage.connect [INFO] Inizio funzione dashboard
 2025-07-27 20:42:02,440 django.utils.autoreload [INFO] Watching for file changes with StatReloader
+2025-07-27 21:30:43,551 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-28 10:34:29,334 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-28 10:34:31,144 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-28 10:34:31,239 django.utils.autoreload [INFO] Watching for file changes with StatReloader
+2025-07-28 11:20:45,753 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py changed, reloading.
+2025-07-28 11:20:47,154 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-28 11:20:47,212 django.utils.autoreload [INFO] Watching for file changes with StatReloader
+2025-07-28 11:37:12,849 django.request [ERROR] Internal Server Error: /avanzamento_ordini/
+Traceback (most recent call last):
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py", line 263, in avanzamento_ordini
+    (not old_code_filtro or old_code_filtro.lower() in (o.get('old_code') or '').lower())
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    (not tipo_ordini or (o.get('tipo_ordine')=='SOR' and tipo_ordini == 'riparazioni') or (o.get('tipo_ordine')!='SOR' and tipo_ordini == 'riparazioni') )
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: 'bool' object is not callable
+2025-07-28 11:37:38,733 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py changed, reloading.
+2025-07-28 11:37:42,167 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-28 11:37:42,334 django.utils.autoreload [INFO] Watching for file changes with StatReloader
+2025-07-28 11:42:32,752 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py changed, reloading.
+2025-07-28 11:42:33,646 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-28 11:42:33,692 django.utils.autoreload [INFO] Watching for file changes with StatReloader
+2025-07-28 11:44:00,223 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py changed, reloading.
+2025-07-28 11:44:01,273 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-28 11:44:01,324 django.utils.autoreload [INFO] Watching for file changes with StatReloader
+2025-07-28 11:58:41,825 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py changed, reloading.
+2025-07-28 11:58:42,940 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-28 11:58:42,985 django.utils.autoreload [INFO] Watching for file changes with StatReloader
+2025-07-28 11:59:57,591 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py changed, reloading.
+2025-07-28 11:59:58,957 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-28 11:59:59,015 django.utils.autoreload [INFO] Watching for file changes with StatReloader
+2025-07-28 12:02:54,957 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py changed, reloading.
+2025-07-28 12:02:56,088 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-28 12:02:56,138 django.utils.autoreload [INFO] Watching for file changes with StatReloader
