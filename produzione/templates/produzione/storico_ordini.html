@@ -185,7 +185,20 @@
             </div>
         </div>
       </div>
-
+    <div class="d-flex justify-content-end gap-2 my-2">
+      <button class="btn btn-outline-primary btn-sm sort-button" data-sort="cliente" data-order="asc">
+        Cliente <i class="fas fa-sort-alpha-down"></i>
+      </button>
+      <button class="btn btn-outline-primary btn-sm sort-button" data-sort="cliente" data-order="desc">
+        Cliente <i class="fas fa-sort-alpha-up-alt"></i>
+      </button>
+      <button class="btn btn-outline-success btn-sm sort-button" data-sort="data" data-order="asc">
+        Data Cons. <i class="fas fa-sort-numeric-down"></i>
+      </button>
+      <button class="btn btn-outline-success btn-sm sort-button" data-sort="data" data-order="desc">
+        Data Cons. <i class="fas fa-sort-numeric-up-alt"></i>
+      </button>
+    </div>
     <div id="flat-view" class="data-view"
       {% if modalita == 'espansa' %}
         style="display: block;"
@@ -220,7 +233,7 @@
             <tr>
             <td>{{ item.des_cliente }}</td>
             <td>{{ item.data_ord|date:"d/m/Y" }}</td>
-            <td>
+            <td >
                 {{ item.data_cons|date:"d/m/Y" }}
             </td>
             <td class="col-ordine">
@@ -293,21 +306,6 @@
      {% else %}
        style="display: block;"
      {% endif %}>
-        
-    <div class="d-flex justify-content-end gap-2 my-2">
-      <button class="btn btn-outline-primary btn-sm sort-button" data-sort="cliente" data-order="asc">
-        Cliente <i class="fas fa-sort-alpha-down"></i>
-      </button>
-      <button class="btn btn-outline-primary btn-sm sort-button" data-sort="cliente" data-order="desc">
-        Cliente <i class="fas fa-sort-alpha-up-alt"></i>
-      </button>
-      <button class="btn btn-outline-success btn-sm sort-button" data-sort="data" data-order="asc">
-        Data Cons. <i class="fas fa-sort-numeric-down"></i>
-      </button>
-      <button class="btn btn-outline-success btn-sm sort-button" data-sort="data" data-order="desc">
-        Data Cons. <i class="fas fa-sort-numeric-up-alt"></i>
-      </button>
-    </div>
 
 
     <div style="max-height: 500px; max-width: 100%; overflow: auto; border: 1px solid #ccc;">
@@ -334,7 +332,8 @@
                         {% else %}bg-secondary{% endif %}">{{percentuale}}% {{stato}}</strong>  —
                   {% endfor %}
                   Data Consegna 
-                  <strong>
+                  <strong 
+                  >
                     {{ ordine.data_cons|date:"d/m/Y" }}
                   </strong>
                 </td>
@@ -385,7 +384,6 @@
                 {% if item.des_operatore %}
                 {{ item.des_operatore }}
                 {% else %}
-
                 {% endif %}
                 </a>
             </td>
@@ -668,7 +666,7 @@
   });
   </script>
 
- <script>
+  <script>
   document.getElementById('tipo-ordini').addEventListener('change', function () {
     const tipoOrdini = this.value;
 
@@ -680,6 +678,8 @@
     window.location.href = url;
   });
   </script>
+
+
 
   <script>
     document.addEventListener("DOMContentLoaded", function () {
@@ -776,36 +776,16 @@ document.addEventListener('DOMContentLoaded', function () {
     button.addEventListener('click', function () {
       const sortType = this.dataset.sort;
       const sortOrder = this.dataset.order;
+ 
+      const url = new URL(window.location);
+      url.searchParams.set('tipo_ordinamento', sortType);
+      url.searchParams.set('ordine_ordinamento', sortOrder);
 
-      // Sort dei gruppi
-      const sortedGroups = Array.from(groupMap.values()).sort((a, b) => {
-        let valA = '', valB = '';
-
-        if (sortType === 'cliente') {
-          valA = a.header.dataset.cliente || '';
-          valB = b.header.dataset.cliente || '';
-        } else if (sortType === 'data') {
-          valA = a.header.dataset.dataCons || '';
-          valB = b.header.dataset.dataCons || '';
-        }
-
-        return sortOrder === 'asc'
-          ? valA.localeCompare(valB)
-          : valB.localeCompare(valA);
-      });
-
-      // Ricostruzione ottimizzata della tabella
-      const fragment = document.createDocumentFragment();
-      sortedGroups.forEach(group => {
-        fragment.appendChild(group.header);
-        group.rows.forEach(row => fragment.appendChild(row));
-      });
-
-      tableBody.innerHTML = ''; // Pulisci una sola volta
-      tableBody.appendChild(fragment); // Re-rendering in blocco
+    // Ricostruisci l'URL
+      window.location.href = url;
+  });
     });
   });
-});
 </script>
 <script>
 document.addEventListener('DOMContentLoaded', function () {
@@ -827,10 +807,14 @@ document.addEventListener('DOMContentLoaded', function () {
     const currentParams = new URLSearchParams(window.location.search);
     const modalita = currentParams.get("modalita"); 
     const tipo_ordini = currentParams.get("tipo_ordini");
+    const sortType = currentParams.get("tipo_ordinamento"); 
+    const sortOrder = currentParams.get("ordine_ordinamento");
 
     const params = new URLSearchParams();
     if (modalita) params.set("modalita", modalita);  // Mantiene la modalità
     if (tipo_ordini) params.set("tipo_ordini", tipo_ordini);
+    if (sortType) params.set("tipo_ordinamento",sortType);
+    if (sortOrder) params.set("ordine_ordinamento", sortOrder);
 
     params.set("ordine_filtro", document.getElementById('filter-ordine').value.trim());
     params.set("cliente_filtro", document.getElementById('filter-cliente').value.trim());

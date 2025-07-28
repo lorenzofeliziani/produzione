@@ -39,6 +39,8 @@ def avanzamento_ordini(request):
     operatore_filtro = request.GET.get("operatore_filtro", "")
     articolo_filtro = request.GET.get("articolo_filtro", "")
     old_code_filtro = request.GET.get("old_code_filtro", "")
+    tipo_ordinamento_gruppi = request.GET.get("tipo_ordinamento", "")
+    ordine_ordinamento_gruppi = request.GET.get("ordine_ordinamento", "")
     avanzamento_ordini = request.session.get('avanzamento_ordini')
     ordini_da_pianificare = request.session.get('ordini_da_pianificare')
     avanzamento_ordini_preferences = request.session.get('avanzamento_ordini_preferences')
@@ -58,14 +60,6 @@ def avanzamento_ordini(request):
 
     if request.method == 'POST':
         action = request.POST.get('form_type')
-        modalita = request.GET.get('modalita', 'standard')
-        tipo_ordini = request.GET.get("tipo_ordini", "")
-        ordine_filtro   = request.GET.get("ordine_filtro", "")
-        cliente_filtro   = request.GET.get("cliente_filtro", "")
-        stato_filtro     = request.GET.get("stato_filtro", "")
-        operatore_filtro = request.GET.get("operatore_filtro", "")
-        articolo_filtro = request.GET.get("articolo_filtro", "")
-        old_code_filtro = request.GET.get("old_code_filtro", "")
         if action == "general_update":
             if ruolo_utente in ["Amministratore", "Pianificazione"]:
                 aggiorna_dati(request)
@@ -264,8 +258,28 @@ def avanzamento_ordini(request):
             (not tipo_ordini or (o.get('tipo_ordine')=='SOR' and tipo_ordini == 'riparazioni') or (o.get('tipo_ordine')!='SOR' and tipo_ordini == 'produzioni') )
         ]
 
+    if tipo_ordinamento_gruppi and ordine_ordinamento_gruppi:
+        reverse = (ordine_ordinamento_gruppi == 'desc')
 
+        if tipo_ordinamento_gruppi == "cliente":
+            sort = 'des_cliente'
+        elif tipo_ordinamento_gruppi == "data":
+            sort = 'data_cons'
+        else:
+            sort = None  # fallback di sicurezza
+
+        if sort:
+            avanzamento_ordini_render.sort(
+                key=lambda o: (
+                    (o.get(sort) or '').lower() if isinstance(o.get(sort), str)
+                    else o.get(sort)
+                ),
+                reverse=reverse
+            )
+
+    if ordine_filtro or cliente_filtro or stato_filtro or operatore_filtro or articolo_filtro or old_code_filtro or tipo_ordini or tipo_ordinamento_gruppi:
         avanzamento_ordini_groups_render = group(avanzamento_ordini_render)
+    
     context = {
         'today': today,
         'modalita': modalita,
@@ -298,6 +312,8 @@ def ordini_da_pianificare(request):
     operatore_filtro = request.GET.get("operatore_filtro", "")
     articolo_filtro = request.GET.get("articolo_filtro", "")
     old_code_filtro = request.GET.get("old_code_filtro", "")
+    tipo_ordinamento_gruppi = request.GET.get("tipo_ordinamento", "")
+    ordine_ordinamento_gruppi = request.GET.get("ordine_ordinamento", "")
     tipo_ordini = request.GET.get("tipo_ordini", "")
     avanzamento_ordini = request.session.get('avanzamento_ordini')
     ordini_da_pianificare = request.session.get('ordini_da_pianificare')
@@ -511,6 +527,25 @@ def ordini_da_pianificare(request):
 
         ]
 
+    if tipo_ordinamento_gruppi and ordine_ordinamento_gruppi:
+        reverse = (ordine_ordinamento_gruppi == 'desc')
+
+        if tipo_ordinamento_gruppi == "cliente":
+            sort = 'des_cliente'
+        elif tipo_ordinamento_gruppi == "data":
+            sort = 'data_cons'
+        else:
+            sort = None  # fallback di sicurezza
+
+        if sort:
+            ordini_da_pianificare_render.sort(
+                key=lambda o: (
+                    (o.get(sort) or '').lower() if isinstance(o.get(sort), str)
+                    else o.get(sort)
+                ),
+                reverse=reverse
+            )
+    if ordine_filtro or cliente_filtro or stato_filtro or operatore_filtro or articolo_filtro or old_code_filtro or tipo_ordini or tipo_ordinamento_gruppi: 
         ordini_da_pianificare_groups_render = group(ordini_da_pianificare_render)
 
     context = {
@@ -545,6 +580,8 @@ def storico_ordini(request):
     operatore_filtro = request.GET.get("operatore_filtro", "")
     articolo_filtro = request.GET.get("articolo_filtro", "")
     old_code_filtro = request.GET.get("old_code_filtro", "")
+    tipo_ordinamento_gruppi = request.GET.get("tipo_ordinamento", "")
+    ordine_ordinamento_gruppi = request.GET.get("ordine_ordinamento", "")
     storico_ordini = request.session.get('storico_ordini')
     tipo_ordini = request.GET.get("tipo_ordini", "")
     storico_ordini_groups = request.session.get('storico_ordini_groups')
@@ -605,6 +642,26 @@ def storico_ordini(request):
             (not tipo_ordini or (o.get('tipo_ordine')=='SOR' and tipo_ordini == 'riparazioni') or (o.get('tipo_ordine')!='SOR' and tipo_ordini == 'produzioni') )
 
         ]
+    
+    if tipo_ordinamento_gruppi and ordine_ordinamento_gruppi:
+        reverse = (ordine_ordinamento_gruppi == 'desc')
+
+        if tipo_ordinamento_gruppi == "cliente":
+            sort = 'des_cliente'
+        elif tipo_ordinamento_gruppi == "data":
+            sort = 'data_cons'
+        else:
+            sort = None  # fallback di sicurezza
+
+        if sort:
+            storico_ordini_render.sort(
+                key=lambda o: (
+                    (o.get(sort) or '').lower() if isinstance(o.get(sort), str)
+                    else o.get(sort)
+                ),
+                reverse=reverse
+            )
+    if ordine_filtro or cliente_filtro or stato_filtro or operatore_filtro or articolo_filtro or old_code_filtro or tipo_ordini or tipo_ordinamento_gruppi:
         storico_ordini_groups_render = group(storico_ordini_render)
 
     context = {
@@ -908,7 +965,6 @@ def group(ordini):
             'dati': dati,
         })
         
-    raggruppamenti.sort(key=lambda x: (x['cliente']))
     return raggruppamenti
 
 def get_ordini_preferences(avanzamento_ordini):
