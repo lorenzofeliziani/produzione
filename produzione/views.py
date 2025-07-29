@@ -42,11 +42,8 @@ def avanzamento_ordini(request):
     tipo_ordinamento_gruppi = request.GET.get("tipo_ordinamento", "")
     ordine_ordinamento_gruppi = request.GET.get("ordine_ordinamento", "")
     avanzamento_ordini = request.session.get('avanzamento_ordini')
-    ordini_da_pianificare = request.session.get('ordini_da_pianificare')
     avanzamento_ordini_preferences = request.session.get('avanzamento_ordini_preferences')
-    ordini_da_pianificare_preferences = request.session.get('ordini_da_pianificare_preferences')
     avanzamento_ordini_groups = request.session.get('avanzamento_ordini_groups')
-    ordini_da_pianificare_groups = request.session.get('ordini_da_pianificare_groups')
     ruolo_utente = request.session.get('ruolo_utente')
     nome_utente = request.session['nome_utente']
     
@@ -63,22 +60,17 @@ def avanzamento_ordini(request):
         if action == "general_update":
             if ruolo_utente in ["Amministratore", "Pianificazione"]:
                 aggiorna_dati(request)
-            avanzamento_ordini, ordini_da_pianificare, storico_ordini = select_ordini(request, ruolo_utente)
+            avanzamento_ordini, storico_ordini = select_ordini(request, ruolo_utente)
             avanzamento_ordini_preferences = get_ordini_preferences(avanzamento_ordini)
-            ordini_da_pianificare_preferences = get_ordini_preferences(ordini_da_pianificare)
             storico_ordini_preferences = get_ordini_preferences(storico_ordini)
             avanzamento_ordini_groups = group(avanzamento_ordini)
-            ordini_da_pianificare_groups = group(ordini_da_pianificare)
             storico_ordini_groups = group(storico_ordini)        
 
             request.session['avanzamento_ordini'] = avanzamento_ordini 
-            request.session['ordini_da_pianificare'] = ordini_da_pianificare
             request.session['storico_ordini'] = storico_ordini
             request.session['avanzamento_ordini_preferences'] = avanzamento_ordini_preferences
-            request.session['ordini_da_pianificare_preferences'] = ordini_da_pianificare_preferences
             request.session['storico_ordini_preferences'] = storico_ordini_preferences
             request.session['avanzamento_ordini_groups'] = avanzamento_ordini_groups
-            request.session['ordini_da_pianificare_groups'] = ordini_da_pianificare_groups
             request.session['storico_ordini_groups'] = storico_ordini_groups
         
         elif action == "update_ord_list":
@@ -91,19 +83,6 @@ def avanzamento_ordini(request):
                 operatore_obj = Utenti.objects.filter(nome=nuovo_operatore_nome).first()
                 
                 ordini_selezionati = Avanzamento_Ordini.objects.filter(ordine=numero_ordine)
-
-                adv_idx   = {(o['sede'], o['ordine'], o['n_riga']): o for o in avanzamento_ordini}
-                pian_idx  = {(o['sede'], o['ordine'], o['n_riga']): o for o in ordini_da_pianificare}
-
-                for row in ordini_selezionati:
-                    k = (row.sede, row.ordine, row.n_riga)
-
-                    if row.stato_ord.stato == "Da pianificare" and stato_obj.stato != "Da pianificare":
-                        pian_idx.pop(k, None)
-                    elif row.stato_ord.stato != "Da pianificare" and stato_obj.stato == "Da pianificare":
-                        pian_idx[k] = adv_idx[k] 
-
-                ordini_da_pianificare = list(pian_idx.values())
 
                 # Aggiorna il DB
                 ordini_selezionati.update(
@@ -120,17 +99,12 @@ def avanzamento_ordini(request):
                         ordine['des_stato_ord'] = stato_obj.stato if stato_obj else None
 
                 # Salva in sessione
-                avanzamento_ordini_preferences = get_ordini_preferences(avanzamento_ordini)
-                ordini_da_pianificare_preferences = get_ordini_preferences(ordini_da_pianificare)        
+                avanzamento_ordini_preferences = get_ordini_preferences(avanzamento_ordini) 
                 avanzamento_ordini_groups = group(avanzamento_ordini)
-                ordini_da_pianificare_groups = group(ordini_da_pianificare)      
 
                 request.session['avanzamento_ordini_groups'] = avanzamento_ordini_groups
-                request.session['ordini_da_pianificare_groups'] = ordini_da_pianificare_groups
                 request.session['avanzamento_ordini'] = avanzamento_ordini
                 request.session['avanzamento_ordini_preferences'] = avanzamento_ordini_preferences
-                request.session['ordini_da_pianificare'] = ordini_da_pianificare
-                request.session['ordini_da_pianificare_preferences'] = ordini_da_pianificare_preferences
 
             except Exception as e:
                 import traceback
@@ -148,19 +122,6 @@ def avanzamento_ordini(request):
                 
                 ordine_db = Avanzamento_Ordini.objects.filter(ordine=numero_ordine, n_riga=riga).first()
 
-                adv_idx   = {(o['sede'], o['ordine'], o['n_riga']): o for o in avanzamento_ordini}
-                pian_idx  = {(o['sede'], o['ordine'], o['n_riga']): o for o in ordini_da_pianificare}
-
-                k = (ordine_db.sede, ordine_db.ordine, ordine_db.n_riga)
-
-                if ordine_db.stato_ord.stato == "Da pianificare" and stato_obj.stato != "Da pianificare":
-                    pian_idx.pop(k, None)
-                elif ordine_db.stato_ord.stato != "Da pianificare" and stato_obj.stato == "Da pianificare":
-                    pian_idx[k] = adv_idx[k] 
-
-                ordini_da_pianificare = list(pian_idx.values())
-
-                # Aggiorna il DB
                 Avanzamento_Ordini.objects.filter(id=ordine_db.id) \
                     .update(operatore=operatore_obj, stato_ord=stato_obj)
 
@@ -173,46 +134,35 @@ def avanzamento_ordini(request):
                         ordine['des_stato_ord'] = stato_obj.stato if stato_obj is not None else None
 
                 # Salva in sessione
-                avanzamento_ordini_preferences = get_ordini_preferences(avanzamento_ordini)
-                ordini_da_pianificare_preferences = get_ordini_preferences(ordini_da_pianificare)        
-                avanzamento_ordini_groups = group(avanzamento_ordini)
-                ordini_da_pianificare_groups = group(ordini_da_pianificare)      
+                avanzamento_ordini_preferences = get_ordini_preferences(avanzamento_ordini)      
+                avanzamento_ordini_groups = group(avanzamento_ordini)     
 
                 request.session['avanzamento_ordini_groups'] = avanzamento_ordini_groups
-                request.session['ordini_da_pianificare_groups'] = ordini_da_pianificare_groups
                 request.session['avanzamento_ordini'] = avanzamento_ordini
                 request.session['avanzamento_ordini_preferences'] = avanzamento_ordini_preferences
-                request.session['ordini_da_pianificare'] = ordini_da_pianificare
-                request.session['ordini_da_pianificare_preferences'] = ordini_da_pianificare_preferences
+
             except Exception as e:
                 import traceback
                 traceback.print_exc()
+
         elif action == "update_note":
             try:
                 numero_ordine = request.POST.get('ordine')
                 nota = request.POST.get('nota')
                 ordini_selezionati = Avanzamento_Ordini.objects.filter(ordine=numero_ordine)
                 ordini_selezionati.update(note_prod=nota)
-                idx_ordine_da_pianificare = False
                 for ordine in avanzamento_ordini:
                     if ordine['ordine'] == numero_ordine:
                         ordine['note_prod'] = nota
-                        if ordine['des_stato_ord']== "Da pianificare":
-                            idx_ordine_da_pianificare = True
-                if idx_ordine_da_pianificare:
-                    for ordine in ordini_da_pianificare:
-                        if ordine['ordine'] == numero_ordine:
-                            ordine['note_prod'] = nota
 
-                    ordini_da_pianificare_groups = group(ordini_da_pianificare)
                 avanzamento_ordini_groups = group(avanzamento_ordini)
-                request.session['avanzamento_ordini_groups'] = avanzamento_ordini_groups
                 request.session['avanzamento_ordini'] = avanzamento_ordini
-                request.session['ordini_da_pianificare'] = ordini_da_pianificare
                 request.session['avanzamento_ordini_groups'] = avanzamento_ordini_groups
+
             except Exception as e:
                 import traceback
                 traceback.print_exc()
+
         elif action == "update_note_single":
             try:
                 numero_ordine = request.POST.get('ordine')
@@ -223,21 +173,14 @@ def avanzamento_ordini(request):
                 if ordini_selezionati:
                     ordini_selezionati.note_prod = nota
                     ordini_selezionati.save()
-                    if ordini_selezionati.stato_ord.stato == "Da pianificare":
-                        idx_ordine_da_pianificare = True
                 for ordine in avanzamento_ordini:
                     if ordine['ordine'] == numero_ordine and ordine['n_riga'] == riga:
                         ordine['note_prod'] = nota
-                if idx_ordine_da_pianificare:
-                    for ordine in ordini_da_pianificare:
-                        if ordine['ordine'] == numero_ordine and ordine['n_riga'] == riga:
-                            ordine['note_prod'] = nota
-                    ordini_da_pianificare_groups = group(ordini_da_pianificare)
+
                 avanzamento_ordini_groups = group(avanzamento_ordini)
                 request.session['avanzamento_ordini_groups'] = avanzamento_ordini_groups
                 request.session['avanzamento_ordini'] = avanzamento_ordini
-                request.session['ordini_da_pianificare'] = ordini_da_pianificare
-                request.session['avanzamento_ordini_groups'] = avanzamento_ordini_groups
+
             except Exception as e:
                 import traceback
                 traceback.print_exc()
@@ -316,11 +259,8 @@ def ordini_da_pianificare(request):
     ordine_ordinamento_gruppi = request.GET.get("ordine_ordinamento", "")
     tipo_ordini = request.GET.get("tipo_ordini", "")
     avanzamento_ordini = request.session.get('avanzamento_ordini')
-    ordini_da_pianificare = request.session.get('ordini_da_pianificare')
     avanzamento_ordini_preferences = request.session.get('avanzamento_ordini_preferences')
-    ordini_da_pianificare_preferences = request.session.get('ordini_da_pianificare_preferences')
     avanzamento_ordini_groups = request.session.get('avanzamento_ordini_groups')
-    ordini_da_pianificare_groups = request.session.get('ordini_da_pianificare_groups')
     ruolo_utente = request.session.get('ruolo_utente')
     nome_utente = request.session['nome_utente']
     
@@ -345,22 +285,17 @@ def ordini_da_pianificare(request):
         if action == "general_update":
             if ruolo_utente in ["Amministratore", "Pianificazione"]:
                 aggiorna_dati(request)
-            avanzamento_ordini, ordini_da_pianificare, storico_ordini = select_ordini(request, ruolo_utente)
+            avanzamento_ordini, storico_ordini = select_ordini(request, ruolo_utente)
             avanzamento_ordini_preferences = get_ordini_preferences(avanzamento_ordini)
-            ordini_da_pianificare_preferences = get_ordini_preferences(ordini_da_pianificare)
             storico_ordini_preferences = get_ordini_preferences(storico_ordini)
             avanzamento_ordini_groups = group(avanzamento_ordini)
-            ordini_da_pianificare_groups = group(ordini_da_pianificare)
             storico_ordini_groups = group(storico_ordini)        
 
             request.session['avanzamento_ordini'] = avanzamento_ordini 
-            request.session['ordini_da_pianificare'] = ordini_da_pianificare
             request.session['storico_ordini'] = storico_ordini
             request.session['avanzamento_ordini_preferences'] = avanzamento_ordini_preferences
-            request.session['ordini_da_pianificare_preferences'] = ordini_da_pianificare_preferences
             request.session['storico_ordini_preferences'] = storico_ordini_preferences
             request.session['avanzamento_ordini_groups'] = avanzamento_ordini_groups
-            request.session['ordini_da_pianificare_groups'] = ordini_da_pianificare_groups
             request.session['storico_ordini_groups'] = storico_ordini_groups
         
         elif action == "update_ord_list":
@@ -373,15 +308,6 @@ def ordini_da_pianificare(request):
                 operatore_obj = Utenti.objects.filter(nome=nuovo_operatore_nome).first()
 
                 ordini_selezionati = Avanzamento_Ordini.objects.filter(ordine=numero_ordine, )
-
-                pian_idx  = {(o['sede'], o['ordine'], o['n_riga']): o for o in ordini_da_pianificare}
-
-                if stato_obj.stato != "Da pianificare":
-                    for row in ordini_selezionati:
-                        k = (row.sede, row.ordine, row.n_riga)
-                        pian_idx.pop(k, None)
-
-                ordini_da_pianificare = list(pian_idx.values())
 
                 # Aggiorna il DB
                 ordini_selezionati.update(
@@ -399,16 +325,11 @@ def ordini_da_pianificare(request):
 
                 # Salva in sessione
                 avanzamento_ordini_preferences = get_ordini_preferences(avanzamento_ordini)
-                ordini_da_pianificare_preferences = get_ordini_preferences(ordini_da_pianificare)
                 avanzamento_ordini_groups = group(avanzamento_ordini)
-                ordini_da_pianificare_groups = group(ordini_da_pianificare)    
 
                 request.session['avanzamento_ordini'] = avanzamento_ordini 
-                request.session['ordini_da_pianificare'] = ordini_da_pianificare
                 request.session['avanzamento_ordini_preferences'] = avanzamento_ordini_preferences
-                request.session['ordini_da_pianificare_preferences'] = ordini_da_pianificare_preferences
                 request.session['avanzamento_ordini_groups'] = avanzamento_ordini_groups
-                request.session['ordini_da_pianificare_groups'] = ordini_da_pianificare_groups
 
             except Exception as e:
                 import traceback
@@ -426,15 +347,6 @@ def ordini_da_pianificare(request):
                 
                 ordine_db = Avanzamento_Ordini.objects.filter(ordine=numero_ordine, n_riga=riga).first()
 
-                pian_idx  = {(o['sede'], o['ordine'], o['n_riga']): o for o in ordini_da_pianificare}
-
-                k = (ordine_db.sede, ordine_db.ordine, ordine_db.n_riga)
-
-                if stato_obj.stato != "Da pianificare":
-                    pian_idx.pop(k, None)
-
-                ordini_da_pianificare = list(pian_idx.values())
-
                 # Aggiorna il DB
                 Avanzamento_Ordini.objects.filter(id=ordine_db.id) \
                     .update(operatore=operatore_obj, stato_ord=stato_obj)
@@ -448,19 +360,15 @@ def ordini_da_pianificare(request):
 
                 # Salva in sessione
                 avanzamento_ordini_preferences = get_ordini_preferences(avanzamento_ordini)
-                ordini_da_pianificare_preferences = get_ordini_preferences(ordini_da_pianificare)
                 avanzamento_ordini_groups = group(avanzamento_ordini)
-                ordini_da_pianificare_groups = group(ordini_da_pianificare)    
 
                 request.session['avanzamento_ordini'] = avanzamento_ordini 
-                request.session['ordini_da_pianificare'] = ordini_da_pianificare
                 request.session['avanzamento_ordini_preferences'] = avanzamento_ordini_preferences
-                request.session['ordini_da_pianificare_preferences'] = ordini_da_pianificare_preferences
                 request.session['avanzamento_ordini_groups'] = avanzamento_ordini_groups
-                request.session['ordini_da_pianificare_groups'] = ordini_da_pianificare_groups
             except Exception as e:
                 import traceback
                 traceback.print_exc()
+
         elif action == "update_note":
             try:
                 numero_ordine = request.POST.get('ordine')
@@ -471,19 +379,15 @@ def ordini_da_pianificare(request):
                     if ordine['ordine'] == numero_ordine:
                         ordine['note_prod'] = nota
 
-                for ordine in ordini_da_pianificare:
-                    if ordine['ordine'] == numero_ordine:
-                        ordine['note_prod'] = nota
 
-                ordini_da_pianificare_groups = group(ordini_da_pianificare)
                 avanzamento_ordini_groups = group(avanzamento_ordini)
                 request.session['avanzamento_ordini_groups'] = avanzamento_ordini_groups
                 request.session['avanzamento_ordini'] = avanzamento_ordini
-                request.session['ordini_da_pianificare'] = ordini_da_pianificare
-                request.session['avanzamento_ordini_groups'] = avanzamento_ordini_groups
+
             except Exception as e:
                 import traceback
                 traceback.print_exc()
+
         elif action == "update_note_single":
             try:
                 numero_ordine = request.POST.get('ordine')
@@ -497,19 +401,19 @@ def ordini_da_pianificare(request):
                 for ordine in avanzamento_ordini:
                     if ordine['ordine'] == numero_ordine and ordine['n_riga'] == riga:
                         ordine['note_prod'] = nota
-                for ordine in ordini_da_pianificare:
-                    if ordine['ordine'] == numero_ordine and ordine['n_riga'] == riga:
-                        ordine['note_prod'] = nota
-                ordini_da_pianificare_groups = group(ordini_da_pianificare)
+
+
                 avanzamento_ordini_groups = group(avanzamento_ordini)
                 request.session['avanzamento_ordini_groups'] = avanzamento_ordini_groups
                 request.session['avanzamento_ordini'] = avanzamento_ordini
-                request.session['ordini_da_pianificare'] = ordini_da_pianificare
-                request.session['avanzamento_ordini_groups'] = avanzamento_ordini_groups
+
             except Exception as e:
                 import traceback
                 traceback.print_exc()
 
+    ordini_da_pianificare = [o for o in avanzamento_ordini if o.get('des_stato_ord') == 'Da pianificare']
+    ordini_da_pianificare_groups = group(ordini_da_pianificare)
+    ordini_da_pianificare_preferences = get_ordini_preferences(ordini_da_pianificare)
     ordini_da_pianificare_render = riformatta_date(copy.deepcopy(ordini_da_pianificare))
     ordini_da_pianificare_groups_render = riformatta_date_groups(copy.deepcopy(ordini_da_pianificare_groups))
     today = date.today()
@@ -1178,7 +1082,6 @@ def select_ordini(request, ruolo_utente):
 
 
             risultati_avanzamento_ordini = []
-            risultati_ordini_da_pianificare = []
             risultati_storico_ordini = []
 
             for avanzamento in avanzamenti:
@@ -1244,38 +1147,7 @@ def select_ordini(request, ruolo_utente):
                             'commerciale': ordine_aperto.get('COMMERCIALE'),
                         })
 
-                    if ordine_aperto.get('ARTICOLO') is not None and avanzamento.stato_ord.stato=='Da pianificare' and 'V' in list(tipo_uso):
-                        risultati_ordini_da_pianificare.append({
-                        'sede': avanzamento.sede,
-                        'vis_note_ord': vis_note_ord,
-                        'vis_note_prod': vis_note_prod,
-                        'data_cons': str(data_cons) if data_cons else None,
-                        'data_ord': str(data_ord) if data_ord else None,
-                        'data_sped': str(data_sped) if data_sped else None,
-                        'ordine': avanzamento.ordine,
-                        'n_riga': int(avanzamento.n_riga),
-                        'tipo_ordine': ordine_aperto.get('TIPO_ORDINE'),
-                        'rif_cli': ordine_aperto.get('RIF_CLI'),
-                        'articolo': ordine_aperto.get('ARTICOLO'),
-                        'old_code': ordine_aperto.get('OLD_CODE'),
-                        'des_articolo': ordine_aperto.get('DES_ARTICOLO'),
-                        'qta_ord': int(ordine_aperto.get('QTA_ORD')),
-                        'qta_cons': int(ordine_aperto.get('QTA_CONS')),
-                        'qta_res': int(ordine_aperto.get('QTA_ORD') - ordine_aperto.get('QTA_CONS')),
-                        'cd_cliente': ordine_aperto.get('CD_CLIENTE'),
-                        'rif_int': ordine_aperto.get('RIF_INT'),
-                        'des_cliente': ordine_aperto.get('DES_CLIENTE'),
-                        'id_stato_ord': avanzamento.stato_ord.id,
-                        'des_stato_ord': avanzamento.stato_ord.stato,
-                        'operatore': avanzamento.operatore.username if avanzamento.operatore else None,
-                        'des_operatore': avanzamento.operatore.nome if avanzamento.operatore else None,
-                        'tipo_uso': list(tipo_uso),
-                        'fl_note_ord': avanzamento.fl_note_ord,
-                        'fl_note_prod': avanzamento.fl_note_prod,
-                        'note_prod': avanzamento.note_prod,
-                        'commerciale': ordine_aperto.get('COMMERCIALE'),
-                    })
-                    if ordine_chiuso:
+                elif ordine_chiuso:
                         # Calcola DATA_CONS
                         data_sped = ordine_chiuso.get('DATA_SPED')
                         data_ord = ordine_chiuso.get('DATA_ORD')
@@ -1317,57 +1189,12 @@ def select_ordini(request, ruolo_utente):
                             'note_prod': avanzamento.note_prod,
                             'commerciale': ordine_chiuso.get('COMMERCIALE'),
                         })
-                    else:
-                        continue
                 else:
-                    if ordine_chiuso:
-                        # Calcola DATA_CONS
-                        data_sped = ordine_chiuso.get('DATA_SPED')
-                        data_ord = ordine_chiuso.get('DATA_ORD')
-                        if data_sped and data_ord:
-                            if (data_sped - data_ord).days > 4:
-                                data_cons = calcola_data_consegna(data_sped, 3)
-                            else:
-                                data_cons = data_sped
-                        else:
-                            data_cons = None                                 
-                        if ordine_chiuso.get('ARTICOLO') is not None and 'V' in list(tipo_uso):
-                            risultati_storico_ordini.append({
-                            'sede': avanzamento.sede,
-                            'vis_note_ord': vis_note_ord,
-                            'vis_note_prod': vis_note_prod,
-                            'data_cons': str(data_cons) if data_cons else None,
-                            'data_ord': str(data_ord) if data_ord else None,
-                            'data_sped': str(data_sped) if data_sped else None,
-                            'ordine': avanzamento.ordine,
-                            'n_riga': int(avanzamento.n_riga),
-                            'tipo_ordine': ordine_chiuso.get('TIPO_ORDINE'),
-                            'rif_cli': ordine_chiuso.get('RIF_CLI'),
-                            'articolo': ordine_chiuso.get('ARTICOLO'),
-                            'old_code': ordine_chiuso.get('OLD_CODE'),
-                            'des_articolo': ordine_chiuso.get('DES_ARTICOLO'),
-                            'qta_ord': int(ordine_chiuso.get('QTA_ORD')),
-                            'qta_cons': int(ordine_chiuso.get('QTA_CONS')),
-                            'qta_res': int(ordine_chiuso.get('QTA_ORD') - ordine_chiuso.get('QTA_CONS')),
-                            'cd_cliente': ordine_chiuso.get('CD_CLIENTE'),
-                            'rif_int': ordine_chiuso.get('RIF_INT'),
-                            'des_cliente': ordine_chiuso.get('DES_CLIENTE'),
-                            'id_stato_ord': avanzamento.stato_ord.id,
-                            'des_stato_ord': avanzamento.stato_ord.stato,
-                            'operatore': avanzamento.operatore.username if avanzamento.operatore else None,
-                            'des_operatore': avanzamento.operatore.nome if avanzamento.operatore else None,
-                            'tipo_uso': list(tipo_uso),
-                            'fl_note_ord': avanzamento.fl_note_ord,
-                            'fl_note_prod': avanzamento.fl_note_prod,
-                            'note_prod': avanzamento.note_prod,
-                            'commerciale': ordine_chiuso.get('COMMERCIALE'),
-                        })
-                    else:
-                        continue       
+                    continue       
     except Exception as e:
         error_msg = f"Errore con chiave {chiave}: {str(e)}"
         print(error_msg)
         print(traceback.format_exc())
         messages.error(request, error_msg)
 
-    return risultati_avanzamento_ordini, risultati_ordini_da_pianificare, risultati_storico_ordini
+    return risultati_avanzamento_ordini, risultati_storico_ordini

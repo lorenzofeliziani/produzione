@@ -6363,3 +6363,24 @@ TypeError: 'bool' object is not callable
 2025-07-28 22:34:35,157 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py changed, reloading.
 2025-07-28 22:34:36,908 dati.sage.connect [INFO] Inizio funzione dashboard
 2025-07-28 22:34:36,994 django.utils.autoreload [INFO] Watching for file changes with StatReloader
+2025-07-29 08:41:34,255 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py changed, reloading.
+2025-07-29 08:41:37,389 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-29 08:41:37,604 django.utils.autoreload [INFO] Watching for file changes with StatReloader
+2025-07-29 08:47:13,732 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py changed, reloading.
+2025-07-29 08:47:14,577 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-29 08:47:14,627 django.utils.autoreload [INFO] Watching for file changes with StatReloader
+2025-07-29 08:47:41,166 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\signals.py changed, reloading.
+2025-07-29 08:47:42,146 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-29 08:47:42,204 django.utils.autoreload [INFO] Watching for file changes with StatReloader
+2025-07-29 08:57:58,499 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py changed, reloading.
+2025-07-29 08:57:59,401 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-29 08:57:59,452 django.utils.autoreload [INFO] Watching for file changes with StatReloader
+2025-07-29 08:58:39,820 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-29 08:58:40,633 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-29 08:58:40,683 django.utils.autoreload [INFO] Watching for file changes with StatReloader
+2025-07-29 09:02:09,516 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\signals.py changed, reloading.
+2025-07-29 09:02:10,058 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\signals.py changed, reloading.
+2025-07-29 09:02:10,966 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-29 09:02:10,974 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-29 09:02:11,013 django.utils.autoreload [INFO] Watching for file changes with StatReloader
+2025-07-29 09:02:11,018 django.utils.autoreload [INFO] Watching for file changes with StatReloader
