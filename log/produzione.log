@@ -6384,3 +6384,40 @@ TypeError: 'bool' object is not callable
 2025-07-29 09:02:10,974 dati.sage.connect [INFO] Inizio funzione dashboard
 2025-07-29 09:02:11,013 django.utils.autoreload [INFO] Watching for file changes with StatReloader
 2025-07-29 09:02:11,018 django.utils.autoreload [INFO] Watching for file changes with StatReloader
+2025-07-29 09:06:21,763 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py changed, reloading.
+2025-07-29 09:06:22,564 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-29 09:06:22,609 django.utils.autoreload [INFO] Watching for file changes with StatReloader
+2025-07-29 09:20:16,550 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py changed, reloading.
+2025-07-29 09:20:17,507 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-29 09:20:17,566 django.utils.autoreload [INFO] Watching for file changes with StatReloader
+2025-07-29 09:28:07,390 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py changed, reloading.
+2025-07-29 09:28:08,366 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-29 09:28:08,422 django.utils.autoreload [INFO] Watching for file changes with StatReloader
+2025-07-29 09:28:22,903 django.request [ERROR] Internal Server Error: /avanzamento_ordini/
+Traceback (most recent call last):
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py", line 225, in avanzamento_ordini
+    avanzamento_ordini_groups_render = group(avanzamento_ordini_render, avanzamento_ordini)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py", line 867, in group
+    tot_dati = tot_group_map.get(cliente, ordine, sede)
+TypeError: get expected at most 2 arguments, got 3
+2025-07-29 09:30:08,065 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py changed, reloading.
+2025-07-29 09:30:09,202 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-29 09:30:09,257 django.utils.autoreload [INFO] Watching for file changes with StatReloader
+2025-07-29 09:32:58,945 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py changed, reloading.
+2025-07-29 09:33:00,148 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-29 09:33:00,193 django.utils.autoreload [INFO] Watching for file changes with StatReloader
+2025-07-29 09:36:09,945 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py changed, reloading.
+2025-07-29 09:36:11,067 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-29 09:36:11,115 django.utils.autoreload [INFO] Watching for file changes with StatReloader
+2025-07-29 09:38:38,320 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py changed, reloading.
+2025-07-29 09:38:39,364 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-29 09:38:39,408 django.utils.autoreload [INFO] Watching for file changes with StatReloader
+2025-07-29 09:42:39,883 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py changed, reloading.
+2025-07-29 09:42:40,870 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-29 09:42:40,923 django.utils.autoreload [INFO] Watching for file changes with StatReloader

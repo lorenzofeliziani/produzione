@@ -3,6 +3,7 @@ import copy
 from datetime import date
 from collections import defaultdict
 from .utils import calcola_data_consegna, riformatta_date, riformatta_date_groups
+from django.core.paginator import Paginator
 from datetime import datetime
 from django.shortcuts import redirect
 from django.db import connection, transaction
@@ -219,9 +220,10 @@ def avanzamento_ordini(request):
                 ),
                 reverse=reverse
             )
-
-    if ordine_filtro or cliente_filtro or stato_filtro or operatore_filtro or articolo_filtro or old_code_filtro or tipo_ordini or tipo_ordinamento_gruppi:
+    if (tipo_ordini or tipo_ordinamento_gruppi) and not(ordine_filtro or cliente_filtro or stato_filtro or operatore_filtro or articolo_filtro or old_code_filtro):
         avanzamento_ordini_groups_render = group(avanzamento_ordini_render)
+    if ordine_filtro or cliente_filtro or stato_filtro or operatore_filtro or articolo_filtro or old_code_filtro:
+        avanzamento_ordini_groups_render = group(avanzamento_ordini_render, avanzamento_ordini)
     
     context = {
         'today': today,
@@ -412,7 +414,7 @@ def ordini_da_pianificare(request):
                 traceback.print_exc()
 
     ordini_da_pianificare = [o for o in avanzamento_ordini if o.get('des_stato_ord') == 'Da pianificare']
-    ordini_da_pianificare_groups = group(ordini_da_pianificare)
+    ordini_da_pianificare_groups = group(ordini_da_pianificare, avanzamento_ordini)
     ordini_da_pianificare_preferences = get_ordini_preferences(ordini_da_pianificare)
     ordini_da_pianificare_render = riformatta_date(copy.deepcopy(ordini_da_pianificare))
     ordini_da_pianificare_groups_render = riformatta_date_groups(copy.deepcopy(ordini_da_pianificare_groups))
@@ -449,9 +451,9 @@ def ordini_da_pianificare(request):
                 ),
                 reverse=reverse
             )
-    if ordine_filtro or cliente_filtro or stato_filtro or operatore_filtro or articolo_filtro or old_code_filtro or tipo_ordini or tipo_ordinamento_gruppi: 
-        ordini_da_pianificare_groups_render = group(ordini_da_pianificare_render)
 
+    if ordine_filtro or cliente_filtro or stato_filtro or operatore_filtro or articolo_filtro or old_code_filtro or tipo_ordini or tipo_ordinamento_gruppi:
+        ordini_da_pianificare_groups_render = group(ordini_da_pianificare_render, avanzamento_ordini)
     context = {
         'today': today,
         'modalita': modalita,
@@ -555,7 +557,7 @@ def storico_ordini(request):
         elif tipo_ordinamento_gruppi == "data":
             sort = 'data_cons'
         else:
-            sort = None  # fallback di sicurezza
+            sort = None
 
         if sort:
             storico_ordini_render.sort(
@@ -565,8 +567,12 @@ def storico_ordini(request):
                 ),
                 reverse=reverse
             )
-    if ordine_filtro or cliente_filtro or stato_filtro or operatore_filtro or articolo_filtro or old_code_filtro or tipo_ordini or tipo_ordinamento_gruppi:
-        storico_ordini_groups_render = group(storico_ordini_render)
+
+    if (tipo_ordini or tipo_ordinamento_gruppi) and not(ordine_filtro or cliente_filtro or stato_filtro or operatore_filtro or articolo_filtro or old_code_filtro):
+        storico_ordini_groups_render = group(storico_ordini_render)        
+
+    if ordine_filtro or cliente_filtro or stato_filtro or operatore_filtro or articolo_filtro or old_code_filtro:
+        storico_ordini_groups_render = group(storico_ordini_render, storico_ordini)
 
     context = {
         'today': today,
@@ -841,35 +847,74 @@ def tabelle(request):
     
     return render(request, 'produzione/tabelle.html', context)
 
-def group(ordini):
-    raggruppamenti = []
-    group_map = defaultdict(list)
-
-    for item in ordini:
-        key = (item['des_cliente'], item['ordine'], item['sede'])
-        group_map[key].append(item)
-
-    for (cliente, ordine, sede), dati in group_map.items():
-        percentuali_stato={}
-        for dato in dati:
-            if dato['des_stato_ord'] in percentuali_stato.keys():
-                percentuali_stato [dato['des_stato_ord']] += 1
-            else:
-                percentuali_stato [dato['des_stato_ord']] = 1
-        somma = sum(percentuali_stato.values())
-        for k,v in percentuali_stato.items():
-            percentuali_stato[k] = int(round(v / somma * 100,0))
+def group(ordini, totale_ordini = None):
         
-        raggruppamenti.append({
-            'cliente': cliente,
-            'ordine': ordine,
-            'sede': sede,
-            'percentuali_stato': percentuali_stato,
-            'data_cons': dati[0]['data_cons'],
-            'dati': dati,
-        })
+    if totale_ordini is not None:
+        raggruppamenti = []
+        group_map = defaultdict(list)
+        tot_group_map = defaultdict(list)
+
+        for item in ordini:
+            key = (item['des_cliente'], item['ordine'], item['sede'])
+            group_map[key].append(item)
         
-    return raggruppamenti
+        for item in totale_ordini:
+            key = (item['des_cliente'], item['ordine'], item['sede'])
+            tot_group_map[key].append(item)
+
+        for (cliente, ordine, sede), dati in group_map.items():
+            percentuali_stato={}
+            tot_dati = tot_group_map.get((cliente, ordine, sede), [])
+            for dato in tot_dati:
+                if dato['des_stato_ord'] in percentuali_stato:
+                    percentuali_stato [dato['des_stato_ord']] += 1
+                else:
+                    percentuali_stato [dato['des_stato_ord']] = 1
+            somma = sum(percentuali_stato.values())
+            for k,v in percentuali_stato.items():
+                percentuali_stato[k] = int(round(v / somma * 100,0))
+            
+            raggruppamenti.append({
+                'cliente': cliente,
+                'ordine': ordine,
+                'sede': sede,
+                'percentuali_stato': percentuali_stato,
+                'data_cons': dati[0]['data_cons'],
+                'dati': dati,
+            })
+            
+        return raggruppamenti
+
+    else:
+        raggruppamenti = []
+        group_map = defaultdict(list)
+
+        for item in ordini:
+            key = (item['des_cliente'], item['ordine'], item['sede'])
+            group_map[key].append(item)
+        
+        for (cliente, ordine, sede), dati in group_map.items():
+            percentuali_stato={}
+            for dato in dati:
+                if dato['des_stato_ord'] in percentuali_stato:
+                    percentuali_stato [dato['des_stato_ord']] += 1
+                else:
+                    percentuali_stato [dato['des_stato_ord']] = 1
+            somma = sum(percentuali_stato.values())
+            for k,v in percentuali_stato.items():
+                percentuali_stato[k] = int(round(v / somma * 100,0))
+            
+            raggruppamenti.append({
+                'cliente': cliente,
+                'ordine': ordine,
+                'sede': sede,
+                'percentuali_stato': percentuali_stato,
+                'data_cons': dati[0]['data_cons'],
+                'dati': dati,
+            })
+            
+        return raggruppamenti
+
 
 def get_ordini_preferences(avanzamento_ordini):
     
