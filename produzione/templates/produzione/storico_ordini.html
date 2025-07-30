@@ -297,6 +297,25 @@
         </tbody>
         </table>
     </div>
+      <nav class="d-flex justify-content-center mt-2">
+      <ul class="pagination">
+        {% if avanzamento_ordini.has_previous %}
+          <li class="page-item">
+            <a class="page-link" href="?{{ base_querystring }}&page={{ avanzamento_ordini.previous_page_number }}">Previous</a>
+          </li>
+        {% endif %}
+
+        <li class="page-item disabled">
+          <span class="page-link">{{ avanzamento_ordini.number }} / {{ avanzamento_ordini.paginator.num_pages }}</span>
+        </li>
+
+        {% if avanzamento_ordini.has_next %}
+          <li class="page-item">
+            <a class="page-link" href="?{{ base_querystring }}&page={{ avanzamento_ordini.next_page_number }}">Next</a>
+          </li>
+        {% endif %}
+      </ul>
+    </nav>
     </div>
   
 
@@ -418,6 +437,26 @@
         </tbody>
         </table>
     </div>
+      <nav class="d-flex justify-content-center mt-2">
+        <ul class="pagination">
+          {% if avanzamento_ordini_groups.has_previous %}
+            <li class="page-item">
+              <a class="page-link" href="?{{ base_groups_querystring }}&page_groups={{ avanzamento_ordini_groups.previous_page_number }}">Previous</a>
+            </li>
+          {% endif %}
+
+          <li class="page-item disabled">
+            <span class="page-link">{{ avanzamento_ordini_groups.number }} / {{ avanzamento_ordini_groups.paginator.num_pages }}</span>
+          </li>
+
+          {% if avanzamento_ordini_groups.has_next %}
+            <li class="page-item">
+              <a class="page-link" href="?{{ base_groups_querystring }}&page_groups={{ avanzamento_ordini_groups.next_page_number }}">Next</a>
+            </li>
+          {% endif %}
+        </ul>
+      </nav>
+
     </div>
     </div>
     <!-- Modale per modificare ordini -->
@@ -666,18 +705,25 @@
   });
   </script>
 
-  <script>
+<script>
   document.getElementById('tipo-ordini').addEventListener('change', function () {
     const tipoOrdini = this.value;
 
-    // Prendi i parametri correnti dall'URL
     const url = new URL(window.location);
-    url.searchParams.set('tipo_ordini', tipoOrdini);
+    const params = url.searchParams;
 
-    // Ricostruisci l'URL
-    window.location.href = url;
+    // ✅ Rimuovi 'page' e 'page_groups'
+    params.delete('page');
+    params.delete('page_groups');
+
+    // ✅ Imposta 'tipo_ordini'
+    params.set('tipo_ordini', tipoOrdini);
+
+    // ✅ Aggiorna l'URL con i nuovi parametri
+    url.search = params.toString();
+    window.location.href = url.toString();
   });
-  </script>
+</script>
 
 
 
@@ -776,15 +822,24 @@ document.addEventListener('DOMContentLoaded', function () {
     button.addEventListener('click', function () {
       const sortType = this.dataset.sort;
       const sortOrder = this.dataset.order;
- 
-      const url = new URL(window.location);
-      url.searchParams.set('tipo_ordinamento', sortType);
-      url.searchParams.set('ordine_ordinamento', sortOrder);
 
-    // Ricostruisci l'URL
-      window.location.href = url;
-  });
+      const url = new URL(window.location);
+      const params = url.searchParams;
+
+      // ✅ Rimuovi i parametri di paginazione
+      params.delete('page');
+      params.delete('page_groups');
+
+      // ✅ Imposta i nuovi parametri di ordinamento
+      params.set('tipo_ordinamento', sortType);
+      params.set('ordine_ordinamento', sortOrder);
+
+      // ✅ Aggiorna e vai al nuovo URL
+      url.search = params.toString();
+      window.location.href = url.toString();
     });
+  });
+
   });
 </script>
 <script>
@@ -809,6 +864,8 @@ document.addEventListener('DOMContentLoaded', function () {
     const tipo_ordini = currentParams.get("tipo_ordini");
     const sortType = currentParams.get("tipo_ordinamento"); 
     const sortOrder = currentParams.get("ordine_ordinamento");
+    const page = currentParams.get("page");
+    const page_groups = currentParams.get("page_groups")
 
     const params = new URLSearchParams();
     if (modalita) params.set("modalita", modalita);  // Mantiene la modalità
@@ -831,10 +888,16 @@ document.addEventListener('DOMContentLoaded', function () {
     const currentParams = new URLSearchParams(window.location.search);
     const modalita = currentParams.get("modalita");
     const tipo_ordini = currentParams.get("tipo_ordini");
+    const sortType = currentParams.get("tipo_ordinamento"); 
+    const sortOrder = currentParams.get("ordine_ordinamento");
+    const page = currentParams.get("page");
+    const page_groups = currentParams.get("page_groups")
 
     const params = new URLSearchParams();
     if (modalita) params.set("modalita", modalita);  // Mantiene la modalità
     if (tipo_ordini) params.set("tipo_ordini", tipo_ordini);
+    if (sortType) params.set("tipo_ordinamento",sortType);
+    if (sortOrder) params.set("ordine_ordinamento", sortOrder);
 
     const newUrl = `${window.location.pathname}?${params.toString()}`;
     window.location.href = newUrl;

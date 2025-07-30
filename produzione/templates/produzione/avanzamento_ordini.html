@@ -946,10 +946,14 @@ document.addEventListener('DOMContentLoaded', function () {
     const currentParams = new URLSearchParams(window.location.search);
     const modalita = currentParams.get("modalita");
     const tipo_ordini = currentParams.get("tipo_ordini");
+    const sortType = currentParams.get("tipo_ordinamento"); 
+    const sortOrder = currentParams.get("ordine_ordinamento");
 
     const params = new URLSearchParams();
     if (modalita) params.set("modalita", modalita);  // Mantiene la modalità
     if (tipo_ordini) params.set("tipo_ordini", tipo_ordini);
+    if (sortType) params.set("tipo_ordinamento",sortType);
+    if (sortOrder) params.set("ordine_ordinamento", sortOrder);
 
     const newUrl = `${window.location.pathname}?${params.toString()}`;
     window.location.href = newUrl;

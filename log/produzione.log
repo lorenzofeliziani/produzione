@@ -6421,3 +6421,33 @@ TypeError: get expected at most 2 arguments, got 3
 2025-07-29 09:42:39,883 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py changed, reloading.
 2025-07-29 09:42:40,870 dati.sage.connect [INFO] Inizio funzione dashboard
 2025-07-29 09:42:40,923 django.utils.autoreload [INFO] Watching for file changes with StatReloader
+2025-07-29 11:54:33,711 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-29 11:54:34,584 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-29 11:54:34,632 django.utils.autoreload [INFO] Watching for file changes with StatReloader
+2025-07-29 11:55:34,889 django.request [ERROR] Internal Server Error: /storico_ordini/
+Traceback (most recent call last):
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py", line 548, in storico_ordini
+    (not stato_filtro or stato_filtro.lower() in (o.get('des_stato_ord') or '').lower()) and
+                                                  ^^^^^
+AttributeError: 'Page' object has no attribute 'get'
+2025-07-29 12:24:42,641 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py changed, reloading.
+2025-07-29 12:24:44,020 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-29 12:24:44,075 django.utils.autoreload [INFO] Watching for file changes with StatReloader
+2025-07-30 09:19:23,806 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py changed, reloading.
+2025-07-30 09:19:27,810 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-30 09:19:28,115 django.utils.autoreload [INFO] Watching for file changes with StatReloader
+2025-07-30 09:29:23,553 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py changed, reloading.
+2025-07-30 09:29:25,036 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-30 09:29:25,093 django.utils.autoreload [INFO] Watching for file changes with StatReloader
+2025-07-30 09:35:43,710 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py changed, reloading.
+2025-07-30 09:35:44,801 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-30 09:35:44,850 django.utils.autoreload [INFO] Watching for file changes with StatReloader
+2025-07-30 09:47:31,548 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py changed, reloading.
+2025-07-30 09:47:33,077 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-30 09:47:33,128 django.utils.autoreload [INFO] Watching for file changes with StatReloader

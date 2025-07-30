@@ -4,6 +4,7 @@ from datetime import date
 from collections import defaultdict
 from .utils import calcola_data_consegna, riformatta_date, riformatta_date_groups
 from django.core.paginator import Paginator
+from urllib.parse import urlencode
 from datetime import datetime
 from django.shortcuts import redirect
 from django.db import connection, transaction
@@ -480,62 +481,65 @@ def ordini_da_pianificare(request):
 @login_required(login_url='login')
 def storico_ordini(request):
     modalita = request.GET.get('modalita', 'standard')
-    ordine_filtro   = request.GET.get("ordine_filtro", "")
-    cliente_filtro   = request.GET.get("cliente_filtro", "")
-    stato_filtro     = request.GET.get("stato_filtro", "")
+    page_number = request.GET.get('page', 1)
+    page_number_groups = request.GET.get('page_groups', 1)
+
+    # Filtri
+    ordine_filtro = request.GET.get("ordine_filtro", "")
+    cliente_filtro = request.GET.get("cliente_filtro", "")
+    stato_filtro = request.GET.get("stato_filtro", "")
     operatore_filtro = request.GET.get("operatore_filtro", "")
     articolo_filtro = request.GET.get("articolo_filtro", "")
     old_code_filtro = request.GET.get("old_code_filtro", "")
     tipo_ordinamento_gruppi = request.GET.get("tipo_ordinamento", "")
     ordine_ordinamento_gruppi = request.GET.get("ordine_ordinamento", "")
-    storico_ordini = request.session.get('storico_ordini')
     tipo_ordini = request.GET.get("tipo_ordini", "")
+
+    # Session data
+    storico_ordini = request.session.get('storico_ordini')
     storico_ordini_groups = request.session.get('storico_ordini_groups')
     storico_ordini_preferences = request.session.get('storico_ordini_preferences')
     ruolo_utente = request.session.get('ruolo_utente')
     nome_utente = request.session['nome_utente']
+
+    # Gestione POST
     if request.method == 'POST':
         action = request.POST.get('form_type')
-        if action == "update_note":
-            try:
+        try:
+            if action == "update_note":
                 numero_ordine = request.POST.get('ordine')
                 nota = request.POST.get('nota')
-                ordini_selezionati = Avanzamento_Ordini.objects.filter(ordine=numero_ordine)
-                ordini_selezionati.update(note_prod=nota)
+                Avanzamento_Ordini.objects.filter(ordine=numero_ordine).update(note_prod=nota)
                 for ordine in storico_ordini:
                     if ordine['ordine'] == numero_ordine:
                         ordine['note_prod'] = nota
 
-                storico_ordini_groups = group(storico_ordini)
-                request.session['storico_ordini_groups'] = storico_ordini_groups
-                request.session['storico_ordini'] = storico_ordini
-            except Exception as e:
-                import traceback
-                traceback.print_exc()
-        elif action == "update_note_single":
-            try:
+            elif action == "update_note_single":
                 numero_ordine = request.POST.get('ordine')
                 riga = int(request.POST.get('riga'))
                 nota = request.POST.get('nota')
-                ordini_selezionati = Avanzamento_Ordini.objects.filter(ordine=numero_ordine, n_riga=riga).first()
-                if ordini_selezionati:
-                    ordini_selezionati.note_prod = nota
-                    ordini_selezionati.save()
+                record = Avanzamento_Ordini.objects.filter(ordine=numero_ordine, n_riga=riga).first()
+                if record:
+                    record.note_prod = nota
+                    record.save()
 
                 for ordine in storico_ordini:
                     if ordine['ordine'] == numero_ordine and ordine['n_riga'] == riga:
                         ordine['note_prod'] = nota
 
-                storico_ordini_groups = group(storico_ordini)
-                request.session['storico_ordini_groups'] = storico_ordini_groups
-                request.session['storico_ordini'] = storico_ordini
-            except Exception as e:
-                import traceback
-                traceback.print_exc()
-    storico_ordini_groups_render = riformatta_date_groups(copy.deepcopy(storico_ordini_groups))
-    storico_ordini_render = riformatta_date(copy.deepcopy(storico_ordini))
-    today = date.today()
+        except Exception as e:
+            import traceback
+            traceback.print_exc()
 
+        storico_ordini_groups = group(storico_ordini)
+        request.session['storico_ordini_groups'] = storico_ordini_groups
+        request.session['storico_ordini'] = storico_ordini
+
+    # Riformattazione
+    storico_ordini_render = riformatta_date(copy.deepcopy(storico_ordini))
+    storico_ordini_groups_render = riformatta_date_groups(copy.deepcopy(storico_ordini_groups))
+
+    # Applica filtri
     if ordine_filtro or cliente_filtro or stato_filtro or operatore_filtro or articolo_filtro or old_code_filtro or tipo_ordini:
         storico_ordini_render = [
             o for o in storico_ordini_render
@@ -545,39 +549,56 @@ def storico_ordini(request):
             (not operatore_filtro or operatore_filtro.lower() in (o.get('des_operatore') or '').lower()) and 
             (not articolo_filtro or articolo_filtro.lower() in (o.get('articolo') or '').lower()) and
             (not old_code_filtro or old_code_filtro.lower() in (o.get('old_code') or '').lower()) and
-            (not tipo_ordini or (o.get('tipo_ordine')=='SOR' and tipo_ordini == 'riparazioni') or (o.get('tipo_ordine')!='SOR' and tipo_ordini == 'produzioni') )
-
+            (not tipo_ordini or (o.get('tipo_ordine')=='SOR' and tipo_ordini == 'riparazioni') or (o.get('tipo_ordine')!='SOR' and tipo_ordini == 'produzioni'))
         ]
-    
+
+    # Ordinamento
     if tipo_ordinamento_gruppi and ordine_ordinamento_gruppi:
         reverse = (ordine_ordinamento_gruppi == 'desc')
-
-        if tipo_ordinamento_gruppi == "cliente":
-            sort = 'des_cliente'
-        elif tipo_ordinamento_gruppi == "data":
-            sort = 'data_cons'
-        else:
-            sort = None
+        sort = {
+            "cliente": "des_cliente",
+            "data": "data_cons"
+        }.get(tipo_ordinamento_gruppi, None)
 
         if sort:
             storico_ordini_render.sort(
-                key=lambda o: (
-                    (o.get(sort) or '').lower() if isinstance(o.get(sort), str)
-                    else o.get(sort)
-                ),
+                key=lambda o: (o.get(sort) or '').lower() if isinstance(o.get(sort), str) else o.get(sort),
                 reverse=reverse
             )
 
-    if (tipo_ordini or tipo_ordinamento_gruppi) and not(ordine_filtro or cliente_filtro or stato_filtro or operatore_filtro or articolo_filtro or old_code_filtro):
-        storico_ordini_groups_render = group(storico_ordini_render)        
+    # Raggruppamento aggiornato se necessario
+    if (tipo_ordini or tipo_ordinamento_gruppi) and not (ordine_filtro or cliente_filtro or stato_filtro or operatore_filtro or articolo_filtro or old_code_filtro):
+        storico_ordini_groups_render = group(storico_ordini_render)
 
     if ordine_filtro or cliente_filtro or stato_filtro or operatore_filtro or articolo_filtro or old_code_filtro:
         storico_ordini_groups_render = group(storico_ordini_render, storico_ordini)
 
+    # ✅ Applica Paginator dopo filtri
+    per_page = 100
+
+    ordini_paginator = Paginator(storico_ordini_render, per_page)
+    ordini_page = ordini_paginator.get_page(page_number)
+
+    gruppi_paginator = Paginator(storico_ordini_groups_render, per_page)
+    gruppi_page = gruppi_paginator.get_page(page_number_groups)
+
+    query_params = request.GET.copy()
+    query_groups_params = request.GET.copy()
+    if 'page' in query_params:
+        del query_params['page']
+    if 'page_groups' in query_groups_params:
+        del query_groups_params['page_groups']
+    base_querystring = urlencode(query_params)
+    base_groups_querystring = urlencode(query_groups_params)
+
+    today = date.today()
+
     context = {
         'today': today,
+        'base_querystring': base_querystring,
+        'base_groups_querystring': base_groups_querystring,
         'modalita': modalita,
-        "filtro": {
+        'filtro': {
             "ordine": ordine_filtro,
             "cliente": cliente_filtro,
             "stato": stato_filtro,
@@ -587,13 +608,14 @@ def storico_ordini(request):
         },
         "tipo_ordini": tipo_ordini,
         'ruolo_utente': ruolo_utente,
-        'avanzamento_ordini': storico_ordini_render,
-        'avanzamento_ordini_groups': storico_ordini_groups_render,
+        'avanzamento_ordini': ordini_page,
+        'avanzamento_ordini_groups': gruppi_page,
         'avanzamento_ordini_preferences': storico_ordini_preferences,
-        'nome_utente': nome_utente
+        'nome_utente': nome_utente,
     }
-    
+
     return render(request, 'produzione/storico_ordini.html', context)
+
 
 @login_required(login_url='login')
 def tabelle(request):
