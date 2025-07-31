@@ -852,7 +852,7 @@ def tabelle(request):
 
         return redirect(request.path + f"?tipo=legami_profili-stati_ordini")
     
-    utenti = Utenti.objects.all()
+    utenti = Utenti.objects.all().order_by('username')
     profili = Profili.objects.all()
     stati = Stati_Ordini.objects.all()
     profili_stati = Profili_Stati.objects.all()
@@ -1170,6 +1170,7 @@ def select_ordini(request, ruolo_utente):
 
                 ordine_aperto = ordini_aperti_dict.get(chiave)
                 ordine_chiuso = ordini_chiusi_dict.get(chiave)
+
                 if ordine_aperto:
                     # Calcola DATA_CONS
                     data_sped = ordine_aperto.get('DATA_SPED')

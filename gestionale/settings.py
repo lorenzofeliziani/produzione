@@ -25,7 +25,7 @@ SECRET_KEY = "django-insecure-euzxka*u&c*m@p*++2j(%jhzmfa1c9-lm!y1p_v!$2qzmu6qi!
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["sagex3-app", "10.10.10.160", "127.0.0.1"]
+ALLOWED_HOSTS = ["127.10.10"]
 
 # Application definition
 
@@ -83,7 +83,6 @@ DATABASES = {
         "NAME": BASE_DIR / "db.sqlite3",
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators

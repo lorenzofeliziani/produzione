@@ -69,7 +69,7 @@ class Avanzamento_Ordini(models.Model):
     note_prod = models.CharField(max_length=3000, null=True, blank=True)
     fl_note_prod = models.CharField(max_length=1, choices=FLAG, default='N')
     fl_note_ord = models.CharField(max_length=1, choices=FLAG, default='N')
-    all_ord = models.CharField(max_length=100, null=True, blank=True)
+    all_ord = models.CharField(max_length=500, null=True, blank=True)
 
     def __str__(self):
         return f"{self.sede} - {self.ordine} - {self.n_riga}"

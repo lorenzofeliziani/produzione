@@ -6451,3 +6451,699 @@ AttributeError: 'Page' object has no attribute 'get'
 2025-07-30 09:47:31,548 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py changed, reloading.
 2025-07-30 09:47:33,077 dati.sage.connect [INFO] Inizio funzione dashboard
 2025-07-30 09:47:33,128 django.utils.autoreload [INFO] Watching for file changes with StatReloader
+2025-07-30 08:07:21,006 django.utils.autoreload [INFO] /home/screen/gestioneProduzioneTest/produzione/migrations/0006_alter_utenti_ruolo.py changed, reloading.
+2025-07-30 08:07:21,230 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-30 08:07:21,239 django.utils.autoreload [INFO] Watching for file changes with StatReloader
+2025-07-30 08:07:24,357 django.utils.autoreload [INFO] /home/screen/gestioneProduzioneTest/produzione/views.py changed, reloading.
+2025-07-30 08:07:24,591 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-30 08:07:24,599 django.utils.autoreload [INFO] Watching for file changes with StatReloader
+2025-07-30 08:10:44,099 django.request [WARNING] Not Found: /favicon.ico
+2025-07-30 08:10:54,842 django.request [ERROR] Internal Server Error: /login/
+Traceback (most recent call last):
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/db/backends/base/base.py", line 312, in _commit
+    return self.connection.commit()
+sqlite3.OperationalError: database is locked
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/views/generic/base.py", line 105, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/utils/decorators.py", line 46, in _wrapper
+    return bound_method(*args, **kwargs)
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/views/decorators/debug.py", line 92, in sensitive_post_parameters_wrapper
+    return view(request, *args, **kwargs)
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/utils/decorators.py", line 46, in _wrapper
+    return bound_method(*args, **kwargs)
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/utils/decorators.py", line 134, in _wrapper_view
+    response = view_func(request, *args, **kwargs)
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/utils/decorators.py", line 46, in _wrapper
+    return bound_method(*args, **kwargs)
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/views/decorators/cache.py", line 62, in _wrapper_view_func
+    response = view_func(request, *args, **kwargs)
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/contrib/auth/views.py", line 90, in dispatch
+    return super().dispatch(request, *args, **kwargs)
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/views/generic/base.py", line 144, in dispatch
+    return handler(request, *args, **kwargs)
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/views/generic/edit.py", line 153, in post
+    return self.form_valid(form)
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/contrib/auth/views.py", line 109, in form_valid
+    auth_login(self.request, form.get_user())
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/contrib/auth/__init__.py", line 118, in login
+    request.session.cycle_key()
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/contrib/sessions/backends/base.py", line 304, in cycle_key
+    self.create()
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/contrib/sessions/backends/db.py", line 54, in create
+    self.save(must_create=True)
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/contrib/sessions/backends/db.py", line 86, in save
+    obj.save(
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/db/transaction.py", line 263, in __exit__
+    connection.commit()
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/utils/asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/db/backends/base/base.py", line 336, in commit
+    self._commit()
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/db/backends/base/base.py", line 312, in _commit
+    return self.connection.commit()
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/db/utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/db/backends/base/base.py", line 312, in _commit
+    return self.connection.commit()
+django.db.utils.OperationalError: database is locked
+2025-07-30 08:29:05,376 django.request [ERROR] Internal Server Error: /login/
+Traceback (most recent call last):
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/db/backends/base/base.py", line 312, in _commit
+    return self.connection.commit()
+sqlite3.OperationalError: database is locked
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/views/generic/base.py", line 105, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/utils/decorators.py", line 46, in _wrapper
+    return bound_method(*args, **kwargs)
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/views/decorators/debug.py", line 92, in sensitive_post_parameters_wrapper
+    return view(request, *args, **kwargs)
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/utils/decorators.py", line 46, in _wrapper
+    return bound_method(*args, **kwargs)
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/utils/decorators.py", line 134, in _wrapper_view
+    response = view_func(request, *args, **kwargs)
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/utils/decorators.py", line 46, in _wrapper
+    return bound_method(*args, **kwargs)
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/views/decorators/cache.py", line 62, in _wrapper_view_func
+    response = view_func(request, *args, **kwargs)
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/contrib/auth/views.py", line 90, in dispatch
+    return super().dispatch(request, *args, **kwargs)
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/views/generic/base.py", line 144, in dispatch
+    return handler(request, *args, **kwargs)
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/views/generic/edit.py", line 153, in post
+    return self.form_valid(form)
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/contrib/auth/views.py", line 109, in form_valid
+    auth_login(self.request, form.get_user())
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/contrib/auth/__init__.py", line 118, in login
+    request.session.cycle_key()
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/contrib/sessions/backends/base.py", line 304, in cycle_key
+    self.create()
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/contrib/sessions/backends/db.py", line 54, in create
+    self.save(must_create=True)
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/contrib/sessions/backends/db.py", line 86, in save
+    obj.save(
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/db/transaction.py", line 263, in __exit__
+    connection.commit()
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/utils/asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/db/backends/base/base.py", line 336, in commit
+    self._commit()
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/db/backends/base/base.py", line 312, in _commit
+    return self.connection.commit()
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/db/utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/db/backends/base/base.py", line 312, in _commit
+    return self.connection.commit()
+django.db.utils.OperationalError: database is locked
+2025-07-30 10:04:49,083 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-30 10:07:38,278 django.utils.autoreload [INFO] /home/screen/gestioneProduzioneTest/gestionale/settings.py changed, reloading.
+2025-07-30 10:09:31,097 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-30 10:13:35,988 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-30 10:13:36,008 django.utils.autoreload [INFO] Watching for file changes with StatReloader
+2025-07-30 10:13:44,730 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-30 10:14:33,383 django.utils.autoreload [INFO] /home/screen/gestioneProduzioneTest/gestionale/settings.py changed, reloading.
+2025-07-30 10:14:33,615 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-30 10:14:33,634 django.utils.autoreload [INFO] Watching for file changes with StatReloader
+2025-07-30 10:15:06,417 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-30 10:16:09,194 django.utils.autoreload [INFO] /home/screen/gestioneProduzioneTest/gestionale/settings.py changed, reloading.
+2025-07-30 10:16:09,427 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-30 10:16:09,447 django.utils.autoreload [INFO] Watching for file changes with StatReloader
+2025-07-30 10:20:57,865 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-30 10:21:25,057 django.utils.autoreload [INFO] /home/screen/gestioneProduzioneTest/gestionale/settings.py changed, reloading.
+2025-07-30 10:21:25,289 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-30 10:21:25,308 django.utils.autoreload [INFO] Watching for file changes with StatReloader
+2025-07-30 10:21:33,538 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-30 10:21:55,553 django.utils.autoreload [INFO] /home/screen/gestioneProduzioneTest/gestionale/settings.py changed, reloading.
+2025-07-30 10:21:55,791 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-30 10:21:55,810 django.utils.autoreload [INFO] Watching for file changes with StatReloader
+2025-07-30 10:21:59,329 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-30 10:23:15,500 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-30 10:24:13,577 django.utils.autoreload [INFO] /home/screen/gestioneProduzioneTest/gestionale/settings.py changed, reloading.
+2025-07-30 10:24:13,814 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-30 10:24:13,833 django.utils.autoreload [INFO] Watching for file changes with StatReloader
+2025-07-30 10:24:24,515 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-30 10:26:06,318 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-30 10:38:03,854 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-30 10:38:38,121 django.utils.autoreload [INFO] /home/screen/gestioneProduzioneTest/gestionale/settings.py changed, reloading.
+2025-07-30 10:38:38,354 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-30 10:38:38,373 django.utils.autoreload [INFO] Watching for file changes with StatReloader
+2025-07-30 10:38:44,760 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-30 10:59:25,445 django.utils.autoreload [INFO] /home/screen/gestioneProduzioneTest/gestionale/settings.py changed, reloading.
+2025-07-30 10:59:25,681 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-30 10:59:25,700 django.utils.autoreload [INFO] Watching for file changes with StatReloader
+2025-07-30 10:59:33,448 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-30 16:04:22,130 django.request [ERROR] Internal Server Error: /
+Traceback (most recent call last):
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/contrib/sessions/backends/base.py", line 187, in _get_session
+    return self._session_cache
+AttributeError: 'SessionStore' object has no attribute '_session_cache'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 89, in _execute
+    return self.cursor.execute(sql, params)
+psycopg2.errors.UndefinedTable: relation "django_session" does not exist
+LINE 1: ...ession_data", "django_session"."expire_date" FROM "django_se...
+                                                             ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/contrib/auth/decorators.py", line 22, in _wrapper_view
+    if test_func(request.user):
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/contrib/auth/decorators.py", line 51, in <lambda>
+    lambda u: u.is_authenticated,
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/utils/functional.py", line 266, in inner
+    self._setup()
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/utils/functional.py", line 419, in _setup
+    self._wrapped = self._setupfunc()
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/contrib/auth/middleware.py", line 25, in <lambda>
+    request.user = SimpleLazyObject(lambda: get_user(request))
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/contrib/auth/middleware.py", line 11, in get_user
+    request._cached_user = auth.get_user(request)
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/contrib/auth/__init__.py", line 191, in get_user
+    user_id = _get_user_session_key(request)
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/contrib/auth/__init__.py", line 60, in _get_user_session_key
+    return get_user_model()._meta.pk.to_python(request.session[SESSION_KEY])
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/contrib/sessions/backends/base.py", line 53, in __getitem__
+    return self._session[key]
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/contrib/sessions/backends/base.py", line 192, in _get_session
+    self._session_cache = self.load()
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/contrib/sessions/backends/db.py", line 42, in load
+    s = self._get_session_from_db()
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/contrib/sessions/backends/db.py", line 32, in _get_session_from_db
+    return self.model.objects.get(
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/db/models/query.py", line 633, in get
+    num = len(clone)
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/db/models/query.py", line 380, in __len__
+    self._fetch_all()
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/db/models/query.py", line 1881, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/db/models/query.py", line 91, in __iter__
+    results = compiler.execute_sql(
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/db/models/sql/compiler.py", line 1562, in execute_sql
+    cursor.execute(sql, params)
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 102, in execute
+    return super().execute(sql, params)
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 67, in execute
+    return self._execute_with_wrappers(
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 80, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 89, in _execute
+    return self.cursor.execute(sql, params)
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/db/utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 89, in _execute
+    return self.cursor.execute(sql, params)
+django.db.utils.ProgrammingError: relation "django_session" does not exist
+LINE 1: ...ession_data", "django_session"."expire_date" FROM "django_se...
+                                                             ^
+
+2025-07-30 16:15:16,264 django.utils.autoreload [INFO] /home/screen/gestioneProduzioneTest/gestionale/settings.py changed, reloading.
+2025-07-30 16:15:16,589 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-30 16:15:16,615 django.utils.autoreload [INFO] Watching for file changes with StatReloader
+2025-07-30 16:41:22,288 django.request [ERROR] Internal Server Error: /
+Traceback (most recent call last):
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/contrib/sessions/backends/base.py", line 187, in _get_session
+    return self._session_cache
+AttributeError: 'SessionStore' object has no attribute '_session_cache'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 89, in _execute
+    return self.cursor.execute(sql, params)
+psycopg2.errors.UndefinedTable: relation "django_session" does not exist
+LINE 1: ...ession_data", "django_session"."expire_date" FROM "django_se...
+                                                             ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/contrib/auth/decorators.py", line 22, in _wrapper_view
+    if test_func(request.user):
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/contrib/auth/decorators.py", line 51, in <lambda>
+    lambda u: u.is_authenticated,
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/utils/functional.py", line 266, in inner
+    self._setup()
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/utils/functional.py", line 419, in _setup
+    self._wrapped = self._setupfunc()
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/contrib/auth/middleware.py", line 25, in <lambda>
+    request.user = SimpleLazyObject(lambda: get_user(request))
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/contrib/auth/middleware.py", line 11, in get_user
+    request._cached_user = auth.get_user(request)
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/contrib/auth/__init__.py", line 191, in get_user
+    user_id = _get_user_session_key(request)
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/contrib/auth/__init__.py", line 60, in _get_user_session_key
+    return get_user_model()._meta.pk.to_python(request.session[SESSION_KEY])
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/contrib/sessions/backends/base.py", line 53, in __getitem__
+    return self._session[key]
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/contrib/sessions/backends/base.py", line 192, in _get_session
+    self._session_cache = self.load()
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/contrib/sessions/backends/db.py", line 42, in load
+    s = self._get_session_from_db()
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/contrib/sessions/backends/db.py", line 32, in _get_session_from_db
+    return self.model.objects.get(
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/db/models/query.py", line 633, in get
+    num = len(clone)
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/db/models/query.py", line 380, in __len__
+    self._fetch_all()
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/db/models/query.py", line 1881, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/db/models/query.py", line 91, in __iter__
+    results = compiler.execute_sql(
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/db/models/sql/compiler.py", line 1562, in execute_sql
+    cursor.execute(sql, params)
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 102, in execute
+    return super().execute(sql, params)
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 67, in execute
+    return self._execute_with_wrappers(
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 80, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 89, in _execute
+    return self.cursor.execute(sql, params)
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/db/utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 89, in _execute
+    return self.cursor.execute(sql, params)
+django.db.utils.ProgrammingError: relation "django_session" does not exist
+LINE 1: ...ession_data", "django_session"."expire_date" FROM "django_se...
+                                                             ^
+
+2025-07-30 16:42:54,794 django.utils.autoreload [INFO] /home/screen/gestioneProduzioneTest/gestionale/settings.py changed, reloading.
+2025-07-30 16:42:55,089 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-30 16:42:55,098 django.utils.autoreload [INFO] Watching for file changes with StatReloader
+2025-07-30 16:43:30,719 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-30 16:44:04,545 django.utils.autoreload [INFO] /home/screen/gestioneProduzioneTest/gestionale/settings.py changed, reloading.
+2025-07-30 16:44:04,779 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-30 16:44:04,799 django.utils.autoreload [INFO] Watching for file changes with StatReloader
+2025-07-30 16:44:12,073 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-30 16:44:19,827 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-30 16:46:05,476 django.utils.autoreload [INFO] /home/screen/gestioneProduzioneTest/produzione/models.py changed, reloading.
+2025-07-30 16:46:05,709 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-30 16:46:05,727 django.utils.autoreload [INFO] Watching for file changes with StatReloader
+2025-07-30 16:47:55,037 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-30 16:48:00,055 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-30 16:48:08,792 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-30 16:48:17,461 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-30 16:50:23,849 django.request [WARNING] Not Found: /favicon.ico
+2025-07-30 16:57:23,707 django.utils.autoreload [INFO] /home/screen/gestioneProduzioneTest/gestionale/settings.py changed, reloading.
+2025-07-30 16:57:23,998 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-30 16:57:24,017 django.utils.autoreload [INFO] Watching for file changes with StatReloader
+2025-07-31 06:47:39,541 django.request [WARNING] Not Found: /favicon.ico
+2025-07-31 06:57:17,368 django.request [WARNING] Not Found: /favicon.ico
+2025-07-31 07:24:09,269 django.request [WARNING] Not Found: /favicon.ico
+2025-07-31 07:24:33,028 django.security.csrf [WARNING] Forbidden (CSRF token from POST incorrect.): /login/
+2025-07-31 07:25:06,504 django.request [WARNING] Not Found: /favicon.ico
+2025-07-31 08:50:39,431 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-31 08:51:00,319 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-31 08:51:45,570 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-31 10:26:26,544 django.utils.autoreload [INFO] /home/screen/gestioneProduzioneTest/produzione/views.py changed, reloading.
+2025-07-31 10:26:26,923 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-31 10:26:26,944 django.utils.autoreload [INFO] Watching for file changes with StatReloader
+2025-07-31 10:26:55,184 django.utils.autoreload [INFO] /home/screen/gestioneProduzioneTest/produzione/urls.py changed, reloading.
+2025-07-31 10:26:55,417 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-31 10:26:55,438 django.utils.autoreload [INFO] Watching for file changes with StatReloader
+2025-07-31 10:28:20,920 django.utils.autoreload [INFO] /home/screen/gestioneProduzioneTest/produzione/urls.py changed, reloading.
+2025-07-31 10:28:21,157 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-31 10:28:21,177 django.utils.autoreload [INFO] Watching for file changes with StatReloader
+2025-07-31 10:30:23,904 django.utils.autoreload [INFO] /home/screen/gestioneProduzioneTest/produzione/urls.py changed, reloading.
+2025-07-31 10:30:24,137 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-31 10:30:24,157 django.utils.autoreload [INFO] Watching for file changes with StatReloader
+2025-07-31 10:30:34,267 django.request [ERROR] Internal Server Error: /login/
+Traceback (most recent call last):
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/core/handlers/base.py", line 220, in _get_response
+    response = response.render()
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/template/response.py", line 114, in render
+    self.content = self.rendered_content
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/template/response.py", line 90, in rendered_content
+    template = self.resolve_template(self.template_name)
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/template/response.py", line 72, in resolve_template
+    return select_template(template, using=self.using)
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/template/loader.py", line 47, in select_template
+    raise TemplateDoesNotExist(", ".join(template_name_list), chain=chain)
+django.template.exceptions.TemplateDoesNotExist: registration/login.html
+2025-07-31 10:31:17,547 django.utils.autoreload [INFO] /home/screen/gestioneProduzioneTest/produzione/views.py changed, reloading.
+2025-07-31 10:31:17,836 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-31 10:31:17,857 django.utils.autoreload [INFO] Watching for file changes with StatReloader
+2025-07-31 10:31:36,544 django.request [ERROR] Internal Server Error: /login/
+Traceback (most recent call last):
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/core/handlers/base.py", line 220, in _get_response
+    response = response.render()
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/template/response.py", line 114, in render
+    self.content = self.rendered_content
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/template/response.py", line 90, in rendered_content
+    template = self.resolve_template(self.template_name)
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/template/response.py", line 72, in resolve_template
+    return select_template(template, using=self.using)
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/template/loader.py", line 47, in select_template
+    raise TemplateDoesNotExist(", ".join(template_name_list), chain=chain)
+django.template.exceptions.TemplateDoesNotExist: login.html
+2025-07-31 10:33:26,619 django.utils.autoreload [INFO] /home/screen/gestioneProduzioneTest/gestionale/settings.py changed, reloading.
+2025-07-31 10:33:26,899 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-31 10:33:26,921 django.utils.autoreload [INFO] Watching for file changes with StatReloader
+2025-07-31 10:33:30,868 django.request [ERROR] Internal Server Error: /login/
+Traceback (most recent call last):
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/core/handlers/base.py", line 220, in _get_response
+    response = response.render()
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/template/response.py", line 114, in render
+    self.content = self.rendered_content
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/template/response.py", line 90, in rendered_content
+    template = self.resolve_template(self.template_name)
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/template/response.py", line 72, in resolve_template
+    return select_template(template, using=self.using)
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/template/loader.py", line 47, in select_template
+    raise TemplateDoesNotExist(", ".join(template_name_list), chain=chain)
+django.template.exceptions.TemplateDoesNotExist: login.html
+2025-07-31 10:33:32,136 django.request [ERROR] Internal Server Error: /login/
+Traceback (most recent call last):
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/core/handlers/base.py", line 220, in _get_response
+    response = response.render()
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/template/response.py", line 114, in render
+    self.content = self.rendered_content
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/template/response.py", line 90, in rendered_content
+    template = self.resolve_template(self.template_name)
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/template/response.py", line 72, in resolve_template
+    return select_template(template, using=self.using)
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/template/loader.py", line 47, in select_template
+    raise TemplateDoesNotExist(", ".join(template_name_list), chain=chain)
+django.template.exceptions.TemplateDoesNotExist: login.html
+2025-07-31 10:33:32,718 django.request [ERROR] Internal Server Error: /login/
+Traceback (most recent call last):
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/core/handlers/base.py", line 220, in _get_response
+    response = response.render()
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/template/response.py", line 114, in render
+    self.content = self.rendered_content
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/template/response.py", line 90, in rendered_content
+    template = self.resolve_template(self.template_name)
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/template/response.py", line 72, in resolve_template
+    return select_template(template, using=self.using)
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/template/loader.py", line 47, in select_template
+    raise TemplateDoesNotExist(", ".join(template_name_list), chain=chain)
+django.template.exceptions.TemplateDoesNotExist: login.html
+2025-07-31 10:34:06,305 django.utils.autoreload [INFO] /home/screen/gestioneProduzioneTest/gestionale/settings.py changed, reloading.
+2025-07-31 10:34:06,629 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-31 10:34:06,649 django.utils.autoreload [INFO] Watching for file changes with StatReloader
+2025-07-31 10:34:10,013 django.request [ERROR] Internal Server Error: /login/
+Traceback (most recent call last):
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/core/handlers/base.py", line 220, in _get_response
+    response = response.render()
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/template/response.py", line 114, in render
+    self.content = self.rendered_content
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/template/response.py", line 90, in rendered_content
+    template = self.resolve_template(self.template_name)
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/template/response.py", line 72, in resolve_template
+    return select_template(template, using=self.using)
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/template/loader.py", line 47, in select_template
+    raise TemplateDoesNotExist(", ".join(template_name_list), chain=chain)
+django.template.exceptions.TemplateDoesNotExist: login.html
+2025-07-31 10:38:23,053 django.utils.autoreload [INFO] /home/screen/gestioneProduzioneTest/produzione/views.py changed, reloading.
+2025-07-31 10:38:23,343 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-31 10:38:23,363 django.utils.autoreload [INFO] Watching for file changes with StatReloader
+2025-07-31 10:38:36,508 django.utils.autoreload [INFO] /home/screen/gestioneProduzioneTest/produzione/urls.py changed, reloading.
+2025-07-31 10:38:36,737 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-31 10:38:36,755 django.utils.autoreload [INFO] Watching for file changes with StatReloader
+2025-07-31 10:38:56,954 django.utils.autoreload [INFO] /home/screen/gestioneProduzioneTest/gestionale/settings.py changed, reloading.
+2025-07-31 10:38:57,184 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-31 10:38:57,203 django.utils.autoreload [INFO] Watching for file changes with StatReloader
+2025-07-31 11:08:48,987 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-31 11:25:32,321 django.utils.autoreload [INFO] /home/screen/gestioneProduzioneTest/produzione/views.py changed, reloading.
+2025-07-31 11:25:32,642 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-31 11:25:32,662 django.utils.autoreload [INFO] Watching for file changes with StatReloader
+2025-07-31 11:39:48,315 django.request [WARNING] Not Found: /favicon.ico
+2025-07-31 11:45:54,685 django.request [WARNING] Not Found: /favicon.ico
+2025-07-31 11:49:41,112 django.request [WARNING] Not Found: /favicon.ico
+2025-07-31 12:02:52,471 django.request [WARNING] Not Found: /favicon.ico
+2025-07-31 12:03:33,785 django.request [WARNING] Not Found: /favicon.ico
+2025-07-31 12:11:07,830 django.request [WARNING] Not Found: /favicon.ico
+2025-07-31 12:13:13,882 django.request [WARNING] Not Found: /favicon.ico
+2025-07-31 12:36:00,367 django.request [WARNING] Not Found: /favicon.ico
+2025-07-31 12:59:21,489 django.request [WARNING] Not Found: /favicon.ico
+2025-07-31 12:59:43,523 django.request [WARNING] Not Found: /favicon.ico
+2025-07-31 13:00:37,292 django.request [WARNING] Not Found: /favicon.ico
+2025-07-31 13:08:34,190 django.utils.autoreload [INFO] /home/screen/gestioneProduzioneTest/produzione/views.py changed, reloading.
+2025-07-31 13:08:34,656 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-31 13:08:34,676 django.utils.autoreload [INFO] Watching for file changes with StatReloader
+2025-07-31 13:09:46,414 django.utils.autoreload [INFO] /home/screen/gestioneProduzioneTest/produzione/views.py changed, reloading.
+2025-07-31 13:09:46,666 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-31 13:09:46,685 django.utils.autoreload [INFO] Watching for file changes with StatReloader
+2025-07-31 13:10:40,100 django.utils.autoreload [INFO] /home/screen/gestioneProduzioneTest/produzione/views.py changed, reloading.
+2025-07-31 13:10:40,346 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-31 13:10:40,367 django.utils.autoreload [INFO] Watching for file changes with StatReloader
+2025-07-31 13:53:10,826 django.utils.autoreload [INFO] /home/screen/gestioneProduzioneTest/produzione/views.py changed, reloading.
+2025-07-31 13:53:11,141 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-31 13:53:11,161 django.utils.autoreload [INFO] Watching for file changes with StatReloader
+2025-07-31 13:54:35,850 django.utils.autoreload [INFO] /home/screen/gestioneProduzioneTest/produzione/views.py changed, reloading.
+2025-07-31 13:54:36,101 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-31 13:54:36,121 django.utils.autoreload [INFO] Watching for file changes with StatReloader
+2025-07-31 13:56:45,523 django.request [WARNING] Not Found: /favicon.ico
+2025-07-31 14:06:01,614 django.utils.autoreload [INFO] /home/screen/gestioneProduzioneTest/produzione/views.py changed, reloading.
+2025-07-31 14:06:01,963 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-31 14:06:01,983 django.utils.autoreload [INFO] Watching for file changes with StatReloader
+2025-07-31 14:06:18,461 django.utils.autoreload [INFO] /home/screen/gestioneProduzioneTest/produzione/views.py changed, reloading.
+2025-07-31 14:06:18,707 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-31 14:06:18,726 django.utils.autoreload [INFO] Watching for file changes with StatReloader
+2025-07-31 14:17:10,943 django.request [WARNING] Not Found: /favicon.ico
+2025-07-31 14:17:36,538 django.request [WARNING] Not Found: /favicon.ico
+2025-07-31 14:19:40,945 django.request [WARNING] Not Found: /favicon.ico
+2025-07-31 14:57:01,234 django.request [WARNING] Not Found: /favicon.ico
+2025-07-31 15:23:00,875 django.request [WARNING] Not Found: /favicon.ico
+2025-07-31 15:29:08,359 django.utils.autoreload [INFO] /home/screen/gestioneProduzioneTest/produzione/views.py changed, reloading.
+2025-07-31 15:29:08,687 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-31 15:29:08,706 django.utils.autoreload [INFO] Watching for file changes with StatReloader
+2025-07-31 15:32:41,487 django.request [WARNING] Not Found: /favicon.ico
+2025-07-31 15:43:42,530 django.utils.autoreload [INFO] /home/screen/gestioneProduzioneTest/produzione/views.py changed, reloading.
+2025-07-31 15:43:42,846 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-31 15:43:42,866 django.utils.autoreload [INFO] Watching for file changes with StatReloader
+2025-07-31 15:45:47,322 django.request [WARNING] Not Found: /favicon.ico
+2025-07-31 15:46:38,506 django.request [WARNING] The request's session was deleted before the request completed. The user may have logged out in a concurrent request, for example.: /avanzamento_ordini/
+Traceback (most recent call last):
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/contrib/sessions/backends/db.py", line 86, in save
+    obj.save(
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/db/models/base.py", line 814, in save
+    self.save_base(
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/db/models/base.py", line 877, in save_base
+    updated = self._save_table(
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/db/models/base.py", line 994, in _save_table
+    raise DatabaseError("Forced update did not affect any rows.")
+django.db.utils.DatabaseError: Forced update did not affect any rows.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/contrib/sessions/middleware.py", line 59, in process_response
+    request.session.save()
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/contrib/sessions/backends/db.py", line 95, in save
+    raise UpdateError
+django.contrib.sessions.backends.base.UpdateError
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/utils/deprecation.py", line 136, in __call__
+    response = self.process_response(request, response)
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/contrib/sessions/middleware.py", line 61, in process_response
+    raise SessionInterrupted(
+django.contrib.sessions.exceptions.SessionInterrupted: The request's session was deleted before the request completed. The user may have logged out in a concurrent request, for example.
+2025-07-31 15:47:12,375 django.request [WARNING] The request's session was deleted before the request completed. The user may have logged out in a concurrent request, for example.: /avanzamento_ordini/
+Traceback (most recent call last):
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/contrib/sessions/backends/db.py", line 86, in save
+    obj.save(
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/db/models/base.py", line 814, in save
+    self.save_base(
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/db/models/base.py", line 877, in save_base
+    updated = self._save_table(
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/db/models/base.py", line 994, in _save_table
+    raise DatabaseError("Forced update did not affect any rows.")
+django.db.utils.DatabaseError: Forced update did not affect any rows.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/contrib/sessions/middleware.py", line 59, in process_response
+    request.session.save()
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/contrib/sessions/backends/db.py", line 95, in save
+    raise UpdateError
+django.contrib.sessions.backends.base.UpdateError
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/utils/deprecation.py", line 136, in __call__
+    response = self.process_response(request, response)
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/contrib/sessions/middleware.py", line 61, in process_response
+    raise SessionInterrupted(
+django.contrib.sessions.exceptions.SessionInterrupted: The request's session was deleted before the request completed. The user may have logged out in a concurrent request, for example.
+2025-07-31 15:47:33,072 django.request [WARNING] The request's session was deleted before the request completed. The user may have logged out in a concurrent request, for example.: /avanzamento_ordini/
+Traceback (most recent call last):
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/contrib/sessions/backends/db.py", line 86, in save
+    obj.save(
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/db/models/base.py", line 814, in save
+    self.save_base(
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/db/models/base.py", line 877, in save_base
+    updated = self._save_table(
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/db/models/base.py", line 994, in _save_table
+    raise DatabaseError("Forced update did not affect any rows.")
+django.db.utils.DatabaseError: Forced update did not affect any rows.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/contrib/sessions/middleware.py", line 59, in process_response
+    request.session.save()
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/contrib/sessions/backends/db.py", line 95, in save
+    raise UpdateError
+django.contrib.sessions.backends.base.UpdateError
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/utils/deprecation.py", line 136, in __call__
+    response = self.process_response(request, response)
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/contrib/sessions/middleware.py", line 61, in process_response
+    raise SessionInterrupted(
+django.contrib.sessions.exceptions.SessionInterrupted: The request's session was deleted before the request completed. The user may have logged out in a concurrent request, for example.
+2025-07-31 15:47:59,291 django.request [WARNING] The request's session was deleted before the request completed. The user may have logged out in a concurrent request, for example.: /avanzamento_ordini/
+Traceback (most recent call last):
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/contrib/sessions/backends/db.py", line 86, in save
+    obj.save(
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/db/models/base.py", line 814, in save
+    self.save_base(
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/db/models/base.py", line 877, in save_base
+    updated = self._save_table(
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/db/models/base.py", line 994, in _save_table
+    raise DatabaseError("Forced update did not affect any rows.")
+django.db.utils.DatabaseError: Forced update did not affect any rows.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/contrib/sessions/middleware.py", line 59, in process_response
+    request.session.save()
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/contrib/sessions/backends/db.py", line 95, in save
+    raise UpdateError
+django.contrib.sessions.backends.base.UpdateError
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/utils/deprecation.py", line 136, in __call__
+    response = self.process_response(request, response)
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/contrib/sessions/middleware.py", line 61, in process_response
+    raise SessionInterrupted(
+django.contrib.sessions.exceptions.SessionInterrupted: The request's session was deleted before the request completed. The user may have logged out in a concurrent request, for example.
+2025-07-31 15:48:02,476 django.request [WARNING] The request's session was deleted before the request completed. The user may have logged out in a concurrent request, for example.: /avanzamento_ordini/
+Traceback (most recent call last):
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/contrib/sessions/backends/db.py", line 86, in save
+    obj.save(
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/db/models/base.py", line 814, in save
+    self.save_base(
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/db/models/base.py", line 877, in save_base
+    updated = self._save_table(
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/db/models/base.py", line 994, in _save_table
+    raise DatabaseError("Forced update did not affect any rows.")
+django.db.utils.DatabaseError: Forced update did not affect any rows.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/contrib/sessions/middleware.py", line 59, in process_response
+    request.session.save()
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/contrib/sessions/backends/db.py", line 95, in save
+    raise UpdateError
+django.contrib.sessions.backends.base.UpdateError
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/utils/deprecation.py", line 136, in __call__
+    response = self.process_response(request, response)
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/contrib/sessions/middleware.py", line 61, in process_response
+    raise SessionInterrupted(
+django.contrib.sessions.exceptions.SessionInterrupted: The request's session was deleted before the request completed. The user may have logged out in a concurrent request, for example.
+2025-07-31 15:48:23,851 django.request [WARNING] The request's session was deleted before the request completed. The user may have logged out in a concurrent request, for example.: /avanzamento_ordini/
+Traceback (most recent call last):
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/contrib/sessions/backends/db.py", line 86, in save
+    obj.save(
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/db/models/base.py", line 814, in save
+    self.save_base(
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/db/models/base.py", line 877, in save_base
+    updated = self._save_table(
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/db/models/base.py", line 994, in _save_table
+    raise DatabaseError("Forced update did not affect any rows.")
+django.db.utils.DatabaseError: Forced update did not affect any rows.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/contrib/sessions/middleware.py", line 59, in process_response
+    request.session.save()
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/contrib/sessions/backends/db.py", line 95, in save
+    raise UpdateError
+django.contrib.sessions.backends.base.UpdateError
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/utils/deprecation.py", line 136, in __call__
+    response = self.process_response(request, response)
+  File "/home/screen/gestioneProduzioneTest/venv/lib/python3.8/site-packages/django/contrib/sessions/middleware.py", line 61, in process_response
+    raise SessionInterrupted(
+django.contrib.sessions.exceptions.SessionInterrupted: The request's session was deleted before the request completed. The user may have logged out in a concurrent request, for example.
+2025-07-31 15:52:22,722 django.request [WARNING] Not Found: /favicon.ico
+2025-07-31 21:28:34,697 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-07-31 21:28:36,269 dati.sage.connect [INFO] Inizio funzione dashboard

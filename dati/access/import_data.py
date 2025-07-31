@@ -1,6 +1,7 @@
 import pyodbc
 import django
 import os
+import csv
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'gestionale.settings')
 
@@ -55,45 +56,44 @@ def import_utenti():
     print("Utenti importati correttamente.")
 
 
-def import_avanzamento_ordini():
-    # Imposta il contesto Django
-    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'nome_progetto.settings')
-    django.setup()
+def update_avanzamento_ordini():
+    Avanzamento_Ordini.objects.all().delete()
 
-    # Connessione a Access
-    conn_str = r'DRIVER={Microsoft Access Driver (*.mdb, *.accdb)};DBQ=C:\Users\lorif\OneDrive\Desktop\DB\Produzione_old\Last Version\Produzione.accdb;' 
-    conn = pyodbc.connect(conn_str)
-    cursor = conn.cursor()
+    csv_path = '/home/screen/gestioneProduzioneTest/ultimiDatiAccess/AVANZAMENTO_ORDINI.csv'
 
-    # Query alla tabella Access
-    cursor.execute("SELECT * FROM AVANZAMENTO_ORDINI")
-    rows = cursor.fetchall()
+    with open(csv_path, newline='', encoding='windows-1252') as csvfile:
+        reader = csv.reader(csvfile, delimiter=';')
 
-    # Colonne della tabella
-    columns = [column[0] for column in cursor.description]
+        for row in reader:
+            if not row: 
+                continue
 
-    # Inserimento dati
-    for row in rows:
-        data = dict(zip(columns, row))
-        stato = Stati_Ordini.objects.filter(id=data['ID_STATO_ORD']).first()
-        operatore = Utenti.objects.filter(username=data['OPERATORE']).first()
+            try:
+                stato_id = row[3] 
+                operatore_username = row[4]  
 
-        # Crea record Django
-        avanzamento = Avanzamento_Ordini(
-            sede=data['CPY_0'],
-            ordine=data['SOHNUM_0'],
-            n_riga=data['SOPLIN_0'],
-            stato_ord=stato,
-            operatore=operatore,
-            note=data.get('SOHTEX1_0', '') ,
-            note_prod=data.get('NOTE_PROD', ''),
-            fl_note_prod=data.get('FL_NOTE_PROD', 'N') or 'N',
-            fl_note_ord=data.get('FL_NOTE_ORD', 'N') or 'N',
-            all_ord=data.get('ALL_ORD', '')
-        )
-        avanzamento.save()
+                stato = Stati_Ordini.objects.filter(id=stato_id).first()
+                operatore = Utenti.objects.filter(username=operatore_username).first()
+
+                avanzamento = Avanzamento_Ordini(
+                    sede=row[0],
+                    ordine=row[1],
+                    n_riga=int(row[2]),
+                    stato_ord=stato,
+                    operatore=operatore,
+                    note=row[5] if row[5] else '',
+                    note_prod=row[6] if row[6] else '',
+                    fl_note_prod=(row[7] if row[7] else 'N').upper(),
+                    fl_note_ord=(row[8] if row[8] else 'N').upper(),
+                    all_ord=row[9] if row[9] else '',
+                )
+
+                avanzamento.save()
+            except Exception as e:
+                print(f"Errore nella riga: {row} - {e}")
 
     print("Importazione completata.")
+
 
 def import_profili_stati():
     # Imposta il contesto Django
@@ -128,4 +128,4 @@ def import_profili_stati():
 
     print("Importazione completata.")
 
-import_avanzamento_ordini()
+update_avanzamento_ordini()

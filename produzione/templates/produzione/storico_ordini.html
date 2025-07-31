@@ -1048,11 +1048,12 @@ document.addEventListener('DOMContentLoaded', function () {
           <thead>
             <tr>
               <th>Seleziona</th>
-              <th>N. Riga</th>
               <th>Articolo</th>
               <th>Old Code</th>
               <th>Descrizione</th>
+              <th>Commerciale</th>
               <th>Qta Ord.</th>
+              <th>Qta Cons.</th>
               <th>Operatore</th>
               <th>Note</th>
             </tr>
@@ -1061,11 +1062,12 @@ document.addEventListener('DOMContentLoaded', function () {
             ${selected_rows.map(row => `
               <tr>
                 <td><input type="checkbox" class="form-check-input toggle-row" data-selected="true" checked data-ordine="${ordine}"></td>
-                <td>${row[2]}</td>
                 <td>${row[5]}</td>
                 <td>${row[6]}</td>
                 <td>${row[7]}</td>
+                <td>${row[8]}</td>
                 <td>${row[12]}</td>
+                <td>${row[13]}</td>
                 <td>${row[4]}</td>
                 <td>${row[9]}</td>
               </tr>
@@ -1182,43 +1184,52 @@ document.addEventListener('DOMContentLoaded', function () {
         const cliente = table.dataset.cliente;
         const data = table.dataset.data;
 
-        htmlContent += `
-          <div class="ordine">
-            <div class="header-info">
-              <div><strong>Ordine N.:</strong> ${ordine}</div>
-              <div><strong>Cliente:</strong> ${cliente}</div>
-              <div><strong>Data consegna:</strong> ${data}</div>
-            </div>
-            <table>
-              <thead>
-                <tr>
-                  <th>N. riga</th>
-                  <th>Cod. articolo</th>
-                  <th>Old code</th>
-                  <th>Descrizione</th>
-                  <th>Q.tà</th>
-                  <th>Operatore</th>
-                  <th>Note produzione</th>
-                </tr>
-              </thead>
-              <tbody>
-        `;
-
-
-        const rows = table.querySelectorAll('tbody tr');
-        rows.forEach(row => {
+// Controlla se almeno una checkbox è selezionata
+        const checkedRows = Array.from(table.querySelectorAll('tbody tr')).filter(row => {
           const checkbox = row.querySelector('input[type="checkbox"]');
-          if (checkbox && checkbox.checked) {
+          return checkbox && checkbox.checked;
+        });
+
+        if (checkedRows.length > 0) {
+          htmlContent += `
+            <div class="ordine">
+              <div class="header-info">
+                <div><strong>Ordine N.:</strong> ${ordine}</div>
+                <div><strong>Cliente:</strong> ${cliente}</div>
+                <div><strong>Data consegna:</strong> ${data}</div>
+              </div>
+              <table>
+                <thead>
+                  <tr>
+                    <th>Cod. articolo</th>
+                    <th>Old code</th>
+                    <th>Descrizione</th>
+                    <th>Commerciale</th>
+                    <th>Q.tà Ord.</th>
+                    <th>Q.tà Cons.</th>
+                    <th>Operatore</th>
+                    <th>Note produzione</th>
+                  </tr>
+                </thead>
+                <tbody>
+          `;
+
+          checkedRows.forEach(row => {
             const cells = row.querySelectorAll('td');
             htmlContent += '<tr>';
             for (let i = 1; i < cells.length; i++) {
               htmlContent += `<td>${cells[i].textContent}</td>`;
             }
             htmlContent += '</tr>';
-          }
-        });
+          });
 
-      htmlContent += `</tbody></table></div>`;
+          htmlContent += `
+                </tbody>
+              </table>
+            </div>
+          `;
+        }
+
 
       });
 
