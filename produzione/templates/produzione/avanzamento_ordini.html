@@ -389,7 +389,7 @@
               <tr  class="table-primary group-header" data-is-filtered="true"
                 data-group-id="{{ ordine.ordine }}"
                 data-cliente="{{ ordine.cliente}}"
-                data-data-cons="{{ ordine.data_cons|date:'Y-m-d' }}">        
+                data-data-cons="{{ ordine.data_cons|date:'d-m-Y' }}">        
                 <td colspan="15" style="cursor: pointer;">
                   <strong>{{ ordine.cliente }}</strong> —
                   Ordine <strong>{{ ordine.ordine }}</strong> —
@@ -824,7 +824,7 @@
   </script>
 
 
-  <script>
+  <!--<script>
   document.addEventListener('DOMContentLoaded', function () {
     const table = document.getElementById('sortable-table');
     const headers = table.querySelectorAll('th');
@@ -880,7 +880,7 @@
       return val.toLowerCase();
     }
   });
-  </script>
+  </script>-->
   <script>
 document.addEventListener('DOMContentLoaded', function () {
   const tableBody = document.querySelector('#sortable-table-groups tbody');

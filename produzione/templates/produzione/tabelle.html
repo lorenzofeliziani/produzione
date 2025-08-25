@@ -26,9 +26,11 @@
             {% if messages %}
             <div class="mt-2" id="messages-container">
                 {% for message in messages %}
+                {% if 'tabelle' in message.tags %}
                 <div class="btn btn-danger w-100 text-start mb-2 message-alert" disabled>
                     {{ message }}
                 </div>
+                {% endif %}
                 {% endfor %}
             </div>
 
@@ -125,16 +127,15 @@
 
 
             {% elif tipo == 'profili' %}
-                <h3>Profili Utente</h3>
+                <h3>Profili</h3>
                 <table id="sortable-table" class="table table-hover">
-                    <thead><tr><th>Codice</th><th>Descrizione</th><th>Azioni</th></tr></thead>
+                    <thead><tr><th>Descrizione</th><th>Azioni</th></tr></thead>
                     <tbody>
                         {% for profilo in profili %}
                         <tr>
                             <form method="post">
                             {% csrf_token %}
                             <input type="hidden" name="profilo_id" value="{{ profilo.id }}">
-                            <td><input type="text" name="id_profilo" value="{{ profilo.id }}" class="form-control"></td>
                             <td><input type="text" name="ruolo" value="{{ profilo.ruolo }}" class="form-control"></td>
                             <td class="d-flex gap-2">
                             <button type="submit" name="action" value="update" class="btn btn-sm btn-primary">Salva</button>
@@ -147,7 +148,6 @@
                         <tr>
                             <form method="post" autocomplete="off">
                                 {% csrf_token %}
-                                <td><input type="text" name="id_profilo" placeholder="Codice" class="form-control" required></td>
                                 <td><input type="text" name="ruolo" placeholder="Descrizione" class="form-control" required></td>
                                 <td><button type="submit" name="action" value="create" class="btn btn-success btn-sm">Aggiungi</button></td>
                             </form>
@@ -158,14 +158,13 @@
             {% elif tipo == 'stati_ordini' %}
                 <h3>Stati Ordini</h3>
                 <table id="sortable-table" class="table table-hover">
-                    <thead><tr><th>Codice</th><th>Descrizione</th><th>Azioni</th></tr></thead>
+                    <thead><tr><th>Descrizione</th><th>Azioni</th></tr></thead>
                     <tbody>
                         {% for stato in stati %}
                         <tr>
                             <form method="post">
                             {% csrf_token %}
                             <input type="hidden" name="stato_id" value="{{ stato.id }}">
-                            <td><input type="text" name="id_stato" value="{{ stato.id }}" class="form-control"></td>
                             <td><input type="text" name="stato" value="{{ stato.stato }}" class="form-control"></td>
                             <td class="d-flex gap-2">
                             <button type="submit" name="action" value="update" class="btn btn-sm btn-primary">Salva</button>
@@ -178,7 +177,6 @@
                         <tr>
                             <form method="post" autocomplete="off">
                                 {% csrf_token %}
-                                <td><input type="text" name="id_stato" placeholder="Codice" class="form-control" required></td>
                                 <td><input type="text" name="stato" placeholder="Descrizione" class="form-control" required></td>
                                 <td><button type="submit" name="action" value="create" class="btn btn-success btn-sm">Aggiungi</button></td>
                             </form>
@@ -218,7 +216,7 @@
                 </table>-->
 
             {% elif tipo == 'legami_profili-stati_ordini' %}
-                <h3>Legami Profili-Stati Ordini</h3>
+                <h3>Autorizzazioni Profili su Stati</h3>
                 <table id="sortable-table" class="table table-hover">
                     <thead><tr><th>Profilo</th><th>Stato Ordine</th><th>Tipo d'Uso</th><th>Azioni</th></tr></thead>
                     <tbody>

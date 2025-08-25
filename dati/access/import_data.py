@@ -97,6 +97,7 @@ def update_avanzamento_ordini():
 
 def import_profili_stati():
     # Imposta il contesto Django
+    Profili_Stati.objects.all().delete()
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'nome_progetto.settings')
     django.setup()
 
@@ -128,4 +129,4 @@ def import_profili_stati():
 
     print("Importazione completata.")
 
-update_avanzamento_ordini()
+import_profili_stati()

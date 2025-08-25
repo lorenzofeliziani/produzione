@@ -6,6 +6,8 @@ from .utils import calcola_data_consegna, riformatta_date, riformatta_date_group
 from django.core.paginator import Paginator
 from urllib.parse import urlencode
 from datetime import datetime
+from django.contrib.auth import update_session_auth_hash
+from .forms import CambiaPasswordForm
 from django.shortcuts import redirect
 from django.db import connection, transaction
 from django.db.models import Q
@@ -30,6 +32,27 @@ def dashboard(request):
     }
     
     return render(request, 'produzione/dashboard.html', context)
+
+@login_required(login_url='login')
+def cambia_password(request):
+    if request.method == 'POST':
+        try:
+            form = CambiaPasswordForm(user=request.user, data=request.POST)
+            if form.is_valid():
+                nuova_password = form.cleaned_data['nuova_password']
+                request.user.set_password(nuova_password)
+                request.user.save()
+                update_session_auth_hash(request, request.user)
+                messages.success(request, "Password cambiata con successo.", extra_tags='cambia_password')
+                return redirect('cambia_password')
+        except Exception as e:
+                import traceback
+                traceback.print_exc()       
+
+    else:
+        form = CambiaPasswordForm(user=request.user)
+
+    return render(request, 'produzione/cambia_password.html', {'form': form})
 
 @login_required(login_url='login')
 def avanzamento_ordini(request):
@@ -639,13 +662,13 @@ def tabelle(request):
             new_ruolo_id = request.POST.get("ruolo")
 
             if utente.username != new_user and Utenti.objects.filter(username=new_user).exists():
-                messages.error(request, "Username già esistente. Scegline uno diverso.")
+                messages.error(request, "Username già esistente. Scegline uno diverso.", extra_tags='tabelle')
                 errore = True
             else:
                 utente.username = new_user
 
             if utente.nome != new_nome and Utenti.objects.filter(nome=new_nome).exists():
-                messages.error(request, "Nome già esistente. Scegline uno diverso.")
+                messages.error(request, "Nome già esistente. Scegline uno diverso.", extra_tags='tabelle')
                 errore = True
             else:
                 utente.nome = new_nome
@@ -675,13 +698,13 @@ def tabelle(request):
             new_ruolo_id = request.POST.get("ruolo")
 
             if Utenti.objects.filter(username=username).exists():
-                messages.error(request, "Username già esistente.")
+                messages.error(request, "Username già esistente.", extra_tags='tabelle')
                 errore = True
             elif Utenti.objects.filter(nome=nome).exists():
-                messages.error(request, "Nome già esistente.")
+                messages.error(request, "Nome già esistente.", extra_tags='tabelle')
                 errore = True
             elif not username or not password:
-                messages.error(request, "Username e password sono obbligatori.")
+                messages.error(request, "Username e password sono obbligatori.", extra_tags='tabelle')
                 errore = True
             else:
                 nuovo_utente = Utenti(
@@ -709,44 +732,26 @@ def tabelle(request):
             profilo = None
 
         if action == "update" and profilo:
-            old_id = request.POST.get("profilo_id")
-            new_id = request.POST.get("id_profilo")
             ruolo = request.POST.get("ruolo")
 
-            if old_id != new_id and ruolo == profilo.ruolo:
-                if not Profili.objects.filter(id=new_id).exists():
-                    profilo.delete()
-                    nuovo_profilo = Profili(id=new_id, ruolo=ruolo)
-                    nuovo_profilo.save()
-                else:
-                    messages.error(request, "Codice già esistente. Scegline uno diverso.")
-            elif profilo.ruolo != ruolo and old_id == new_id:
+            if profilo.ruolo != ruolo:
                 if Profili.objects.filter(ruolo=ruolo).exists():
-                    messages.error(request, "Ruolo già esistente. Scegline uno diverso.")
+                    messages.error(request, "Ruolo già esistente. Scegline uno diverso.", extra_tags='tabelle')
                 else:
                     profilo.ruolo = ruolo
                     profilo.save()
-            elif profilo.ruolo != ruolo and old_id != new_id:
-                if Profili.objects.filter(ruolo=ruolo).exists() or Profili.objects.filter(id=new_id).exists():
-                    messages.error(request, "Codice o Ruolo già esistente. Scegline uno diverso.")
-                else:
-                    nuovo_profilo = Profili(id=new_id, ruolo=ruolo)
-                    nuovo_profilo.save()
-
 
         elif action == "create":
-            id_profilo = request.POST.get("id_profilo")
             ruolo = request.POST.get("ruolo")
             
-            if not Profili.objects.filter(id=id_profilo).exists() and not Profili.objects.filter(ruolo=ruolo).exists():
-                if id_profilo and ruolo:
+            if ruolo:
+                if not Profili.objects.filter(ruolo=ruolo).exists():
                     nuovo_profilo = Profili(
-                        id=id_profilo,
                         ruolo=ruolo
                     )
                     nuovo_profilo.save()
-            else:
-                messages.error(request, "Codice o Ruolo già esistente. Scegline uno diverso.")
+                else:
+                    messages.error(request, "Ruolo già esistente. Scegline uno diverso.", extra_tags='tabelle')
 
         elif action == "delete" and profilo:
             profilo.delete()
@@ -763,68 +768,31 @@ def tabelle(request):
             stato = None
 
         if action == "update" and stato:
-            old_id = request.POST.get("stato_id")
-            new_id = request.POST.get("id_stato")
             new_stato = request.POST.get("stato")
 
-            if old_id != new_id and new_stato == stato.stato:
-                if not Stati_Ordini.objects.filter(id=new_id).exists():
-                    stato.delete()
-                    nuovo_stato = Stati_Ordini(id=new_id, stato=new_stato)
-                    nuovo_stato.save()
-                else:
-                    messages.error(request, "Codice già esistente. Scegline uno diverso.")
-            elif stato.stato != new_stato and old_id == new_id:
+            if stato.stato != new_stato:
                 if Stati_Ordini.objects.filter(stato=new_stato).exists():
-                    messages.error(request, "Stato già esistente. Scegline uno diverso.")
+                    messages.error(request, "Stato già esistente. Scegline uno diverso.", extra_tags='tabelle')
                 else:
                     stato.stato = new_stato
                     stato.save()
-            elif stato.stato != new_stato and old_id != new_id:
-                if Stati_Ordini.objects.filter(stato=new_stato).exists() or Stati_Ordini.objects.filter(id=new_id).exists():
-                    messages.error(request, "Codice o Stato già esistente. Scegline uno diverso.")
-                else:
-                    nuovo_stato = Stati_Ordini(id=new_id, stato=new_stato)
-                    nuovo_stato.save()
 
         elif action == "create":
-            id_stato = request.POST.get("id_stato")
             stato = request.POST.get("stato")
             
-            if not Stati_Ordini.objects.filter(id=id_stato).exists() and not Stati_Ordini.objects.filter(stato=stato).exists():
-                if id_stato and stato:
+            if stato:
+                if not Stati_Ordini.objects.filter(stato=stato).exists():
                     nuovo_stato = Stati_Ordini(
-                        id=id_stato,
                         stato=stato
                     )
                     nuovo_stato.save()
-            else:
-                messages.error(request, "Codice o Stato già esistente. Scegline uno diverso.")
+                else:
+                    messages.error(request, "Stato già esistente. Scegline uno diverso.", extra_tags='tabelle')
 
         elif action == "delete" and stato:
             stato.delete()
 
         return redirect(request.path + f"?tipo=stati_ordini")
-
-    if request.method == "POST" and tipo == "legami_utenti-profili":
-
-        utente_id = request.POST.get("utente_id")
-        ruolo_id = request.POST.get("ruolo")
-
-        try:
-            utente = Utenti.objects.get(id=utente_id)
-        except Utenti.DoesNotExist:
-            utente = None
-
-        if utente:
-            if ruolo_id:
-                profilo = Profili.objects.get(id=ruolo_id)
-                utente.ruolo = profilo
-            else:
-                utente.ruolo = None
-            utente.save()
-
-        return redirect(request.path + f"?tipo=legami_utenti-profili")
 
     if request.method == "POST" and tipo == "legami_profili-stati_ordini":
         action = request.POST.get("action")
@@ -845,14 +813,14 @@ def tabelle(request):
             ruolo = Profili.objects.get(id=id_ruolo)
             stato = Stati_Ordini.objects.get(id=id_stato)
             if Profili_Stati.objects.filter(ruolo=ruolo, stato_ord=stato, tipo_uso=tipo_uso).exists():
-                messages.error(request, "Riga già presente.")
+                messages.error(request, "Riga già presente.", extra_tags='tabelle')
             else:
                 nuovo_profilo_stato = Profili_Stati(ruolo=ruolo, stato_ord=stato, tipo_uso=tipo_uso)
                 nuovo_profilo_stato.save()
 
         return redirect(request.path + f"?tipo=legami_profili-stati_ordini")
     
-    utenti = Utenti.objects.all().order_by('username')
+    utenti = Utenti.objects.all()
     profili = Profili.objects.all()
     stati = Stati_Ordini.objects.all()
     profili_stati = Profili_Stati.objects.all()
@@ -1100,7 +1068,7 @@ def aggiorna_dati(request):
                 Avanzamento_Ordini.objects.filter(q).update(fl_note_ord="S")
 
     except Exception as e:
-        messages.error(request, f"Errore aggiornamento dati: {str(e)}")
+        messages.error(request, f"Errore aggiornamento dati: {str(e)}", extra_tags='aggiornamento')
 
 def select_ordini(request, ruolo_utente):
     try:
@@ -1128,10 +1096,7 @@ def select_ordini(request, ruolo_utente):
             if ruolo_utente == "Produzione":
                 ordini_aperti_dict = {}
                 for riga in ordini_aperti:
-                    if riga[4] == 'SOR' and riga[7] is not None:
-                        continue
-                    else:
-                        ordini_aperti_dict[(riga[2], riga[3], riga[5])] = dict(zip(columns_aperti, riga))
+                    ordini_aperti_dict[(riga[2], riga[3], riga[5])] = dict(zip(columns_aperti, riga))
                 avanzamenti = Avanzamento_Ordini.objects.select_related('stato_ord', 'operatore').filter(operatore = request.user.id)
             else:
                 ordini_aperti_dict = {
@@ -1152,22 +1117,19 @@ def select_ordini(request, ruolo_utente):
             risultati_storico_ordini = []
 
             for avanzamento in avanzamenti:
-                if ruolo_utente == "Produzione":
-                    tipo_uso = 'V'
-                else:
-                    ruolo = Profili.objects.get(ruolo=ruolo_utente)
-                    tipo_uso = Profili_Stati.objects.filter(ruolo=ruolo, stato_ord=avanzamento.stato_ord).values_list('tipo_uso', flat=True)
+                ruolo = Profili.objects.get(ruolo=ruolo_utente)
+                tipo_uso = Profili_Stati.objects.filter(ruolo=ruolo, stato_ord=avanzamento.stato_ord).values_list('tipo_uso', flat=True)
                 chiave = (
                     avanzamento.sede,
                     avanzamento.ordine,
                     avanzamento.n_riga,
                 )
+
                 # Calcola VIS_NOTE_ORD
                 vis_note_ord = '' if avanzamento.fl_note_ord == 'N' else 'NOTE'
 
                 # Calcola VIS_NOTE_PROD
                 vis_note_prod = 'NOTE' if avanzamento.fl_note_prod == 'S' or avanzamento.fl_note_ord == 'S' else ''
-
                 ordine_aperto = ordini_aperti_dict.get(chiave)
                 ordine_chiuso = ordini_chiusi_dict.get(chiave)
 
@@ -1183,7 +1145,7 @@ def select_ordini(request, ruolo_utente):
                     else:
                         data_cons = None 
 
-                    if ordine_aperto.get('ARTICOLO') is not None and 'V' in list(tipo_uso):
+                    if ordine_aperto.get('ARTICOLO') is not None and ordine_aperto.get('ARTICOLO') != 'SERIPARAZIONECLIENTI' and 'V' in list(tipo_uso):
                         risultati_avanzamento_ordini.append({
                             'sede': avanzamento.sede,
                             'vis_note_ord': vis_note_ord,
@@ -1226,7 +1188,7 @@ def select_ordini(request, ruolo_utente):
                                 data_cons = data_sped
                         else:
                             data_cons = None                                 
-                        if ordine_chiuso.get('ARTICOLO') is not None and 'V' in list(tipo_uso):
+                        if ordine_chiuso.get('ARTICOLO') is not None and ordine_chiuso.get('ARTICOLO') != 'SERIPARAZIONECLIENTI' and 'V' in list(tipo_uso):
                             risultati_storico_ordini.append({
                             'sede': avanzamento.sede,
                             'vis_note_ord': vis_note_ord,
@@ -1256,13 +1218,10 @@ def select_ordini(request, ruolo_utente):
                             'fl_note_prod': avanzamento.fl_note_prod,
                             'note_prod': avanzamento.note_prod,
                             'commerciale': ordine_chiuso.get('COMMERCIALE'),
-                        })
-                else:
-                    continue       
+                        })      
     except Exception as e:
         error_msg = f"Errore con chiave {chiave}: {str(e)}"
         print(error_msg)
         print(traceback.format_exc())
-        messages.error(request, error_msg)
-
+        messages.error(request, error_msg, extra_tags='aggiornamento')
     return risultati_avanzamento_ordini, risultati_storico_ordini
