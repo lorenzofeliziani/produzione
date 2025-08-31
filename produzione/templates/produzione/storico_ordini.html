@@ -172,6 +172,28 @@
                     {% endfor %}
                     </datalist>
                 </div>
+
+                <div class="row g-3 mt-2">
+                    <div class="col-md-12">
+                    <label class="form-label">Data Consegna</label>
+                    <div class="d-flex align-items-center">
+                        <span class="me-2">Da:</span>
+                        <input type="date" id="filter-data-consegna-inizio" name="data_consegna_inizio" value="{{ filtro.data_consegna_inizio }}" class="form-control me-3">
+                        <span class="me-2">A:</span>
+                        <input type="date" id="filter-data-consegna-fine" name="data_consegna_fine" value="{{ filtro.data_consegna_fine }}" class="form-control">
+                    </div>
+                    </div>
+
+                    <div class="col-md-12">
+                    <label class="form-label">Data Consegna Effettiva</label>
+                    <div class="d-flex align-items-center">
+                        <span class="me-2">Da:</span>
+                        <input type="date" id="filter-data-consegna-eff-inizio" name="data_consegna_eff_inizio" value="{{ filtro.data_consegna_eff_inizio }}" class="form-control me-3">
+                        <span class="me-2">A:</span>
+                        <input type="date" id="filter-data-consegna-eff-fine" name="data_consegna_eff_fine" value="{{ filtro.data_consegna_eff_fine }}" class="form-control">
+                    </div>
+                </div>
+                </div>
           </div>
 
         <div class="mt-3 d-flex justify-content-between align-items-center">
@@ -180,9 +202,19 @@
                 <button id="reset-filter" class="btn btn-secondary">Reset filtro</button>
                 <button id="print-orders" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#printModal">Stampa</button>
                 {% if avanzamento_ordini_groups|length == 1 %}
-                  <button id="note-orders" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#noteModal">Annota ordine</button>
+                  {% if ruolo_utente != "Produzione" and ruolo_utente != "Commerciale" %}
+                      <button id="edit-orders" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editModal">Modifica Ordine</button>
+                  {% endif %}
                 {% endif %}
             </div>
+
+            <form method="post" class="mb-0">
+                {% csrf_token %}
+                <input type="hidden" name="form_type" value="general_update">
+                <button type="submit" class="btn btn-info text-white">
+                    Refresh
+                </button>
+            </form>
         </div>
       </div>
     <div class="d-flex justify-content-end gap-2 my-2">
@@ -198,6 +230,12 @@
       <button class="btn btn-outline-success btn-sm sort-button" data-sort="data" data-order="desc">
         Data Cons. <i class="fas fa-sort-numeric-up-alt"></i>
       </button>
+      <button class="btn btn-outline-danger btn-sm sort-button" data-sort="dataeff" data-order="asc">
+        Data Cons. Eff.<i class="fas fa-sort-numeric-down"></i>
+      </button>
+      <button class="btn btn-outline-danger btn-sm sort-button" data-sort="dataeff" data-order="desc">
+        Data Cons. Eff. <i class="fas fa-sort-numeric-up-alt"></i>
+      </button>
     </div>
     <div id="flat-view" class="data-view"
       {% if modalita == 'espansa' %}
@@ -212,6 +250,7 @@
             <th>Des. Cliente</th>
             <th>Data Ord.</th>
             <th>Data Cons.</th>
+            <th>Data Cons. Eff.</th>            
             <th class="col-ordine">N. Ordine</th>
             <th>N. Riga</th>
             <th>Stato Ord.</th>
@@ -230,19 +269,34 @@
         </thead>
         <tbody>
             {% for item in avanzamento_ordini %}
-            <tr>
+            <tr data-ordine="{{ item.ordine }}"
+                data-cliente="{{ item.des_cliente }}"
+                data-data-cons="{{ item.data_cons|date:'Y-m-d' }}"
+                data-data-cons-eff="{{ item.data_cons_eff|date:'Y-m-d' }}"
+                data-articolo="{{ item.articolo }}"
+                data-old-code="{{ item.old_code}}"
+                data-commerciale="{{item.commerciale}}"
+                data-qta-ord="{{item.qta_ord}}"
+                data-qta-cons="{{item.qta_cons}}"
+                data-operatore="{{ item.des_operatore }}"
+                data-des_articolo="{{ item.des_articolo }}"
+                data-nota="{{ item.note_prod }}"
+                data-stato="{{ item.des_stato_ord }}" 
+                >
             <td>{{ item.des_cliente }}</td>
             <td>{{ item.data_ord|date:"d/m/Y" }}</td>
-            <td >
+            <td>
                 {{ item.data_cons|date:"d/m/Y" }}
             </td>
+            <td>
+                {{ item.data_cons_eff|date:"d/m/Y" }}
+            </td>
             <td class="col-ordine">
-                <a>
-                {{ item.ordine }}</a>
+                  {{ item.ordine }}
             </td>
             <td>
-                <a>                   
-                {{ item.n_riga }}</a></td>
+                  {{ item.n_riga }}
+              </td>
                         <td class="{% if item.des_stato_ord == 'Da pianificare' %}bg-warning
                         {% elif item.des_stato_ord in 'Trasfer. in produzione,Da lavorare,Da trasf. in produzione,Da trasf. in spedizione' %}bg-orange
                         {% elif item.des_stato_ord in 'Trasfer. in spedizione' %}bg-primarynew text-white
@@ -251,20 +305,11 @@
                         {% elif item.des_stato_ord == 'Prodotto' %}bg-success text-white
                         {% elif item.des_stato_ord == 'Sospeso' %}bg-danger text-white
                         {% else %}bg-secondary{% endif %}">
-
-                <a>
-                {{ item.des_stato_ord }}
-                </a>
-
+                  {{ item.des_stato_ord }}
             </td>
 
             <td>
-                <a>
-                {% if item.des_operatore %}
                 {{ item.des_operatore }}
-                {% else %}
-                {% endif %}
-                </a>
             </td>
             <td>{{ item.articolo }}</td>
             <td>{{ item.old_code }}</td>
@@ -296,26 +341,26 @@
             {% endfor %}
         </tbody>
         </table>
-    </div>
-      <nav class="d-flex justify-content-center mt-2">
-      <ul class="pagination">
-        {% if avanzamento_ordini.has_previous %}
-          <li class="page-item">
-            <a class="page-link" href="?{{ base_querystring }}&page={{ avanzamento_ordini.previous_page_number }}">Previous</a>
-          </li>
-        {% endif %}
+      </div>
+            <nav class="d-flex justify-content-center mt-2">
+            <ul class="pagination">
+              {% if avanzamento_ordini.has_previous %}
+                <li class="page-item">
+                  <a class="page-link" href="?{{ base_querystring }}&page={{ avanzamento_ordini.previous_page_number }}">Previous</a>
+                </li>
+              {% endif %}
 
-        <li class="page-item disabled">
-          <span class="page-link">{{ avanzamento_ordini.number }} / {{ avanzamento_ordini.paginator.num_pages }}</span>
-        </li>
+              <li class="page-item disabled">
+                <span class="page-link">{{ avanzamento_ordini.number }} / {{ avanzamento_ordini.paginator.num_pages }}</span>
+              </li>
 
-        {% if avanzamento_ordini.has_next %}
-          <li class="page-item">
-            <a class="page-link" href="?{{ base_querystring }}&page={{ avanzamento_ordini.next_page_number }}">Next</a>
-          </li>
-        {% endif %}
-      </ul>
-    </nav>
+              {% if avanzamento_ordini.has_next %}
+                <li class="page-item">
+                  <a class="page-link" href="?{{ base_querystring }}&page={{ avanzamento_ordini.next_page_number }}">Next</a>
+                </li>
+              {% endif %}
+            </ul>
+          </nav>
     </div>
   
 
@@ -334,9 +379,10 @@
         <tbody>
             {% for ordine in avanzamento_ordini_groups %}
               <tr  class="table-primary group-header" data-is-filtered="true"
-                data-group-id="{{ ordine.ordine }}"
+                data-ordine="{{ ordine.ordine }}"
                 data-cliente="{{ ordine.cliente}}"
-                data-data-cons="{{ ordine.data_cons|date:'d-m-Y' }}">        
+                data-data-cons="{{ ordine.data_cons|date:'d-m-Y' }}"
+                data-data-cons-eff="{{ ordine.data_cons_eff|date:'d-m-Y' }}">        
                 <td colspan="15" style="cursor: pointer;">
                   <strong>{{ ordine.cliente }}</strong> —
                   Ordine <strong>{{ ordine.ordine }}</strong> —
@@ -352,14 +398,25 @@
                   {% endfor %}
                   Data Consegna 
                   <strong 
+                    {% if ordine.data_cons < today %}
+                      class="text-danger"
+                    {% endif %}
                   >
                     {{ ordine.data_cons|date:"d/m/Y" }}
+                  </strong> —
+                  Data Consegna Effettiva
+                  <strong>
+                    {{ ordine.data_cons_eff|date:"d/m/Y" }}
                   </strong>
                 </td>
               </tr>
-            <tr class="group-row" data-group-id="{{ ordine.ordine }}" data-meta="true" style="display: none;" data-is-filtered="true">
+            <tr class="group-row"
+                data-ordine="{{ ordine.ordine }}"
+                data-cliente="{{ ordine.cliente}}"
+                data-data-cons="{{ ordine.data_cons|date:'d-m-Y' }}"  data-meta="true" style="display: none;" data-is-filtered="true">
             <th>Data Ord.</th>
             <th>Data Cons.</th>
+            <th>Data Cons. Eff.</th>  
             <th>N. Riga</th>
             <th>Stato Ord.</th>
             <th>Operatore</th>
@@ -375,15 +432,30 @@
             <th>Qta Res.</th>
             </tr>
             {% for item in ordine.dati %}            
-            <tr class="group-row" data-group-id="{{ ordine.ordine }}" 
+            <tr class="group-row" data-ordine="{{ item.ordine }}"
+                data-cliente="{{ item.des_cliente }}"
+                data-data-cons="{{ item.data_cons|date:'d-m-Y' }}"
+                data-articolo="{{ item.articolo }}"
+                data-old-code="{{ item.old_code}}"
+                data-commerciale="{{item.commerciale}}"
+                data-qta-ord="{{item.qta_ord}}"
+                data-qta-cons="{{item.qta_cons}}"
+                data-operatore="{{item.des_operatore}}"
+                data-des_articolo="{{ item.des_articolo }}"
+                data-nota="{{ item.note_prod }}"
+                data-stato="{{ item.des_stato_ord }}"
             style="display: none;" data-is-filtered="true" data-meta="false" >
             <td>{{ item.data_ord|date:"d/m/Y" }}</td>
             <td>
                 {{ item.data_cons|date:"d/m/Y" }}
             </td>
             <td>
-                <a>                   
-                {{ item.n_riga }}</a></td>
+                {{ item.data_cons_eff|date:"d/m/Y" }}
+            </td>
+            <td>
+                {{ item.n_riga }}
+              </td>
+              
             <td class="{% if item.des_stato_ord == 'Da pianificare' %}bg-warning
                         {% elif item.des_stato_ord in 'Trasfer. in produzione,Da lavorare,Da trasf. in produzione,Da trasf. in spedizione' %}bg-orange
                         {% elif item.des_stato_ord in 'Trasfer. in spedizione' %}bg-primarynew text-white
@@ -392,19 +464,10 @@
                         {% elif item.des_stato_ord == 'Prodotto' %}bg-success text-white
                         {% elif item.des_stato_ord == 'Sospeso' %}bg-danger text-white
                         {% else %}bg-secondary{% endif %}">
-
-                <a>
-                {{ item.des_stato_ord }}
-                </a>
-
+                  {{ item.des_stato_ord }}
             </td>
             <td>
-                <a>
-                {% if item.des_operatore %}
                 {{ item.des_operatore }}
-                {% else %}
-                {% endif %}
-                </a>
             </td>
             <td>{{ item.articolo }}</td>
             <td>{{ item.old_code }}</td>
@@ -436,8 +499,8 @@
             {% endfor %}
         </tbody>
         </table>
-    </div>
-      <nav class="d-flex justify-content-center mt-2">
+        </div>
+        <nav class="d-flex justify-content-center mt-2">
         <ul class="pagination">
           {% if avanzamento_ordini_groups.has_previous %}
             <li class="page-item">
@@ -456,7 +519,6 @@
           {% endif %}
         </ul>
       </nav>
-
     </div>
     </div>
     <!-- Modale per modificare ordini -->
@@ -502,59 +564,11 @@
                 <input type="text" class="form-control" id="cliente-readonly" readonly>
             </div>
 
-            <div class="mb-3">
-              <label class="form-label">Operatore</label>
-              <select class="form-select" name="operatore">
-                <option value="" selected>— nessuno —</option>
-                {% for operatore in operatori %}
-                  <option value="{{ operatore }}">{{ operatore }}</option>
-                {% endfor %}
-              </select>
-            </div>
-
-            <div class="mb-3">
-              <label class="form-label">Stato Ordine</label>
-              <select class="form-select" name="stato">
-                {% for stato in stati_ordini %}
-                  <option value="{{ stato }}">{{ stato }}</option>
-                {% endfor %}
-              </select>
-            </div>
-
-
-            </div>
-
-            <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Chiudi</button>
-            <button type="submit" class="btn btn-primary">Salva modifiche</button>
-            </div>
-        </form>
-        </div>
-    </div>
-    </div>
-    <div class="modal fade" id="noteModal" tabindex="-1" aria-labelledby="noteModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-        <form id="note-form" method="post">
-            {% csrf_token %}
-            <!-- Campo nascosto per distinguere il tipo di form -->
-            <input type="hidden" name="form_type" value="update_note">
-
-            <div class="modal-header">
-            <h5 class="modal-title" id="noteModalLabel">Aggiorna Nota Ordine</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Chiudi"></button>
-            </div>
-
-            <div class="modal-body">
-            <div class="mb-3">
-                <label class="form-label">Numero Ordine</label>
-                <input type="text" class="form-control" id="ordine-readonly" name="ordine" readonly>
-            </div>
-
-            <div class="mb-3">
-                <label class="form-label">Cliente</label>
-                <input type="text" class="form-control" id="cliente-readonly" readonly>
-            </div>
+          <div class="mb-3">
+            <label class="form-label">Data Consegna</label>
+            <input type="date" class="form-control" id="data_cons-readonly" readonly>
+          </div>
+  
 
             <div class="mb-3">
               <label for="message-text" class="form-label">Nota</label>
@@ -562,6 +576,7 @@
             </div>
 
             </div>
+
             <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Chiudi</button>
             <button type="submit" class="btn btn-primary">Salva modifiche</button>
@@ -570,6 +585,7 @@
         </div>
     </div>
     </div>
+
     <div class="modal fade" id="noteModalsingle" tabindex="-1" aria-labelledby="noteModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -689,12 +705,63 @@
             </div>
         </form>
         </div>
-
       </div>
-</div>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+      </div>
+<div class="modal fade" id="dateModalsingle" tabindex="-1" aria-labelledby="dateModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <form id="date-form-single" method="post">
+        {% csrf_token %}
+        <input type="hidden" name="form_type" value="date_single">
 
-  <script>
+        <div class="modal-header">
+          <h5 class="modal-title" id="dateModalLabel">Modifica Data Effettiva</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Chiudi"></button>
+        </div>
+
+        <div class="modal-body">
+          <div class="mb-3">
+            <label class="form-label">Numero Ordine</label>
+            <input type="text" class="form-control" id="ordine-readonly" name="ordine" readonly>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">N. Riga</label>
+            <input type="text" class="form-control" id="riga-readonly" name="riga" readonly>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Cliente</label>
+            <input type="text" class="form-control" id="cliente-readonly" readonly>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Articolo</label>
+            <input type="text" class="form-control" id="articolo-readonly" readonly>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Descrizione Articolo</label>
+            <input type="text" class="form-control" id="des_articolo-readonly" readonly>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Data Consegna</label>
+            <input type="date" class="form-control" id="data_cons-readonly" readonly>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Data Consegna Effettiva</label>
+            <input type="date" class="form-control" id="data_cons_eff" name="data_cons_eff">
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Chiudi</button>
+          <button type="submit" class="btn btn-primary">Salva modifiche</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+   <script>
   document.querySelectorAll('input[name="viewToggle"]').forEach(radio => {
     radio.addEventListener('change', function () {
       const modalita = this.value;
@@ -726,14 +793,13 @@
 </script>
 
 
-
   <script>
     document.addEventListener("DOMContentLoaded", function () {
       document.querySelectorAll(".group-header").forEach(function (headerRow) {
         headerRow.addEventListener("click", function () {
-          const groupId = this.dataset.groupId;
+          const ordine = this.dataset.ordine;
 
-          const groupRows = Array.from(document.querySelectorAll(`.group-row[data-group-id="${groupId}"]`));
+          const groupRows = Array.from(document.querySelectorAll(`.group-row[data-ordine="${ordine}"]`));
           const filteredRows = groupRows.filter(row => row.dataset.isFiltered === "true");
 
           const isVisible = filteredRows.some(row => row.style.display !== "none");
@@ -805,17 +871,18 @@
     }
   });
   </script>-->
+
   <script>
 document.addEventListener('DOMContentLoaded', function () {
   const tableBody = document.querySelector('#sortable-table-groups tbody');
   const sortButtons = document.querySelectorAll('.sort-button');
 
   // Cache iniziale dei gruppi
-  const groupMap = new Map(); // key = groupId, value = {header, rows[]}
+  const groupMap = new Map(); // key = ordine, value = {header, rows[]}
   tableBody.querySelectorAll('.group-header').forEach(header => {
-    const groupId = header.dataset.groupId;
-    const rows = Array.from(tableBody.querySelectorAll(`.group-row[data-group-id="${groupId}"]`));
-    groupMap.set(groupId, { header, rows });
+    const ordine = header.dataset.ordine;
+    const rows = Array.from(tableBody.querySelectorAll(`.group-row[data-ordine="${ordine}"]`));
+    groupMap.set(ordine, { header, rows });
   });
 
   sortButtons.forEach(button => {
@@ -838,8 +905,34 @@ document.addEventListener('DOMContentLoaded', function () {
       url.search = params.toString();
       window.location.href = url.toString();
     });
-  });
+ 
+      // Sort dei gruppi
+      /*const sortedGroups = Array.from(groupMap.values()).sort((a, b) => {
+        let valA = '', valB = '';
 
+        if (sortType === 'cliente') {
+          valA = a.header.dataset.cliente || '';
+          valB = b.header.dataset.cliente || '';
+        } else if (sortType === 'data') {
+          valA = a.header.dataset.dataCons || '';
+          valB = b.header.dataset.dataCons || '';
+        }
+
+        return sortOrder === 'asc'
+          ? valA.localeCompare(valB)
+          : valB.localeCompare(valA);
+      });
+
+      // Ricostruzione ottimizzata della tabella
+      const fragment = document.createDocumentFragment();
+      sortedGroups.forEach(group => {
+        fragment.appendChild(group.header);
+        group.rows.forEach(row => fragment.appendChild(row));
+      });
+
+      tableBody.innerHTML = ''; // Pulisci una sola volta
+      tableBody.appendChild(fragment); // Re-rendering in blocco*/
+    });
   });
 </script>
 <script>
@@ -867,6 +960,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const page = currentParams.get("page");
     const page_groups = currentParams.get("page_groups")
 
+
     const params = new URLSearchParams();
     if (modalita) params.set("modalita", modalita);  // Mantiene la modalità
     if (tipo_ordini) params.set("tipo_ordini", tipo_ordini);
@@ -879,6 +973,10 @@ document.addEventListener('DOMContentLoaded', function () {
     params.set("operatore_filtro", document.getElementById('filter-operatore').value.trim());
     params.set("articolo_filtro", document.getElementById('filter-articolo').value.trim());
     params.set("old_code_filtro", document.getElementById('filter-old-code').value.trim());
+    params.set("data_consegna_inizio_filtro", document.getElementById('filter-data-consegna-inizio').value.trim());
+    params.set("data_consegna_fine_filtro", document.getElementById('filter-data-consegna-fine').value.trim());
+    params.set("data_consegna_eff_fine_filtro", document.getElementById('filter-data-consegna-eff-fine').value.trim());
+    params.set("data_consegna_eff_inizio_filtro", document.getElementById('filter-data-consegna-eff-inizio').value.trim());
 
     const newUrl = `${window.location.pathname}?${params.toString()}`;
     window.location.href = newUrl;
@@ -903,46 +1001,32 @@ document.addEventListener('DOMContentLoaded', function () {
     window.location.href = newUrl;
   });
 
-
-
   // 📝 Pulsante "Modifica Ordine"
   editBtn.addEventListener('click', function () {
     const ordineVal = filterOrdine.value.trim();
 
     const foundRow = Array.from(tbody.querySelectorAll('tr'))[0];
-    
-    if (foundRow) {
-      const cliente   = foundRow.children[0].textContent.trim();
-      const stato     = foundRow.children[5].textContent.trim();
-      const operatore = foundRow.children[6].textContent.trim();
 
-      console.log(stato)
+    if (foundRow) {
+      const cliente   = (foundRow.dataset.cliente   || "").trim();
+      const stato     = (foundRow.dataset.stato     || "").trim();
+      const operatore = (foundRow.dataset.operatore || "").trim();
+      const data_cons = (foundRow.dataset.dataCons || "").trim();
+      const data_cons_eff = (foundRow.dataset.dataConsEff || "").trim();
+      let nota = (foundRow.dataset.nota || "").trim();
+      if (nota.toLowerCase() === "none" || nota.toLowerCase() === "null") {
+        nota = "";
+      }
 
       const modal = document.getElementById('editModal');
       modal.querySelector('#ordine-readonly').value  = ordineVal;
       modal.querySelector('#cliente-readonly').value = cliente;
-      modal.querySelector('select[name="operatore"]').value = operatore || '';
-      modal.querySelector('select[name="stato"]').value     = stato || '';
+      modal.querySelector('#data_cons-readonly').value = data_cons;
+      modal.querySelector('#nota').value = nota || '';
+
+
     }
   });
-
-  noteBtn.addEventListener('click', function () {
-    const foundRow = tbody.querySelector('tr'); // oppure la riga selezionata
-    if (!foundRow) return;
-
-    const ordine  = foundRow.children[3]?.textContent.trim() || '';
-    const cliente = foundRow.children[0]?.textContent.trim() || '';
-    const nota    = foundRow.children[11]?.textContent.trim() || '';
-
-    const modal = document.getElementById('noteModal');
-    if (!modal) return;
-
-    modal.querySelector('#ordine-readonly').value  = ordine;
-    modal.querySelector('#cliente-readonly').value = cliente;
-    modal.querySelector('#nota').value             = nota;
-  });
-
-
 
 });
 </script>
@@ -950,7 +1034,7 @@ document.addEventListener('DOMContentLoaded', function () {
   <script>
   document.addEventListener('DOMContentLoaded', function () {
     const editModal = document.getElementById('editModalsingle');
-    const noteModal = document.getElementById('noteModalsingle')
+    const noteModal = document.getElementById('noteModalsingle');
 
     editModal.addEventListener('show.bs.modal', function (event) {
       const trigger = event.relatedTarget;
@@ -1006,7 +1090,32 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
   </script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  const dateModal = document.getElementById('dateModalsingle');
 
+  dateModal.addEventListener('show.bs.modal', function (event) { 
+    const trigger = event.relatedTarget;
+    if (!trigger) return;
+
+    const ordine        = trigger.getAttribute('data-ordine');
+    const riga          = trigger.getAttribute('data-riga');
+    const cliente       = trigger.getAttribute('data-cliente');
+    const articolo      = trigger.getAttribute('data-articolo');
+    const des_articolo  = trigger.getAttribute('data-des_articolo');
+    const data_cons     = trigger.getAttribute('data-data-cons');
+    const data_cons_eff = trigger.getAttribute('data-data-cons-eff');
+
+    dateModal.querySelector('#ordine-readonly').value       = ordine || '';
+    dateModal.querySelector('#riga-readonly').value         = riga || '';
+    dateModal.querySelector('#cliente-readonly').value      = cliente || '';
+    dateModal.querySelector('#articolo-readonly').value     = articolo || '';
+    dateModal.querySelector('#des_articolo-readonly').value = des_articolo || '';
+    dateModal.querySelector('#data_cons-readonly').value    = data_cons || '';
+    dateModal.querySelector('#data_cons_eff').value         = data_cons_eff || '';
+  });
+});
+</script>
   <script>
     document.addEventListener('DOMContentLoaded', function () {
     const printBtn = document.getElementById('print-orders');
@@ -1016,72 +1125,75 @@ document.addEventListener('DOMContentLoaded', function () {
 
   let modal;
   let allSelected = true;
+  function safe(val) {
+  if (val === null || val === undefined || val === "None" || val === "null") {
+    return "";
+  }
+  return val;
+}
 
-  printBtn.addEventListener('click', () => {
-    const headers = Array.from(document.querySelectorAll('.group-header'));
-    const rows = Array.from(document.querySelectorAll(`.group-row`));
 
-    container.innerHTML = '';
+printBtn.addEventListener('click', () => {
+  const headers = Array.from(document.querySelectorAll('.group-header'));
+  const rows = Array.from(document.querySelectorAll('.group-row'));
 
-    headers.forEach(row => {
+  container.innerHTML = '';
 
-      const cliente = row.dataset.cliente;
-      const ordine = row.dataset.groupId;
-      const data = row.dataset.dataCons;
+  headers.forEach(row => {
+    const cliente = row.dataset.cliente;
+    const ordine  = row.dataset.ordine;
+    const data    = row.dataset.dataCons;
 
-      const selected_rows = rows
-        .filter(row => row.dataset.groupId === ordine && row.dataset.meta === "false")
-        .map(row => {
-          const cells = Array.from(row.children).map(cell => cell.textContent.trim());
-          return cells;
-        });
+    const selected_rows = rows.filter(r => 
+      r.dataset.ordine === ordine && r.dataset.meta === "false"
+    );
 
-      const section = document.createElement('div');
-      section.classList.add('mb-5');
-      section.innerHTML = `
-        <div class="mb-2">
-          <strong>Ordine N.</strong> ${ordine} &nbsp; 
-          <strong>Cliente</strong> ${cliente} &nbsp; 
-          <strong>Data Consegna</strong> ${data} &nbsp;
-        </div>
-        <table class="table table-bordered" data-ordine="${ordine}" data-cliente="${cliente}" data-data="${data}">
-          <thead>
+    const section = document.createElement('div');
+    section.classList.add('mb-5');
+    section.innerHTML = `
+      <div class="mb-2">
+        <strong>Ordine N.</strong> ${ordine} &nbsp; 
+        <strong>Cliente</strong> ${cliente} &nbsp; 
+        <strong>Data Consegna</strong> ${data} &nbsp;
+      </div>
+      <table class="table table-bordered" data-ordine="${ordine}" data-cliente="${cliente}" data-data="${data}">
+        <thead>
+          <tr>
+            <th>Seleziona</th>
+            <th>Articolo</th>
+            <th>Old Code</th>
+            <th>Descrizione</th>
+            <th>Commerciale</th>
+            <th>Qta Ord.</th>
+            <th>Qta Cons.</th>
+            <th>Operatore</th>
+            <th>Note</th>
+          </tr>
+        </thead>
+        <tbody id="pdf-rows-body-${cliente}">
+          ${selected_rows.map(r => `
             <tr>
-              <th>Seleziona</th>
-              <th>Articolo</th>
-              <th>Old Code</th>
-              <th>Descrizione</th>
-              <th>Commerciale</th>
-              <th>Qta Ord.</th>
-              <th>Qta Cons.</th>
-              <th>Operatore</th>
-              <th>Note</th>
+              <td><input type="checkbox" class="form-check-input toggle-row" data-selected="true" checked data-ordine="${ordine}"></td>
+              <td>${safe(r.dataset.articolo)}</td>
+              <td>${safe(r.dataset.oldCode)}</td>
+              <td>${safe(r.dataset.des_articolo)}</td>
+              <td>${safe(r.dataset.commerciale)}</td>
+              <td>${safe(r.dataset.qtaOrd)}</td>
+              <td>${safe(r.dataset.qtaCons)}</td>
+              <td>${safe(r.dataset.operatore)}</td>
+              <td>${safe(r.dataset.nota)}</td>
             </tr>
-          </thead>
-          <tbody id="pdf-rows-body-${cliente}">
-            ${selected_rows.map(row => `
-              <tr>
-                <td><input type="checkbox" class="form-check-input toggle-row" data-selected="true" checked data-ordine="${ordine}"></td>
-                <td>${row[5]}</td>
-                <td>${row[6]}</td>
-                <td>${row[7]}</td>
-                <td>${row[8]}</td>
-                <td>${row[12]}</td>
-                <td>${row[13]}</td>
-                <td>${row[4]}</td>
-                <td>${row[9]}</td>
-              </tr>
-            `).join('')}
-          </tbody>
-        </table>
-      `;
-
-      container.appendChild(section);
-    });
-    modal = bootstrap.Modal.getOrCreateInstance(document.getElementById('printModal'));
-    modal.show();
-
+          `).join('')}
+        </tbody>
+      </table>
+    `;
+    container.appendChild(section);
   });
+
+  modal = bootstrap.Modal.getOrCreateInstance(document.getElementById('printModal'));
+  modal.show();
+});
+
    
   // Event delegation su tutto il contenitore
   container.addEventListener('click', (e) => {

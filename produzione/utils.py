@@ -21,6 +21,9 @@ def riformatta_date(avanzamento_ordini):
         if ordine['data_cons']:
             ordine['data_cons'] = datetime.fromisoformat(ordine['data_cons']).date()
 
+        if ordine['data_cons_eff']:
+            ordine['data_cons_eff'] = datetime.fromisoformat(ordine['data_cons_eff']).date()
+
         if ordine['data_ord']:
             ordine['data_ord'] = datetime.fromisoformat(ordine['data_ord']).date()
 
@@ -33,9 +36,14 @@ def riformatta_date_groups(ordini):
     for ordine in ordini:
         if ordine['data_cons']:
             ordine['data_cons'] = datetime.fromisoformat(ordine['data_cons']).date()
+        if ordine['data_cons_eff']:
+            ordine['data_cons_eff'] = datetime.fromisoformat(ordine['data_cons_eff']).date()
         for riga in ordine['dati']:
             if riga['data_cons']:
                 riga['data_cons'] = datetime.fromisoformat(riga['data_cons']).date()
+                
+            if riga['data_cons_eff']:
+                riga['data_cons_eff'] = datetime.fromisoformat(riga['data_cons_eff']).date()
 
             if riga['data_ord']:
                 riga['data_ord'] = datetime.fromisoformat(riga['data_ord']).date()

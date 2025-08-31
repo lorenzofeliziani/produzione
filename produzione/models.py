@@ -64,6 +64,7 @@ class Avanzamento_Ordini(models.Model):
     ordine = models.CharField(max_length=50,null=True, blank=True)
     n_riga = models.IntegerField(validators=[valida_multiplo_di_mille])
     stato_ord = models.ForeignKey(Stati_Ordini, on_delete=models.SET_NULL, null=True, blank=True)
+    data_consegna_effettiva = models.DateField(null=True, blank=True)
     operatore = models.ForeignKey(Utenti, on_delete=models.SET_NULL, null=True, blank=True)
     note = models.CharField(max_length=100, null=True, blank=True)
     note_prod = models.CharField(max_length=3000, null=True, blank=True)
