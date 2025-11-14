@@ -50,7 +50,16 @@
     #edit-orders:disabled {
     display: none;
   }
+    .stati-wrapper {
+    display: inline-flex;
+    flex-direction: column; /* uno sotto l’altro */
+    vertical-align: top;
+    }
 
+    .s-stato-wrapper {
+        margin: 2px 0; 
+    }
+    
     .form-control[readonly] {
     background-color: #e9ecef;  
     pointer-events: none;      
@@ -377,39 +386,41 @@
         <thead>
         </thead>
         <tbody>
-            {% for ordine in avanzamento_ordini_groups %}
+          {% for ordine in avanzamento_ordini_groups %}
               <tr  class="table-primary group-header" data-is-filtered="true"
                 data-ordine="{{ ordine.ordine }}"
                 data-cliente="{{ ordine.cliente}}"
                 data-data-cons="{{ ordine.data_cons|date:'d-m-Y' }}"
                 data-data-cons-eff="{{ ordine.data_cons_eff|date:'d-m-Y' }}">        
                 <td colspan="15" style="cursor: pointer;">
-                  <strong>{{ ordine.cliente }}</strong> —
-                  Ordine <strong>{{ ordine.ordine }}</strong> —
-                  {% for stato, percentuale in ordine.percentuali_stato.items %}
-                  <strong class="{% if stato == 'Da pianificare' %}bg-warning
+            <strong class="s-cliente">{{ ordine.cliente }}</strong>
+            <strong class="s-ordine">{{ ordine.ordine }}</strong>
+            <div class="stati-wrapper">
+            {% for stato, percentuale in ordine.percentuali_stato.items %}
+                <div class="s-stato-wrapper">
+                    <strong class="s-stato 
+                        {% if stato == 'Da pianificare' %}bg-warning
                         {% elif stato in 'Trasfer. in produzione,Da lavorare,Da trasf. in produzione,Da trasf. in spedizione' %}bg-orange
                         {% elif stato in 'Trasfer. in spedizione' %}bg-primarynew text-white
                         {% elif stato == 'In lavorazione' %}bg-warning
                         {% elif stato == 'In attesa' %}bg-warning text-danger
                         {% elif stato == 'Prodotto' %}bg-success text-white
                         {% elif stato == 'Sospeso' %}bg-danger text-white
-                        {% else %}bg-secondary{% endif %}">{{percentuale}}% {{stato}}</strong>  —
-                  {% endfor %}
-                  Data Consegna 
-                  <strong 
-                    {% if ordine.data_cons < today %}
-                      class="text-danger"
-                    {% endif %}
-                  >
-                    {{ ordine.data_cons|date:"d/m/Y" }}
-                  </strong> —
-                  Data Consegna Effettiva
-                  <strong>
-                    {{ ordine.data_cons_eff|date:"d/m/Y" }}
-                  </strong>
-                </td>
-              </tr>
+                        {% else %}bg-secondary{% endif %}
+                    ">
+                        {{percentuale}}% {{stato}}
+                    </strong>
+                </div>
+            {% endfor %}
+        </div>
+            Cons. :
+            <strong class="s-data-cons {% if ordine.data_cons < today %}text-danger{% endif %}">
+              {{ ordine.data_cons|date:"d/m/Y" }}
+            </strong> 
+            Cons. Eff. :
+            <strong class="s-data-eff">
+              {{ ordine.data_cons_eff|date:"d/m/Y" }}
+            </strong>
             <tr class="group-row"
                 data-ordine="{{ ordine.ordine }}"
                 data-cliente="{{ ordine.cliente}}"
@@ -792,7 +803,35 @@
   });
 </script>
 
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const groups = [
+          ".s-cliente",
+          ".s-ordine",
+          ".s-stato",
+          ".s-data-cons",
+          ".s-data-eff"
+      ];
 
+      groups.forEach(selector => {
+          const elements = document.querySelectorAll(selector);
+          let maxWidth = 0;
+
+          // Trova la larghezza massima
+          elements.forEach(el => {
+              const width = el.offsetWidth;
+              if (width > maxWidth) maxWidth = width;
+          });
+
+          // Applica la larghezza massima
+          elements.forEach(el => {
+              el.style.display = "inline-block";
+              el.style.minWidth = maxWidth + "px";
+              el.style.marginRight = "25px";
+          });
+      });
+  });
+  </script>
   <script>
     document.addEventListener("DOMContentLoaded", function () {
       document.querySelectorAll(".group-header").forEach(function (headerRow) {
