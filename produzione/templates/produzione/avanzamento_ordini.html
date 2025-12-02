@@ -304,9 +304,11 @@
             <th>Data Cons.</th>
             <th>Data Cons. Eff.</th>            
             <th class="col-ordine">N. Ordine</th>
-            <th>N. Riga</th>
             <th>Stato Ord.</th>
             <th>Operatore</th>
+            <th>Qta Ord.</th>
+            <th>Qta Cons.</th>
+            <th>Qta Res.</th>
             <th>Articolo</th>
             <th>Old Code</th>
             <th>Des. Articolo</th>
@@ -314,9 +316,7 @@
             <th>Note Prod.</th>
             <th>Rif. Interno</th>
             <th>Rif. Cliente</th>
-            <th>Qta Ord.</th>
-            <th>Qta Cons.</th>
-            <th>Qta Res.</th>
+            <th>N. Riga</th>
             </tr>
         </thead>
         <tbody>
@@ -364,9 +364,6 @@
             <td class="col-ordine">
                   {{ item.ordine }}
             </td>
-            <td>
-                  {{ item.n_riga }}
-              </td>
                         <td class="{% if item.des_stato_ord == 'Da pianificare' %}bg-warning
                         {% elif item.des_stato_ord in 'Trasfer. in produzione,Da lavorare,Da trasf. in produzione,Da trasf. in spedizione' %}bg-orange
                         {% elif item.des_stato_ord in 'Trasfer. in spedizione' %}bg-primarynew text-white
@@ -420,6 +417,9 @@
                 {% endif %}
                 {% endif %}
             </td>
+            <td>{{ item.qta_ord }}</td>
+            <td>{{ item.qta_cons }}</td>
+            <td>{{ item.qta_res }}</td>
             <td>{{ item.articolo }}</td>
             <td>{{ item.old_code }}</td>
             <td>{{ item.des_articolo }}</td>
@@ -443,9 +443,9 @@
             </td>
             <td>{{ item.rif_int }}</td>
             <td>{{ item.rif_cli }}</td>
-            <td>{{ item.qta_ord }}</td>
-            <td>{{ item.qta_cons }}</td>
-            <td>{{ item.qta_res }}</td>
+            <td>
+                  {{ item.n_riga }}
+              </td>
             </tr>
             {% endfor %}
         </tbody>
@@ -510,9 +510,11 @@
             <th>Data Ord.</th>
             <th>Data Cons.</th>
             <th>Data Cons. Eff.</th>  
-            <th>N. Riga</th>
             <th>Stato Ord.</th>
             <th>Operatore</th>
+            <th>Qta Ord.</th>
+            <th>Qta Cons.</th>
+            <th>Qta Res.</th>
             <th>Articolo</th>
             <th>Old Code</th>
             <th>Des. Articolo</th>
@@ -520,9 +522,7 @@
             <th>Note Prod.</th>
             <th>Rif. Interno</th>
             <th>Rif. Cliente</th>
-            <th>Qta Ord.</th>
-            <th>Qta Cons.</th>
-            <th>Qta Res.</th>
+            <th>N. Riga</th>
             </tr>
             {% for item in ordine.dati %}            
             <tr class="group-row" data-ordine="{{ item.ordine }}"
@@ -563,9 +563,6 @@
                 {{ item.data_cons_eff|date:"d/m/Y" }}
               {% endif %}
             </td>
-            <td>
-                {{ item.n_riga }}
-              </td>
               
             <td class="{% if item.des_stato_ord == 'Da pianificare' %}bg-warning
                         {% elif item.des_stato_ord in 'Trasfer. in produzione,Da lavorare,Da trasf. in produzione,Da trasf. in spedizione' %}bg-orange
@@ -619,6 +616,9 @@
                 {% endif %}
                 {% endif %}
             </td>
+            <td>{{ item.qta_ord }}</td>
+            <td>{{ item.qta_cons }}</td>
+            <td>{{ item.qta_res }}</td>
             <td>{{ item.articolo }}</td>
             <td>{{ item.old_code }}</td>
             <td>{{ item.des_articolo }}</td>
@@ -641,9 +641,9 @@
             </td>
             <td>{{ item.rif_int }}</td>
             <td>{{ item.rif_cli }}</td>
-            <td>{{ item.qta_ord }}</td>
-            <td>{{ item.qta_cons }}</td>
-            <td>{{ item.qta_res }}</td>
+              <td>
+                {{ item.n_riga }}
+              </td>
             </tr>
             {% endfor %}
             {% endfor %}

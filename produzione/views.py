@@ -2,7 +2,7 @@ import traceback
 import copy
 from datetime import date
 from collections import defaultdict
-from .utils import calcola_data_consegna, riformatta_date, riformatta_date_groups
+from .utils import calcola_data_consegna, riformatta_date, riformatta_date_groups, parse_dates, split_list, match_or, match_or_date_ranges
 from django.core.paginator import Paginator
 from urllib.parse import urlencode
 from datetime import datetime
@@ -240,9 +240,6 @@ def avanzamento_ordini(request):
     avanzamento_ordini_riform_render = riformatta_date(copy.deepcopy(avanzamento_ordini))
     avanzamento_ordini_groups_render = riformatta_date_groups(copy.deepcopy(avanzamento_ordini_groups))
     today = date.today()
-
-    def split_list(value, sep=","):
-        return [v.strip() for v in value.split(sep)] if value else []
     
     # Split the list
     ordini_list = split_list(ordine_filtro)
@@ -251,39 +248,10 @@ def avanzamento_ordini(request):
     operatori_list = split_list(operatore_filtro)
     articoli_list = split_list(articolo_filtro)
     oldcode_list = split_list(old_code_filtro)
-
-    # Parse dates
-    def parse_dates(value):
-        if value:
-            result = []
-            for v in split_list(value):
-                single_v = split_list(v, '->')
-                start = single_v[0]
-                end = single_v[1] 
-                result.append([start, end])
-            return result
-        else:
-            return []
     
     # Parse dates
     consegna_list = parse_dates(data_consegna_filtro)
     consegna_eff_list = parse_dates(data_consegna_eff_filtro)
-
-    def match_or(field, values):
-        if not values:
-            return True
-        field_val = (field or "").lower()
-        return any(v.lower() in field_val for v in values)
-
-    def match_or_date_ranges(date_value, values):
-        if not values:
-            return True
-        for value in values:
-            s = datetime.fromisoformat(value[0]).date() if value[0] else ''
-            e = datetime.fromisoformat(value[1]).date() if value[1] else ''
-            if (not s or date_value >= s) and (not e or date_value <= e):
-                return True
-        return False
 
     avanzamento_ordini_render = [
         o for o in avanzamento_ordini_riform_render
@@ -352,314 +320,6 @@ def avanzamento_ordini(request):
     return render(request, 'produzione/avanzamento_ordini.html', context)
 
 @login_required(login_url='login')
-def ordini_da_pianificare(request):
-    modalita = request.GET.get('modalita', 'standard')
-    ordine_filtro   = request.GET.get("ordine_filtro", "")
-    cliente_filtro   = request.GET.get("cliente_filtro", "")
-    stato_filtro     = request.GET.get("stato_filtro", "")
-    operatore_filtro = request.GET.get("operatore_filtro", "")
-    articolo_filtro = request.GET.get("articolo_filtro", "")
-    old_code_filtro = request.GET.get("old_code_filtro", "")
-    data_consegna_filtro = request.GET.get("data_consegna_filtro", "")
-    data_consegna_eff_filtro = request.GET.get("data_consegna_eff_filtro", "")    
-    tipo_ordinamento_gruppi = request.GET.get("tipo_ordinamento", "")
-    ordine_ordinamento_gruppi = request.GET.get("ordine_ordinamento", "")
-    tipo_ordini = request.GET.get("tipo_ordini", "")
-    avanzamento_ordini = request.session.get('avanzamento_ordini')
-    avanzamento_ordini_preferences = request.session.get('avanzamento_ordini_preferences')
-    avanzamento_ordini_groups = request.session.get('avanzamento_ordini_groups')
-    ruolo_utente = request.session.get('ruolo_utente')
-    nome_utente = request.session['nome_utente']
-    
-    stati_ordini = list(
-    Stati_Ordini.objects.values_list('stato', flat=True).distinct().order_by('stato')
-        )
-
-    operatori = list(
-        Utenti.objects.filter(is_operatore=True).values_list('nome', flat=True).distinct().order_by('nome')
-        )
-    
-    if request.method == 'POST':
-        modalita = request.GET.get('modalita', 'standard')
-        tipo_ordini = request.GET.get("tipo_ordini", "")
-        ordine_filtro   = request.GET.get("ordine_filtro", "")
-        cliente_filtro   = request.GET.get("cliente_filtro", "")
-        stato_filtro     = request.GET.get("stato_filtro", "")
-        operatore_filtro = request.GET.get("operatore_filtro", "")
-        articolo_filtro = request.GET.get("articolo_filtro", "")
-        old_code_filtro = request.GET.get("old_code_filtro", "")
-        action = request.POST.get('form_type')
-        if action == "general_update":
-            if ruolo_utente in ["Amministratore", "Pianificazione"]:
-                aggiorna_dati(request)
-            avanzamento_ordini, storico_ordini = select_ordini(request, ruolo_utente)
-            avanzamento_ordini_preferences = get_ordini_preferences(avanzamento_ordini)
-            storico_ordini_preferences = get_ordini_preferences(storico_ordini)
-            avanzamento_ordini_groups = group(avanzamento_ordini)
-            storico_ordini_groups = group(storico_ordini)        
-
-            request.session['avanzamento_ordini'] = avanzamento_ordini 
-            request.session['storico_ordini'] = storico_ordini
-            request.session['avanzamento_ordini_preferences'] = avanzamento_ordini_preferences
-            request.session['storico_ordini_preferences'] = storico_ordini_preferences
-            request.session['avanzamento_ordini_groups'] = avanzamento_ordini_groups
-            request.session['storico_ordini_groups'] = storico_ordini_groups
-        
-        elif action == "update_ord_list":
-            try:
-                numero_ordine = request.POST.get('ordine')
-                nuovo_operatore_nome = request.POST.get('operatore')
-                nuovo_stato_nome = request.POST.get('stato')
-                data_cons_eff = request.POST.get('data_cons_eff')
-                nota = request.POST.get('nota')
-                
-                stato_obj = Stati_Ordini.objects.filter(stato=nuovo_stato_nome).first()
-                operatore_obj = Utenti.objects.filter(nome=nuovo_operatore_nome).first()
-                
-                ordini_selezionati = Avanzamento_Ordini.objects.filter(ordine=numero_ordine)
-
-                # Aggiorna il DB
-                ordini_selezionati.update(
-                    operatore=operatore_obj,
-                    stato_ord=stato_obj,
-                    note_prod=nota,
-                    data_consegna_effettiva=data_cons_eff
-                )
-
-                # Aggiorna la sessione di avanzamento_ordini
-                for ordine in avanzamento_ordini:
-                    if ordine['ordine'] == numero_ordine:
-                        ordine['operatore'] = operatore_obj.username if operatore_obj else None
-                        ordine['des_operatore'] = operatore_obj.nome if operatore_obj else None
-                        ordine['id_stato_ord'] = stato_obj.id if stato_obj else None
-                        ordine['des_stato_ord'] = stato_obj.stato if stato_obj else None
-                        ordine['note_prod'] = nota if nota else None
-                        ordine['data_cons_eff'] = data_cons_eff if data_cons_eff else None
-
-                # Salva in sessione
-                avanzamento_ordini_preferences = get_ordini_preferences(avanzamento_ordini) 
-                avanzamento_ordini_groups = group(avanzamento_ordini)
-
-                request.session['avanzamento_ordini_groups'] = avanzamento_ordini_groups
-                request.session['avanzamento_ordini'] = avanzamento_ordini
-                request.session['avanzamento_ordini_preferences'] = avanzamento_ordini_preferences
-
-            except Exception as e:
-                import traceback
-                traceback.print_exc()
-
-        elif action == "update_ord_single":
-            try:
-                numero_ordine = request.POST.get('ordine')
-                riga = int(request.POST.get('riga'))
-                nuovo_operatore_nome = request.POST.get('operatore')
-                nuovo_stato_nome = request.POST.get('stato')
-                
-                stato_obj = Stati_Ordini.objects.filter(stato=nuovo_stato_nome).first()
-                operatore_obj = Utenti.objects.filter(nome=nuovo_operatore_nome).first()
-                
-                ordine_db = Avanzamento_Ordini.objects.filter(ordine=numero_ordine, n_riga=riga).first()
-
-                # Aggiorna il DB
-                Avanzamento_Ordini.objects.filter(id=ordine_db.id) \
-                    .update(operatore=operatore_obj, stato_ord=stato_obj)
-
-                for ordine in avanzamento_ordini:
-                    if ordine['ordine'] == numero_ordine and ordine['n_riga'] == riga:
-                        ordine['operatore'] = operatore_obj.username if operatore_obj is not None else None
-                        ordine['des_operatore'] = operatore_obj.nome if operatore_obj is not None else None
-                        ordine['id_stato_ord'] = stato_obj.id if stato_obj is not None else None
-                        ordine['des_stato_ord'] = stato_obj.stato if stato_obj is not None else None
-
-                # Salva in sessione
-                avanzamento_ordini_preferences = get_ordini_preferences(avanzamento_ordini)
-                avanzamento_ordini_groups = group(avanzamento_ordini)
-
-                request.session['avanzamento_ordini'] = avanzamento_ordini 
-                request.session['avanzamento_ordini_preferences'] = avanzamento_ordini_preferences
-                request.session['avanzamento_ordini_groups'] = avanzamento_ordini_groups
-            except Exception as e:
-                import traceback
-                traceback.print_exc()
-
-        elif action == "update_note":
-            try:
-                numero_ordine = request.POST.get('ordine')
-                nota = request.POST.get('nota')
-                ordini_selezionati = Avanzamento_Ordini.objects.filter(ordine=numero_ordine)
-                ordini_selezionati.update(note_prod=nota)
-                for ordine in avanzamento_ordini:
-                    if ordine['ordine'] == numero_ordine:
-                        ordine['note_prod'] = nota
-
-
-                avanzamento_ordini_groups = group(avanzamento_ordini)
-                request.session['avanzamento_ordini_groups'] = avanzamento_ordini_groups
-                request.session['avanzamento_ordini'] = avanzamento_ordini
-
-            except Exception as e:
-                import traceback
-                traceback.print_exc()
-
-        elif action == "update_note_single":
-            try:
-                numero_ordine = request.POST.get('ordine')
-                riga = int(request.POST.get('riga'))
-                nota = request.POST.get('nota')
-                ordini_selezionati = Avanzamento_Ordini.objects.filter(ordine=numero_ordine, n_riga=riga).first()
-                if ordini_selezionati:
-                    ordini_selezionati.note_prod = nota
-                    ordini_selezionati.save()
-
-                for ordine in avanzamento_ordini:
-                    if ordine['ordine'] == numero_ordine and ordine['n_riga'] == riga:
-                        ordine['note_prod'] = nota
-
-
-                avanzamento_ordini_groups = group(avanzamento_ordini)
-                request.session['avanzamento_ordini_groups'] = avanzamento_ordini_groups
-                request.session['avanzamento_ordini'] = avanzamento_ordini
-
-            except Exception as e:
-                import traceback
-                traceback.print_exc()
-        elif action == "date_single":
-            try:
-                numero_ordine = request.POST.get('ordine')
-                riga = int(request.POST.get('riga'))
-                data_cons_eff = request.POST.get('data_cons_eff')
-                ordini_selezionati = Avanzamento_Ordini.objects.filter(ordine=numero_ordine, n_riga=riga).first()
-                if ordini_selezionati:
-                    ordini_selezionati.data_consegna_effettiva = data_cons_eff
-                    ordini_selezionati.save()
-                for ordine in avanzamento_ordini:
-                    if ordine['ordine'] == numero_ordine and ordine['n_riga'] == riga:
-                        ordine['data_cons_eff'] = data_cons_eff
-
-                avanzamento_ordini_groups = group(avanzamento_ordini)
-                request.session['avanzamento_ordini_groups'] = avanzamento_ordini_groups
-                request.session['avanzamento_ordini'] = avanzamento_ordini
-
-            except Exception as e:
-                import traceback
-                traceback.print_exc()
-
-    ordini_da_pianificare = [o for o in avanzamento_ordini if o.get('des_stato_ord') == 'Da pianificare']
-    ordini_da_pianificare_groups = group(ordini_da_pianificare, avanzamento_ordini)
-    ordini_da_pianificare_preferences = get_ordini_preferences(ordini_da_pianificare)
-    ordini_da_pianificare_riform_render = riformatta_date(copy.deepcopy(ordini_da_pianificare))
-    ordini_da_pianificare_groups_render = riformatta_date_groups(copy.deepcopy(ordini_da_pianificare_groups))
-    today = date.today()
-
-    def split_list(value, sep=","):
-        return [v.strip() for v in value.split(sep)] if value else []
-    
-    # Split the list
-    ordini_list = split_list(ordine_filtro)
-    clienti_list = split_list(cliente_filtro)
-    stati_list = split_list(stato_filtro)
-    operatori_list = split_list(operatore_filtro)
-    articoli_list = split_list(articolo_filtro)
-    oldcode_list = split_list(old_code_filtro)
-
-    # Parse dates
-    def parse_dates(value):
-        if value:
-            result = []
-            for v in split_list(value):
-                single_v = split_list(v, '->')
-                start = single_v[0]
-                end = single_v[1] 
-                result.append([start, end])
-            return result
-        else:
-            return []
-    
-    # Parse dates
-    consegna_list = parse_dates(data_consegna_filtro)
-    consegna_eff_list = parse_dates(data_consegna_eff_filtro)
-
-    def match_or(field, values):
-        if not values:
-            return True
-        field_val = (field or "").lower()
-        return any(v.lower() in field_val for v in values)
-
-    def match_or_date_ranges(date_value, values):
-        if not values:
-            return True
-        for value in values:
-            s = datetime.fromisoformat(value[0]).date() if value[0] else ''
-            e = datetime.fromisoformat(value[1]).date() if value[1] else ''
-            if (not s or date_value >= s) and (not e or date_value <= e):
-                return True
-        return False
-
-    ordini_da_pianificare_render = [
-        o for o in ordini_da_pianificare_riform_render
-        if match_or(o.get('ordine'), ordini_list)
-        and match_or(o.get('des_cliente'), clienti_list)
-        and match_or(o.get('des_stato_ord'), stati_list)
-        and match_or(o.get('des_operatore'), operatori_list)
-        and match_or(o.get('articolo'), articoli_list)
-        and match_or(o.get('old_code'), oldcode_list)
-        and match_or_date_ranges(o.get('data_cons'), consegna_list)
-        and match_or_date_ranges(o.get('data_cons_eff'), consegna_eff_list)
-        and (not tipo_ordini 
-            or (o.get('tipo_ordine')=='SOR' and tipo_ordini == 'riparazioni')
-            or (o.get('tipo_ordine')!='SOR' and tipo_ordini == 'produzioni'))
-    ]
-
-
-    if tipo_ordinamento_gruppi and ordine_ordinamento_gruppi:
-        reverse = (ordine_ordinamento_gruppi == 'desc')
-
-        if tipo_ordinamento_gruppi == "cliente":
-            sort = 'des_cliente'
-        elif tipo_ordinamento_gruppi == "data":
-            sort = 'data_cons'
-        elif tipo_ordinamento_gruppi == "dataeff":
-            sort = 'data_cons_eff'
-        else:
-            sort = None  # fallback di sicurezza
-
-        if sort:
-            ordini_da_pianificare_render.sort(
-                key=lambda o: (
-                    (o.get(sort) or '').lower() if isinstance(o.get(sort), str)
-                    else o.get(sort)
-                ),
-                reverse=reverse
-            )
-
-    if ordine_filtro or cliente_filtro or stato_filtro or operatore_filtro or articolo_filtro or old_code_filtro or tipo_ordini or data_consegna_filtro or data_consegna_eff_filtro or tipo_ordinamento_gruppi:
-        ordini_da_pianificare_groups_render = group(ordini_da_pianificare_render, avanzamento_ordini)
-    context = {
-        'today': today,
-        'modalita': modalita,
-        "filtro": {
-            "ordine": ordini_list,
-            "cliente": clienti_list,
-            "stato": stati_list,
-            "operatore": operatori_list,
-            "articolo": articoli_list,
-            "old_code": oldcode_list,
-            "data_consegna": split_list(data_consegna_filtro),
-            "data_consegna_eff": split_list(data_consegna_eff_filtro),        
-        },
-        "tipo_ordini": tipo_ordini,
-        'ruolo_utente': ruolo_utente,
-        'stati_ordini': stati_ordini,
-        'operatori': operatori,
-        'avanzamento_ordini': ordini_da_pianificare_render,
-        'avanzamento_ordini_groups': ordini_da_pianificare_groups_render,
-        'avanzamento_ordini_preferences': ordini_da_pianificare_preferences,
-        'nome_utente': nome_utente
-    }
-    
-    return render(request, 'produzione/ordini_da_pianificare.html', context)
-
-@login_required(login_url='login')
 def storico_ordini(request):
     modalita = request.GET.get('modalita', 'standard')
     page_number = request.GET.get('page', 1)
@@ -672,10 +332,8 @@ def storico_ordini(request):
     operatore_filtro = request.GET.get("operatore_filtro", "")
     articolo_filtro = request.GET.get("articolo_filtro", "")
     old_code_filtro = request.GET.get("old_code_filtro", "")
-    data_consegna_inizio_filtro = request.GET.get("data_consegna_inizio_filtro", "")
-    data_consegna_fine_filtro = request.GET.get("data_consegna_fine_filtro", "")
-    data_consegna_eff_inizio_filtro = request.GET.get("data_consegna_eff_inizio_filtro", "")
-    data_consegna_eff_fine_filtro = request.GET.get("data_consegna_eff_fine_filtro", "")  
+    data_consegna_filtro = request.GET.get("data_consegna_filtro", "")
+    data_consegna_eff_filtro = request.GET.get("data_consegna_eff_filtro", "")    
     tipo_ordinamento_gruppi = request.GET.get("tipo_ordinamento", "")
     ordine_ordinamento_gruppi = request.GET.get("ordine_ordinamento", "")
     tipo_ordini = request.GET.get("tipo_ordini", "")
@@ -721,26 +379,36 @@ def storico_ordini(request):
         request.session['storico_ordini'] = storico_ordini
 
     # Riformattazione
-    storico_ordini_render = riformatta_date(copy.deepcopy(storico_ordini))
+    storico_ordini_riform_render = riformatta_date(copy.deepcopy(storico_ordini))
     storico_ordini_groups_render = riformatta_date_groups(copy.deepcopy(storico_ordini_groups))
 
+    # Split the list
+    ordini_list = split_list(ordine_filtro)
+    clienti_list = split_list(cliente_filtro)
+    stati_list = split_list(stato_filtro)
+    operatori_list = split_list(operatore_filtro)
+    articoli_list = split_list(articolo_filtro)
+    oldcode_list = split_list(old_code_filtro)
+    
+    # Parse dates
+    consegna_list = parse_dates(data_consegna_filtro)
+    consegna_eff_list = parse_dates(data_consegna_eff_filtro)
+
     # Applica filtri
-    if ordine_filtro or cliente_filtro or stato_filtro or operatore_filtro or articolo_filtro or old_code_filtro or tipo_ordini or data_consegna_fine_filtro or data_consegna_inizio_filtro or data_consegna_eff_fine_filtro or data_consegna_eff_inizio_filtro:
-        storico_ordini_render = [
-            o for o in storico_ordini_render
-            if (not ordine_filtro or ordine_filtro.lower() in (o.get('ordine') or '').lower()) and
-            (not cliente_filtro or cliente_filtro.lower() in (o.get('des_cliente') or '').lower()) and
-            (not stato_filtro or stato_filtro.lower() in (o.get('des_stato_ord') or '').lower()) and
-            (not operatore_filtro or operatore_filtro.lower() in (o.get('des_operatore') or '').lower()) and 
-            (not articolo_filtro or articolo_filtro.lower() in (o.get('articolo') or '').lower()) and
-            (not old_code_filtro or old_code_filtro.lower() in (o.get('old_code') or '').lower()) and
-            (not tipo_ordini or (o.get('tipo_ordine')=='SOR' and tipo_ordini == 'riparazioni') or (o.get('tipo_ordine')!='SOR' and tipo_ordini == 'produzioni')) and
-            (not data_consegna_fine_filtro or o.get('data_cons') <= datetime.fromisoformat(data_consegna_fine_filtro).date()) and
-            (not data_consegna_inizio_filtro or o.get('data_cons') >= datetime.fromisoformat(data_consegna_inizio_filtro).date()) and
-            (not data_consegna_eff_fine_filtro or o.get('data_cons_eff') <= datetime.fromisoformat(data_consegna_eff_fine_filtro).date()) and
-            (not data_consegna_eff_inizio_filtro or o.get('data_cons_eff') >= datetime.fromisoformat(data_consegna_eff_inizio_filtro).date())    
-        
-        ]
+    storico_ordini_render = [
+        o for o in storico_ordini_riform_render
+        if match_or(o.get('ordine'), ordini_list)
+        and match_or(o.get('des_cliente'), clienti_list)
+        and match_or(o.get('des_stato_ord'), stati_list)
+        and match_or(o.get('des_operatore'), operatori_list)
+        and match_or(o.get('articolo'), articoli_list)
+        and match_or(o.get('old_code'), oldcode_list)
+        and match_or_date_ranges(o.get('data_cons'), consegna_list)
+        and match_or_date_ranges(o.get('data_cons_eff'), consegna_eff_list)
+        and (not tipo_ordini 
+            or (o.get('tipo_ordine')=='SOR' and tipo_ordini == 'riparazioni')
+            or (o.get('tipo_ordine')!='SOR' and tipo_ordini == 'produzioni'))
+    ]
 
     # Ordinamento
     if tipo_ordinamento_gruppi and ordine_ordinamento_gruppi:
@@ -758,10 +426,10 @@ def storico_ordini(request):
             )
 
     # Raggruppamento aggiornato se necessario
-    if (tipo_ordini or tipo_ordinamento_gruppi) and not (ordine_filtro or cliente_filtro or stato_filtro or operatore_filtro or articolo_filtro or old_code_filtro or data_consegna_fine_filtro or data_consegna_inizio_filtro or data_consegna_eff_fine_filtro or data_consegna_eff_inizio_filtro):
+    if (tipo_ordini or tipo_ordinamento_gruppi) and not (ordine_filtro or cliente_filtro or stato_filtro or operatore_filtro or articolo_filtro or old_code_filtro or data_consegna_filtro or data_consegna_eff_filtro):
         storico_ordini_groups_render = group(storico_ordini_render)
 
-    if ordine_filtro or cliente_filtro or stato_filtro or operatore_filtro or articolo_filtro or old_code_filtro or data_consegna_fine_filtro or data_consegna_inizio_filtro or data_consegna_eff_fine_filtro or data_consegna_eff_inizio_filtro:
+    if ordine_filtro or cliente_filtro or stato_filtro or operatore_filtro or articolo_filtro or old_code_filtro or data_consegna_filtro or data_consegna_eff_filtro:
         storico_ordini_groups_render = group(storico_ordini_render, storico_ordini)
 
     # ✅ Applica Paginator dopo filtri
@@ -790,16 +458,14 @@ def storico_ordini(request):
         'base_groups_querystring': base_groups_querystring,
         'modalita': modalita,
         'filtro': {
-            "ordine": ordine_filtro,
-            "cliente": cliente_filtro,
-            "stato": stato_filtro,
-            "operatore": operatore_filtro,
-            "articolo": articolo_filtro,
-            "old_code": old_code_filtro,
-            "data_consegna_inizio": data_consegna_inizio_filtro,
-            "data_consegna_fine": data_consegna_fine_filtro,
-            "data_consegna_eff_inizio": data_consegna_eff_inizio_filtro,
-            "data_consegna_eff_fine": data_consegna_eff_fine_filtro, 
+            "ordine": ordini_list,
+            "cliente": clienti_list,
+            "stato": stati_list,
+            "operatore": operatori_list,
+            "articolo": articoli_list,
+            "old_code": oldcode_list,
+            "data_consegna": split_list(data_consegna_filtro),
+            "data_consegna_eff": split_list(data_consegna_eff_filtro),        
         },
         "tipo_ordini": tipo_ordini,
         'ruolo_utente': ruolo_utente,

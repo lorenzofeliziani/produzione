@@ -50,9 +50,6 @@
         <div class="col-md-3">
           <div class="list-group">
             <a href="{% url 'avanzamento_ordini' %}" class="list-group-item">Ordini in Avanzamento</a>
-            {% if ruolo_utente == 'Amministratore' or ruolo_utente == 'Pianificazione' %}
-              <a href="{% url 'ordini_da_pianificare' %}" class="list-group-item">Ordini da Pianificare</a>
-            {% endif %}
             {% if ruolo_utente == 'Amministratore' or ruolo_utente == 'Pianificazione' or ruolo_utente == 'Responsabile Produzione' or ruolo_utente == 'Commerciale' %}
             <a href="{% url 'storico_ordini' %}" class="list-group-item">Storico Ordini</a>
             {% endif %}

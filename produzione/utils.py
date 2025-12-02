@@ -1,5 +1,35 @@
 from datetime import timedelta, datetime, date
 
+def split_list(value, sep=","):
+        return [v.strip() for v in value.split(sep)] if value else []
+
+def parse_dates(value):
+        if value:
+            result = []
+            for v in split_list(value):
+                single_v = split_list(v, '->')
+                start = single_v[0]
+                end = single_v[1] 
+                result.append([start, end])
+            return result
+        else:
+            return []
+
+def match_or(field, values):
+    if not values:
+        return True
+    field_val = (field or "").lower()
+    return any(v.lower() in field_val for v in values)
+
+def match_or_date_ranges(date_value, values):
+    if not values:
+        return True
+    for value in values:
+        s = datetime.fromisoformat(value[0]).date() if value[0] else ''
+        e = datetime.fromisoformat(value[1]).date() if value[1] else ''
+        if (not s or date_value >= s) and (not e or date_value <= e):
+            return True
+    return False
 
 def calcola_data_consegna(data_inizio, giorni):
     data_corrente = data_inizio
