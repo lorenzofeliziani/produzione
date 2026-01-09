@@ -1278,11 +1278,11 @@ applyBtn.addEventListener('click', function () {
 
   // 📝 Pulsante "Modifica Ordine"
   editBtn.addEventListener('click', function () {
-    const ordineVal = filterOrdine.value.trim();
-
     const foundRow = Array.from(tbody.querySelectorAll('tr'))[0];
 
     if (foundRow) {
+      const ordineVal = (foundRow.dataset.ordine || "").trim();
+      console.log(ordineVal)
       const cliente   = (foundRow.dataset.cliente   || "").trim();
       const stato     = (foundRow.dataset.stato     || "").trim();
       const operatore = (foundRow.dataset.operatore || "").trim();

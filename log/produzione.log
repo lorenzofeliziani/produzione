@@ -8987,3 +8987,21 @@ Traceback (most recent call last):
   File "C:\Users\lorif\OneDrive\Desktop\DB\Produzione\venv\Lib\site-packages\django\template\base.py", line 606, in find_filter
     raise TemplateSyntaxError("Invalid filter: '%s'" % filter_name)
 django.template.exceptions.TemplateSyntaxError: Invalid filter: 'replace'
+2025-12-02 22:44:23,276 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-12-02 22:44:24,179 dati.sage.connect [INFO] Inizio funzione dashboard
+2025-12-02 22:44:24,222 django.utils.autoreload [INFO] Watching for file changes with StatReloader
+2026-01-09 17:44:49,087 dati.sage.connect [INFO] Inizio funzione dashboard
+2026-01-09 17:44:49,975 dati.sage.connect [INFO] Inizio funzione dashboard
+2026-01-09 17:44:50,018 django.utils.autoreload [INFO] Watching for file changes with StatReloader
+2026-01-09 17:44:53,744 django.request [WARNING] Not Found: /favicon.ico
+2026-01-09 17:44:53,754 django.request [WARNING] Not Found: /favicon.ico
+2026-01-09 17:47:54,971 dati.sage.connect [INFO] Inizio funzione dashboard
+2026-01-09 17:47:56,491 dati.sage.connect [INFO] Inizio funzione dashboard
+2026-01-09 17:47:56,588 django.utils.autoreload [INFO] Watching for file changes with StatReloader
+2026-01-09 17:48:35,132 django.request [WARNING] Not Found: /.well-known/appspecific/com.chrome.devtools.json
+2026-01-09 17:48:43,489 django.request [WARNING] Not Found: /.well-known/appspecific/com.chrome.devtools.json
+2026-01-09 17:49:29,407 django.request [WARNING] Not Found: /.well-known/appspecific/com.chrome.devtools.json
+2026-01-09 18:16:54,741 django.request [WARNING] Not Found: /.well-known/appspecific/com.chrome.devtools.json
+2026-01-09 18:17:53,560 django.request [WARNING] Not Found: /.well-known/appspecific/com.chrome.devtools.json
+2026-01-09 18:18:29,651 django.request [WARNING] Not Found: /.well-known/appspecific/com.chrome.devtools.json
+2026-01-09 18:19:47,923 django.request [WARNING] Not Found: /.well-known/appspecific/com.chrome.devtools.json
