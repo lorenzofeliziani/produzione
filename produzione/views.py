@@ -57,7 +57,8 @@ def cambia_password(request):
 @login_required(login_url='login')
 def avanzamento_ordini(request):
     modalita = request.GET.get('modalita', 'standard')
-    tipo_ordini = request.GET.get("tipo_ordini", "")
+    tipo_ordini = request.GET.get("tipo_ordini", "produzioni")
+    sito = request.GET.get("sito", "")
     ordine_filtro   = request.GET.get("ordine_filtro", "")
     cliente_filtro   = request.GET.get("cliente_filtro", "")
     stato_filtro     = request.GET.get("stato_filtro", "")
@@ -266,6 +267,9 @@ def avanzamento_ordini(request):
         and (not tipo_ordini 
             or (o.get('tipo_ordine')=='SOR' and tipo_ordini == 'riparazioni')
             or (o.get('tipo_ordine')!='SOR' and tipo_ordini == 'produzioni'))
+        and (not sito 
+             or ('dbepd' in str(o.get('ordine')).lower() and sito == 'padova')
+             or ('dbebs' in str(o.get('ordine')).lower() and sito == 'brescia'))
     ]
 
 
@@ -289,7 +293,7 @@ def avanzamento_ordini(request):
                 ),
                 reverse=reverse
             )
-    if (tipo_ordini or tipo_ordinamento_gruppi) and not(ordine_filtro or cliente_filtro or stato_filtro or operatore_filtro or articolo_filtro or old_code_filtro or data_consegna_filtro or data_consegna_eff_filtro):
+    if (tipo_ordini or sito or tipo_ordinamento_gruppi) and not(ordine_filtro or cliente_filtro or stato_filtro or operatore_filtro or articolo_filtro or old_code_filtro or data_consegna_filtro or data_consegna_eff_filtro):
         avanzamento_ordini_groups_render = group(avanzamento_ordini_render)
     if ordine_filtro or cliente_filtro or stato_filtro or operatore_filtro or articolo_filtro or old_code_filtro or data_consegna_filtro or data_consegna_eff_filtro:
         avanzamento_ordini_groups_render = group(avanzamento_ordini_render, avanzamento_ordini)
@@ -308,6 +312,7 @@ def avanzamento_ordini(request):
             "data_consegna_eff": split_list(data_consegna_eff_filtro),        
         },
         "tipo_ordini": tipo_ordini,
+        "sito": sito,
         'ruolo_utente': ruolo_utente,
         'stati_ordini': stati_ordini,
         'operatori': operatori,
@@ -336,7 +341,8 @@ def storico_ordini(request):
     data_consegna_eff_filtro = request.GET.get("data_consegna_eff_filtro", "")    
     tipo_ordinamento_gruppi = request.GET.get("tipo_ordinamento", "")
     ordine_ordinamento_gruppi = request.GET.get("ordine_ordinamento", "")
-    tipo_ordini = request.GET.get("tipo_ordini", "")
+    tipo_ordini = request.GET.get("tipo_ordini", "produzioni")
+    sito = request.GET.get("sito", "")
 
     # Session data
     storico_ordini = request.session.get('storico_ordini')
@@ -408,6 +414,9 @@ def storico_ordini(request):
         and (not tipo_ordini 
             or (o.get('tipo_ordine')=='SOR' and tipo_ordini == 'riparazioni')
             or (o.get('tipo_ordine')!='SOR' and tipo_ordini == 'produzioni'))
+        and (not sito 
+             or ('dbepd' in str(o.get('ordine')).lower() and sito == 'padova')
+             or ('dbebs' in str(o.get('ordine')).lower() and sito == 'brescia'))
     ]
 
     # Ordinamento
@@ -426,7 +435,7 @@ def storico_ordini(request):
             )
 
     # Raggruppamento aggiornato se necessario
-    if (tipo_ordini or tipo_ordinamento_gruppi) and not (ordine_filtro or cliente_filtro or stato_filtro or operatore_filtro or articolo_filtro or old_code_filtro or data_consegna_filtro or data_consegna_eff_filtro):
+    if (tipo_ordini or sito or tipo_ordinamento_gruppi) and not (ordine_filtro or cliente_filtro or stato_filtro or operatore_filtro or articolo_filtro or old_code_filtro or data_consegna_filtro or data_consegna_eff_filtro):
         storico_ordini_groups_render = group(storico_ordini_render)
 
     if ordine_filtro or cliente_filtro or stato_filtro or operatore_filtro or articolo_filtro or old_code_filtro or data_consegna_filtro or data_consegna_eff_filtro:
@@ -468,6 +477,7 @@ def storico_ordini(request):
             "data_consegna_eff": split_list(data_consegna_eff_filtro),        
         },
         "tipo_ordini": tipo_ordini,
+        "sito": sito,
         'ruolo_utente': ruolo_utente,
         'avanzamento_ordini': ordini_page,
         'avanzamento_ordini_groups': gruppi_page,

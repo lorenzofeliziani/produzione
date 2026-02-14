@@ -9005,3 +9005,23 @@ django.template.exceptions.TemplateSyntaxError: Invalid filter: 'replace'
 2026-01-09 18:17:53,560 django.request [WARNING] Not Found: /.well-known/appspecific/com.chrome.devtools.json
 2026-01-09 18:18:29,651 django.request [WARNING] Not Found: /.well-known/appspecific/com.chrome.devtools.json
 2026-01-09 18:19:47,923 django.request [WARNING] Not Found: /.well-known/appspecific/com.chrome.devtools.json
+2026-01-25 18:56:03,160 dati.sage.connect [INFO] Inizio funzione dashboard
+2026-01-25 18:56:04,428 dati.sage.connect [INFO] Inizio funzione dashboard
+2026-01-25 18:56:04,494 django.utils.autoreload [INFO] Watching for file changes with StatReloader
+2026-01-25 18:56:54,829 django.request [WARNING] Not Found: /favicon.ico
+2026-01-25 19:13:24,927 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py changed, reloading.
+2026-01-25 19:13:25,865 dati.sage.connect [INFO] Inizio funzione dashboard
+2026-01-25 19:13:25,914 django.utils.autoreload [INFO] Watching for file changes with StatReloader
+2026-01-25 19:21:00,258 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py changed, reloading.
+2026-01-25 19:21:01,487 dati.sage.connect [INFO] Inizio funzione dashboard
+2026-01-25 19:21:01,560 django.utils.autoreload [INFO] Watching for file changes with StatReloader
+2026-02-14 12:07:04,112 dati.sage.connect [INFO] Inizio funzione dashboard
+2026-02-14 12:07:05,107 dati.sage.connect [INFO] Inizio funzione dashboard
+2026-02-14 12:07:05,156 django.utils.autoreload [INFO] Watching for file changes with StatReloader
+2026-02-14 12:07:08,273 django.request [WARNING] Not Found: /favicon.ico
+2026-02-14 12:24:59,342 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py changed, reloading.
+2026-02-14 12:25:00,470 dati.sage.connect [INFO] Inizio funzione dashboard
+2026-02-14 12:25:00,519 django.utils.autoreload [INFO] Watching for file changes with StatReloader
+2026-02-14 12:39:13,090 django.utils.autoreload [INFO] C:\Users\lorif\OneDrive\Desktop\DB\Produzione\produzione\views.py changed, reloading.
+2026-02-14 12:39:14,607 dati.sage.connect [INFO] Inizio funzione dashboard
+2026-02-14 12:39:14,658 django.utils.autoreload [INFO] Watching for file changes with StatReloader

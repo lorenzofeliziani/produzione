@@ -137,12 +137,22 @@
             <label class="btn btn-outline-primary" for="btn-flat">Espansa</label>
           </div>
 
-          <div style="width: 300px;">
-            <select id="tipo-ordini" class="form-select border-primary text-primary">
-              <option value="" {% if not tipo_ordini %}selected{% endif %}>Produzioni e Riparazioni</option>
-              <option value="produzioni" {% if tipo_ordini == "produzioni" %}selected{% endif %}>Solo Produzioni</option>
-              <option value="riparazioni" {% if tipo_ordini == "riparazioni" %}selected{% endif %}>Solo Riparazioni</option>
-            </select>
+          <div style="display: flex; gap: 10px;">
+            <div style="width: 300px;">
+              <select id="sito" class="form-select border-primary text-primary">
+                <option value="" {% if not sito %}selected{% endif %}>Padova + Brescia</option>
+                <option value="padova" {% if sito == "padova" %}selected{% endif %}>Padova</option>
+                <option value="brescia" {% if sito == "brescia" %}selected{% endif %}>Brescia</option>
+              </select>
+            </div>
+
+            <div style="width: 300px;">
+              <select id="tipo-ordini" class="form-select border-primary text-primary">
+                <option value="" {% if not tipo_ordini %}selected{% endif %}>Produzioni e Riparazioni</option>
+                <option value="produzioni" {% if tipo_ordini == "produzioni" %}selected{% endif %}>Solo Produzioni</option>
+                <option value="riparazioni" {% if tipo_ordini == "riparazioni" %}selected{% endif %}>Solo Riparazioni</option>
+              </select>
+            </div>
           </div>
 
         </div>
@@ -938,6 +948,16 @@
     // Ricostruisci l'URL
     window.location.href = url;
   });
+  document.getElementById('sito').addEventListener('change', function () {
+    const sito = this.value;
+
+    // Prendi i parametri correnti dall'URL
+    const url = new URL(window.location);
+    url.searchParams.set('sito', sito);
+
+    // Ricostruisci l'URL
+    window.location.href = url;
+  });  
   </script>
 
   <script>
@@ -1263,12 +1283,14 @@ applyBtn.addEventListener('click', function () {
     const currentParams = new URLSearchParams(window.location.search);
     const modalita = currentParams.get("modalita");
     const tipo_ordini = currentParams.get("tipo_ordini");
+    const sito = currentParams.get("sito");
     const sortType = currentParams.get("tipo_ordinamento"); 
     const sortOrder = currentParams.get("ordine_ordinamento");
 
     const params = new URLSearchParams();
     if (modalita) params.set("modalita", modalita);  // Mantiene la modalità
     if (tipo_ordini) params.set("tipo_ordini", tipo_ordini);
+    if (sito) params.set("sito", sito);
     if (sortType) params.set("tipo_ordinamento",sortType);
     if (sortOrder) params.set("ordine_ordinamento", sortOrder);
 
